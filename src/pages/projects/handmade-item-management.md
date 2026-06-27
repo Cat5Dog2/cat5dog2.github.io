@@ -30,11 +30,18 @@ evidence:
 - Firebase Authentication、Firestore、Cloud Storage、Firebase Hosting、Cloud Runを想定
 - QRコード表示・読み取り、PWA、モバイルファーストUI
 
+## なぜこの技術構成か
+
+- **React + TypeScript + Vite**: 型安全なSPAと高速ビルドで、モバイルファーストPWAの開発体験を最適化
+- **Firebase (Auth / Firestore / Cloud Storage)**: 小規模でもリアルタイム同期・認証・ファイル管理がすぐに使え、スケールも可能
+- **Express API分離**: フロントエンドとバックエンドの責務を明確に分離し、将来のバックエンド差し替えにも対応
+- **PWA**: オフライン対応とホーム画面追加で、作家がイベント会場でもネットワーク不安なく使える設計
+
 ## 技術判断
 
-一点物ならではの商品ID・状態遷移・顧客購入履歴の設計がポイントです。フロントとAPIは分離し、ローカルではFirebase Emulatorで動かせるようにしています。
+一点物ならではの商品ID・状態遷移・顧客購入履歴の設計を重視しました。フロントとAPIを分離し、ローカルではFirebase Emulatorで完結する開発環境を構築しています。
 
-## 公開前の残作業
+## 今後の計画
 
 - GitHub Pages内のモックデモ
 - QRコード読み取りのデモ動画

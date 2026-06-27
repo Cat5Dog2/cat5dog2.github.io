@@ -58,7 +58,7 @@
     --color-accent-strong: #1d4ed8;
     --color-inverse: #020617;
 
-    --font-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 
     --container: 1120px;
@@ -734,6 +734,10 @@
   }
 
   .professional-development {
+    margin-top: var(--space-section);
+  }
+
+  .career-direction {
     margin-top: var(--space-section);
   }
 

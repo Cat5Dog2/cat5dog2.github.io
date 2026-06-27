@@ -10,20 +10,20 @@ import { withBase } from '../utils/paths';
       <SectionHeading
         eyebrow="Career Summary"
         title="Web集客から制作・システム開発・IT実務へ"
-        lead="SEOとメディア運営から始めて、Web制作・EC・Rails業務システムと領域を広げてきました。今は外資系IT企業で長期インターン中です。"
+        lead="SEOとメディア運営から始めて、Web制作・EC・Rails業務システムと領域を広げてきました。現在はグローバルIT企業でインターン中です。"
       />
 
       <section class="career-timeline" aria-labelledby="professional-career">
         <h2 id="professional-career" class="u-visually-hidden">職務経歴</h2>
         <section class="career-card">
           <p class="career-card__period">2026.02 - 現在</p>
-          <h2 class="career-card__title">外資系IT企業</h2>
+          <h2 class="career-card__title">グローバルIT企業</h2>
           <p class="career-card__role">長期インターン／ITスペシャリスト見習い</p>
-          <p class="career-card__text">約1.5か月単位のグループワークに参加し、PMとしてWBS作成・進捗管理・タスク整理・提案の取りまとめを担当しています。</p>
+          <p class="career-card__text">約1.5か月単位のグループプロジェクトにPMとして参加。チームの合意形成、スケジュール管理、成果物の品質レビューを担当。技術選定に関する調査・比較資料の作成も行い、「提案を通す」経験を積んでいます。</p>
           <p class="career-card__note">プログラム内のグループプロジェクトにおけるPMロールです。</p>
         </section>
         <section class="career-card">
-          <p class="career-card__period">約3年（ボランティア期間含む）</p>
+          <p class="career-card__period">約3年（ITスキル提供による長期参画含む）</p>
           <h2 class="career-card__title">スクール運営企業</h2>
           <p class="career-card__role">WEB部門リーダー</p>
           <p class="career-card__text">WordPressサイトの構築・刷新からSEO、LP制作、メディア運営、スタッフ育成まで担当。月間セッションを100倍以上に成長させました。</p>
@@ -60,12 +60,12 @@ import { withBase } from '../utils/paths';
         <SectionHeading
           eyebrow="Professional Development"
           title="個人開発・継続学習"
-          lead="職歴ではなく、公開リポジトリで続けている個人開発です。"
+          lead="職歴ではなく、公開リポジトリで続けている実践的な技術検証です。"
         />
         <div class="development-card">
           <p class="career-card__period">- 現在</p>
-          <h2 id="professional-development-title">.NET / TypeScript / Docker/ CI/CD / Azure / GCP / Firebase</h2>
-          <p>C#・ASP.NET Core・Blazor・TypeScriptでWebアプリを作り、CI/CD、Docker、本番運用の設計まで一通り試しています。</p>
+          <h2 id="professional-development-title">.NET / TypeScript / Docker / CI/CD / Azure / GCP / Firebase</h2>
+          <p>C#・ASP.NET Core・Blazor・TypeScriptでWebアプリを開発し、CI/CD、Docker、本番運用の設計まで実践しています。</p>
           <a class="button button--ghost" href={withBase('projects/')}>個人開発を見る</a>
         </div>
       </section>
@@ -83,7 +83,7 @@ import { withBase } from '../utils/paths';
               <div>
                 <p class="eyebrow">School Operations</p>
                 <h2>限られた予算で、集客と再投資の循環を構築</h2>
-                <p class="case-study__period">スクール運営企業 / 約3年</p>
+                <p class="case-study__period">スクール運営企業 / 約3年（ITスキル提供による長期参画含む）</p>
               </div>
               <div class="case-study__metrics" aria-label="主な成果">
                 <div>
@@ -133,7 +133,7 @@ import { withBase } from '../utils/paths';
 
               <section class="case-study__section">
                 <h3>期間</h3>
-                <p>約3年間。ボランティア期間を含め、ITスキルを提供する形で継続参画しました。</p>
+                <p>約3年間。ITスキルを提供する形で継続参画しました。</p>
               </section>
 
               <section class="case-study__section">
@@ -149,7 +149,7 @@ import { withBase } from '../utils/paths';
 
               <section class="case-study__section">
                 <h3>次に活かせること</h3>
-                <p>SEO・コンテンツ・LP・広告をバラバラに動かすのではなく、収益を集客に再投資する流れを作ったことで、少ない予算でも回せるようになりました。スタッフに書き方を教えたことで、自分がいなくても続く体制にできた点も大きかったです。</p>
+                <p>SEO・コンテンツ・LP・広告をバラバラに動かすのではなく、収益を集客に再投資する流れを作ったことで、少ない予算でも回せるようになりました。仮説検証 → 計測 → 改善のサイクルを回した経験は、アジャイル開発の反復改善に直結します。スタッフに書き方を教え、自分がいなくても続く体制を作った点も大きかったです。</p>
               </section>
             </div>
           </article>
@@ -226,13 +226,24 @@ import { withBase } from '../utils/paths';
 
               <section class="case-study__section">
                 <h3>次に活かせること</h3>
-                <p>PVを伸ばすだけでは問い合わせは増えなくて、コンテンツの専門性・表示速度・LPの訴求・導線を一緒に直したことが効きました。エンジニアの知見を記事にする方法は、他の会社でもそのまま使えると思います。</p>
+                <p>PVを伸ばすだけでは問い合わせは増えず、コンテンツの専門性・表示速度・LPの訴求・導線を一体で改善したことが効果的でした。SEOメトリクスの可視化と改善は、システム開発におけるオブザーバビリティやKPIモニタリングと同じ構造です。エンジニアの知見を記事にする方法は、他の企業でもそのまま活用できると考えています。</p>
               </section>
             </div>
           </article>
         </div>
+      </section>
 
-        <a class="button button--ghost" href={withBase('#contact')}>詳細を問い合わせる</a>
+      <section class="career-direction" aria-labelledby="career-direction-title">
+        <SectionHeading
+          eyebrow="Next Step"
+          title="エンジニアとしての方向性"
+          headingId="career-direction-title"
+        />
+        <div class="development-card">
+          <h3>ビジネス課題を技術で解決できるエンジニアへ</h3>
+          <p>Web集客・メディア運営で培った「ビジネス視点」と、.NET・TypeScript・Azureで磨いている「技術力」を掛け合わせ、お客様の課題解決に貢献したいと考えています。要件定義から設計・実装・テスト・デプロイまで一貫して担当できるエンジニアを目指しています。</p>
+          <a class="button button--ghost" href={withBase('#contact')}>詳細を問い合わせる</a>
+        </div>
       </section>
     </div>
   </main>

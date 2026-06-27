@@ -11,10 +11,11 @@ interface Props {
 
 const {
   title = 'Cat5Dog2 Portfolio',
-  description = 'Webアプリ・CMS・SEO・自動化で事業課題を解決するエンジニアのポートフォリオです。',
+  description = '.NET・TypeScript・Azureで設計からCI/CDまで一貫した開発を実践するWebエンジニアのポートフォリオです。',
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const ogImageUrl = new URL(withBase('og-image.png'), Astro.site ?? Astro.url.origin);
 ---
 
 <!doctype html>
@@ -27,9 +28,16 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
   <body>
