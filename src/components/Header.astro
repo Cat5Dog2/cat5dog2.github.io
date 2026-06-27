@@ -1,0 +1,31 @@
+---
+import { withBase } from '../utils/paths';
+
+const navigation = [
+  { href: withBase('#projects'), label: 'Projects' },
+  { href: withBase('#skills'), label: 'Skills' },
+  { href: withBase('career/'), label: 'Career' },
+  { href: withBase('projects/'), label: 'All Projects' },
+  { href: withBase('#contact'), label: 'Contact' },
+];
+---
+
+<header class="site-header">
+  <div class="l-container site-header__inner">
+    <a class="site-logo" href={withBase()} aria-label="Cat5Dog2 Portfolio ホーム">
+      <span class="site-logo__mark" aria-hidden="true">C5D2</span>
+      <span>Cat5Dog2</span>
+    </a>
+    <nav class="site-nav" aria-label="グローバルナビゲーション">
+      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="https://github.com/Cat5Dog2" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+    <details class="mobile-menu">
+      <summary>Menu</summary>
+      <nav class="mobile-menu__nav" aria-label="モバイルナビゲーション">
+        {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a href="https://github.com/Cat5Dog2" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </details>
+  </div>
+</header>

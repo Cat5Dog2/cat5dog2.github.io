@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout title="Career | Cat5Dog2 Portfolio" description="SEO、CMS、EC、Web制作、業務システム開発から現在のIT実務までの職務要約です。">
+  <main class="l-section">
+    <div class="l-container">
+      <SectionHeading
+        eyebrow="Career Summary"
+        title="Web集客から制作・システム開発・IT実務へ"
+        lead="SEOとメディア運営から始めて、Web制作・EC・Rails業務システムと領域を広げてきました。今は外資系IT企業で長期インターン中です。"
+      />
+
+      <section class="career-timeline" aria-labelledby="professional-career">
+        <h2 id="professional-career" class="u-visually-hidden">職務経歴</h2>
+        <section class="career-card">
+          <p class="career-card__period">2026.02 - 現在</p>
+          <h2 class="career-card__title">外資系IT企業</h2>
+          <p class="career-card__role">長期インターン／ITスペシャリスト見習い</p>
+          <p class="career-card__text">約1.5か月単位のグループワークに参加し、PMとしてWBS作成・進捗管理・タスク整理・提案の取りまとめを担当しています。</p>
+          <p class="career-card__note">プログラム内のグループプロジェクトにおけるPMロールです。</p>
+        </section>
+        <section class="career-card">
+          <p class="career-card__period">約3年（ボランティア期間含む）</p>
+          <h2 class="career-card__title">スクール運営企業</h2>
+          <p class="career-card__role">WEB部門リーダー</p>
+          <p class="career-card__text">WordPressサイトの構築・刷新からSEO、LP制作、メディア運営、スタッフ育成まで担当。月間セッションを100倍以上に成長させました。</p>
+          <a class="career-card__link" href="#case-school-operations">成果の背景を見る</a>
+        </section>
+        <section class="career-card">
+          <p class="career-card__period">約3年</p>
+          <h2 class="career-card__title">システム受託開発企業</h2>
+          <p class="career-card__role">Webエンジニア / ディレクター / マーケター</p>
+          <p class="career-card__text">Rails業務システムや医療系メディアの開発を担当。自社サイトではSEO・LP・表示速度を改善して、月間PVを4倍に、年間の問い合わせを12件まで増やしました。</p>
+          <a class="career-card__link" href="#case-system-development">自社サイト改善の詳細を見る</a>
+        </section>
+        <section class="career-card">
+          <p class="career-card__period">約1年半</p>
+          <h2 class="career-card__title">ECサイト運営企業</h2>
+          <p class="career-card__role">フロントエンドエンジニア</p>
+          <p class="career-card__text">ECサイトのリニューアルやページ制作、不具合修正、SEO施策、商品管理などを担当。</p>
+        </section>
+        <section class="career-card">
+          <p class="career-card__period">約1年半</p>
+          <h2 class="career-card__title">Web制作会社</h2>
+          <p class="career-card__role">コーダー / エンジニア</p>
+          <p class="career-card__text">企業サイトや医療機関サイトの制作を担当。HTML/CSS、JavaScript、PHP、WordPressでの実装を経験。</p>
+        </section>
+        <section class="career-card">
+          <p class="career-card__period">約1年半</p>
+          <h2 class="career-card__title">個人事業 / サイト運営</h2>
+          <p class="career-card__role">メディア運営者</p>
+          <p class="career-card__text">キーワード選定・記事企画・ライター管理・アクセス解析を行い、検索上位表示と広告収益化を達成。</p>
+        </section>
+      </section>
+
+      <section class="professional-development" aria-labelledby="professional-development-title">
+        <SectionHeading
+          eyebrow="Professional Development"
+          title="個人開発・継続学習"
+          lead="職歴ではなく、公開リポジトリで続けている個人開発です。"
+        />
+        <div class="development-card">
+          <p class="career-card__period">- 現在</p>
+          <h2 id="professional-development-title">.NET / TypeScript / Docker/ CI/CD / Azure / GCP / Firebase</h2>
+          <p>C#・ASP.NET Core・Blazor・TypeScriptでWebアプリを作り、CI/CD、Docker、本番運用の設計まで一通り試しています。</p>
+          <a class="button button--ghost" href={withBase('projects/')}>個人開発を見る</a>
+        </div>
+      </section>
+
+      <section id="results" class="career-results">
+        <SectionHeading
+          eyebrow="Case Studies"
+          title="課題から成果までを示すケーススタディ"
+          lead="課題・仮説・施策・結果と、そこから得たことを整理しています。"
+        />
+
+        <div class="case-study-list">
+          <article id="case-school-operations" class="case-study">
+            <header class="case-study__header">
+              <div>
+                <p class="eyebrow">School Operations</p>
+                <h2>限られた予算で、集客と再投資の循環を構築</h2>
+                <p class="case-study__period">スクール運営企業 / 約3年</p>
+              </div>
+              <div class="case-study__metrics" aria-label="主な成果">
+                <div>
+                  <strong>120倍</strong>
+                  <span>月間セッション<br />100倍以上に成長</span>
+                </div>
+                <div>
+                  <strong>3～5倍</strong>
+                  <span>WEBからの<br />月間申込数</span>
+                </div>
+                <div>
+                  <strong>1000%</strong>
+                  <span>リスティング広告<br />月次ROAS</span>
+                </div>
+              </div>
+            </header>
+
+            <div class="case-study__body">
+              <section class="case-study__section">
+                <h3>改善前の課題</h3>
+                <ul>
+                  <li>Web制作に詳しくない担当者が作成したサイトで、情報設計やURL構造が整理されていなかった</li>
+                  <li>サイト経由のWEB申込が少なかった</li>
+                  <li>広告へ投下できる予算が限られていた</li>
+                </ul>
+              </section>
+
+              <section class="case-study__section">
+                <h3>仮説</h3>
+                <ul>
+                  <li>過去の会員をもとにペルソナを再設定すれば、訴求内容と申込導線を改善できる</li>
+                  <li>検索需要に沿ったコンテンツを継続すれば、広告だけに依存せず認知と流入を増やせる</li>
+                  <li>メディア収益を広告へ再投資すれば、限られた予算でも集客を拡大できる</li>
+                </ul>
+              </section>
+
+              <section class="case-study__section case-study__section--wide">
+                <h3>実施した具体策</h3>
+                <ul class="case-study__action-list">
+                  <li>サイトマップとURL構造を整理し、信頼感を意識したデザインへ刷新</li>
+                  <li>過去の会員をもとにペルソナを再設定し、対象別のページとLPを制作</li>
+                  <li>キーワード選定、記事企画、執筆によるWebメディア運営</li>
+                  <li>スタッフへのライティング指導と記事制作体制の構築</li>
+                  <li>AdSense収益をリスティング広告へ再投資し、配信内容を改善</li>
+                </ul>
+              </section>
+
+              <section class="case-study__section">
+                <h3>期間</h3>
+                <p>約3年間。ボランティア期間を含め、ITスキルを提供する形で継続参画しました。</p>
+              </section>
+
+              <section class="case-study__section">
+                <h3>自分とチームの担当範囲</h3>
+                <p><strong>自分:</strong> WEB部門リーダーとして、企画提案、サイト制作、SEO、LP、広告運用、記事制作、スタッフ指導を担当。</p>
+                <p><strong>チーム:</strong> 代表と事業方針・顧客像を共有し、スタッフと記事制作やサイト運営を推進。</p>
+              </section>
+
+              <section class="case-study__section">
+                <h3>計測方法</h3>
+                <p>Google Analyticsで月間セッション数、Search Consoleで検索状況、AdSenseで収益を確認。広告管理画面では月次ROASを計測し、WEB申込の記録とあわせて改善を判断しました。</p>
+              </section>
+
+              <section class="case-study__section">
+                <h3>次に活かせること</h3>
+                <p>SEO・コンテンツ・LP・広告をバラバラに動かすのではなく、収益を集客に再投資する流れを作ったことで、少ない予算でも回せるようになりました。スタッフに書き方を教えたことで、自分がいなくても続く体制にできた点も大きかったです。</p>
+              </section>
+            </div>
+          </article>
+
+          <article id="case-system-development" class="case-study">
+            <header class="case-study__header">
+              <div>
+                <p class="eyebrow">System Development</p>
+                <h2>SEO・表示速度改善・LPを統合し、問い合わせを増加</h2>
+                <p class="case-study__period">システム受託開発企業 / 約2年</p>
+              </div>
+              <div class="case-study__metrics" aria-label="主な成果">
+                <div>
+                  <strong>4倍</strong>
+                  <span>月間PV<br />約4,000 → 16,000</span>
+                </div>
+                <div>
+                  <strong>20台 → 70台</strong>
+                  <span>Lighthouse<br />Performance</span>
+                </div>
+                <div>
+                  <strong>約6～12倍</strong>
+                  <span>年間問い合わせ<br />1～2件 → 12件</span>
+                </div>
+              </div>
+            </header>
+
+            <div class="case-study__body">
+              <section class="case-study__section">
+                <h3>改善前の課題</h3>
+                <ul>
+                  <li>コーポレートサイトからの問い合わせが年間1～2件程度だった</li>
+                  <li>Webメディアの月間PVが約4,000にとどまっていた</li>
+                  <li>表示速度が遅く、Lighthouse Performanceが20点台だった</li>
+                  <li>会社の強みや専門性がサイト上で十分に伝わっていなかった</li>
+                </ul>
+              </section>
+
+              <section class="case-study__section">
+                <h3>仮説</h3>
+                <ul>
+                  <li>見込み顧客が検索するテーマで専門記事を作れば、商談につながる流入を増やせる</li>
+                  <li>社内エンジニアの知見を記事へ反映すれば、競合記事との差別化ができる</li>
+                  <li>表示速度、HTML構造、LPの訴求を一体で改善すれば問い合わせ増加につながる</li>
+                </ul>
+              </section>
+
+              <section class="case-study__section case-study__section--wide">
+                <h3>実施した具体策</h3>
+                <ul class="case-study__action-list">
+                  <li>市場・競合調査を行い、自社の強みと狙う検索テーマを整理</li>
+                  <li>キーワード選定、記事企画、ライター管理によるWebメディア運営</li>
+                  <li>社内エンジニアから技術的見解を集め、独自性のある記事を制作</li>
+                  <li>表示速度が遅い原因を調査し、HTML構造とフロントエンドを改善</li>
+                  <li>LPの企画、ワイヤーフレーム作成、デザイナー管理、コーディングを担当</li>
+                </ul>
+              </section>
+
+              <section class="case-study__section">
+                <h3>期間</h3>
+                <p>約2年間。システム受託開発企業に在籍中、自社サイト改善・自社Webメディア運営に取り組んだ期間です。</p>
+              </section>
+
+              <section class="case-study__section">
+                <h3>自分とチームの担当範囲</h3>
+                <p><strong>自分:</strong> ディレクター、マーケター、エンジニアとして、調査、企画、ワイヤーフレーム、進行管理、実装、効果測定まで担当。</p>
+                <p><strong>チーム:</strong> エンジニアから専門知識の提供を受け、デザイナー・ライターと制作を推進。</p>
+              </section>
+
+              <section class="case-study__section">
+                <h3>計測方法</h3>
+                <p>Google AnalyticsでPV、Search Consoleで検索状況、Lighthouseで表示性能を確認。社内の問い合わせ記録とあわせて、流入から問い合わせまでの変化を評価しました。</p>
+              </section>
+
+              <section class="case-study__section">
+                <h3>次に活かせること</h3>
+                <p>PVを伸ばすだけでは問い合わせは増えなくて、コンテンツの専門性・表示速度・LPの訴求・導線を一緒に直したことが効きました。エンジニアの知見を記事にする方法は、他の会社でもそのまま使えると思います。</p>
+              </section>
+            </div>
+          </article>
+        </div>
+
+        <a class="button button--ghost" href={withBase('#contact')}>詳細を問い合わせる</a>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

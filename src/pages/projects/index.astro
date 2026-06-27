@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+---
+
+<BaseLayout title="Projects | Cat5Dog2 Portfolio" description="Cat5Dog2の個人開発・実績ページ一覧です。">
+  <main class="l-section">
+    <div class="l-container">
+      <SectionHeading
+        eyebrow="All Projects"
+        title="プロジェクト一覧"
+        lead="個人開発と実務経験のプロジェクトです。"
+      />
+      <div class="l-grid l-grid--2">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

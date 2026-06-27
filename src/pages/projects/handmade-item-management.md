@@ -1,0 +1,42 @@
+---
+layout: ../../layouts/ProjectLayout.astro
+title: "Handmade Item Management"
+description: "ハンドメイド作品を一点物単位で管理する在庫・販売管理アプリ。QRコードで商品を識別し、顧客履歴やダッシュボードも備えたモバイルファーストPWA。"
+tags: ["React", "TypeScript", "Vite", "Express", "Firebase", "Firestore", "Cloud Storage", "PWA"]
+repo: "https://github.com/Cat5Dog2/Handmade_Item_Management"
+stage: "デプロイ済み"
+highlights:
+  - "商品、画像、カテゴリ、タグ、タスク、顧客、購入履歴を実装"
+  - "QRコードによる商品識別と販売済み更新を実装"
+  - "Web、API、Firebase Emulatorを使ったローカル確認手順を整備"
+evidence:
+  - label: "リポジトリ"
+    url: "https://github.com/Cat5Dog2/Handmade_Item_Management"
+  - label: "CI workflow"
+    url: "https://github.com/Cat5Dog2/Handmade_Item_Management/blob/main/.github/workflows/ci.yml"
+  - label: "README・MVP範囲"
+    url: "https://github.com/Cat5Dog2/Handmade_Item_Management/blob/main/README.md"
+---
+
+## 概要
+
+ハンドメイド作品を一点物単位で管理できる、モバイルファーストの在庫・販売管理アプリです。商品情報、画像、カテゴリ、タグ、タスク、顧客情報、QRコード、販売済更新、購入履歴、ダッシュボードを扱えます。
+
+## ポイント
+
+- ハンドメイド作家の業務フローを想定したプロダクト設計
+- React + TypeScript + Viteのフロントエンド
+- Express + Firebase AdminのAPI
+- Firebase Authentication、Firestore、Cloud Storage、Firebase Hosting、Cloud Runを想定
+- QRコード表示・読み取り、PWA、モバイルファーストUI
+
+## 技術判断
+
+一点物ならではの商品ID・状態遷移・顧客購入履歴の設計がポイントです。フロントとAPIは分離し、ローカルではFirebase Emulatorで動かせるようにしています。
+
+## 公開前の残作業
+
+- GitHub Pages内のモックデモ
+- QRコード読み取りのデモ動画
+- モバイル画面のスクリーンショット
+- UI改善前後の比較

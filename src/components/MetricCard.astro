@@ -1,0 +1,17 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  note?: string;
+  href?: string;
+}
+
+const { value, label, note, href } = Astro.props;
+---
+
+<div class="metric-card">
+  <p class="metric-card__value">{value}</p>
+  <p class="metric-card__label">{label}</p>
+  {note && <p class="metric-card__note">{note}</p>}
+  {href && <a class="metric-card__link" href={href}>背景を見る</a>}
+</div>

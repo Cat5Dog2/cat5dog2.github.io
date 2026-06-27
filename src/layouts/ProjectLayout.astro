@@ -1,0 +1,57 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+const { frontmatter } = Astro.props;
+const tags = frontmatter.tags ?? [];
+const highlights = frontmatter.highlights ?? [];
+const evidence = frontmatter.evidence ?? [];
+---
+
+<BaseLayout title={`${frontmatter.title} | Cat5Dog2 Portfolio`} description={frontmatter.description}>
+  <main>
+    <header class="project-hero">
+      <div class="l-container">
+        <p class="eyebrow">Project</p>
+        <h1 class="project-hero__title">{frontmatter.title}</h1>
+        <p class="project-hero__summary">{frontmatter.description}</p>
+        {frontmatter.stage && <p class="project-hero__stage">現在の状態: {frontmatter.stage}</p>}
+        <div class="project-hero__meta">
+          <div class="tag-list" aria-label="使用技術">
+            {tags.map((tag: string) => <span class="tag">{tag}</span>)}
+          </div>
+          {frontmatter.repo && (
+            <a class="button button--ghost" href={frontmatter.repo} target="_blank" rel="noreferrer">
+              GitHubを見る
+            </a>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <div class="l-container">
+      {(highlights.length > 0 || evidence.length > 0) && (
+        <section class="project-evidence" aria-labelledby="project-evidence-title">
+          <div>
+            <p class="eyebrow">Evidence</p>
+            <h2 id="project-evidence-title">GitHubで確認できる実装・設計</h2>
+          </div>
+          {highlights.length > 0 && (
+            <ul class="evidence-list">
+              {highlights.map((highlight: string) => <li>{highlight}</li>)}
+            </ul>
+          )}
+          {evidence.length > 0 && (
+            <div class="evidence-links">
+              {evidence.map((item: { label: string; url: string }) => (
+                <a href={item.url} target="_blank" rel="noreferrer">{item.label}</a>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+      <article class="markdown-body">
+        <slot />
+      </article>
+    </div>
+  </main>
+</BaseLayout>

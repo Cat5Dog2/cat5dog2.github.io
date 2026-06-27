@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import MetricCard from '../components/MetricCard.astro';
+import SkillCard from '../components/SkillCard.astro';
+import { projects } from '../data/projects';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout>
+  <main>
+    <section class="hero">
+      <div class="l-container hero__grid">
+        <div>
+          <p class="eyebrow">Web Engineer / CMS / SEO / CI/CD</p>
+          <h1 class="hero__title">
+            事業課題を、
+            <span>Webで解決する。</span>
+          </h1>
+          <p class="lead">
+            SEO・CMS・ECのWeb運用やRailsでの業務システム開発を経験してきました。今は外資系IT企業で長期インターンをしつつ、.NETとTypeScriptで個人開発を続けています。
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#projects">実績を見る</a>
+            <a class="button button--ghost" href="https://github.com/Cat5Dog2" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="強みの要約">
+          <div class="hero-panel__list">
+            <div class="hero-panel__item">
+              <strong>現在</strong>
+              <span>外資系IT企業 / 長期インターン</span>
+            </div>
+            <div class="hero-panel__item">
+              <strong>実務開発</strong>
+              <span>Rails / WordPress / PHP / JavaScript</span>
+            </div>
+            <div class="hero-panel__item">
+              <strong>改善</strong>
+              <span>SEO、表示速度、LP、問い合わせ導線の改善</span>
+            </div>
+            <div class="hero-panel__item">
+              <strong>推進</strong>
+              <span>要件定義、DB設計、顧客折衝、チームリード</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="l-section--compact">
+      <div class="l-container l-grid l-grid--3">
+        <MetricCard value="120倍" label="月間セッション改善" note="約1,000から120,000へ増加" href={withBase('career/#results')} />
+        <MetricCard value="ROAS 1000%" label="月次広告運用改善" note="SEO収益を広告へ再投資" href={withBase('career/#results')} />
+        <MetricCard value="E2E / CI" label="個人開発の品質管理" note="Playwright、GitHub Actions、Docker smoke" />
+      </div>
+    </section>
+
+    <section id="projects" class="l-section">
+      <div class="l-container">
+        <SectionHeading
+          eyebrow="Featured Projects"
+          title="実務経験と現在の技術学習がつながるプロジェクト"
+          lead="何をどう作り、どんな結果が出たかをまとめています。"
+        />
+        <div class="l-grid l-grid--2">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="l-section u-surface-soft">
+      <div class="l-container">
+        <SectionHeading
+          eyebrow="Skills"
+          title="技術スタック"
+          lead="仕事で使ったものと、個人開発で触っているものを分けています。"
+        />
+        <div class="l-grid l-grid--3">
+          <SkillCard
+            category="実務経験"
+            title="Web / CMS Development"
+            note="制作、EC、メディア、業務システムで使用"
+            skills={['HTML/CSS', 'JavaScript', 'PHP', 'WordPress', 'jQuery', 'Ruby on Rails', 'Git', 'Docker']}
+          />
+          <SkillCard
+            category="実務経験"
+            title="Business / Growth"
+            note="要件整理から改善・チーム推進まで担当"
+            skills={['要件定義', 'DB設計', '顧客折衝', 'SEO', '広告運用', 'アクセス解析', 'チームリード', 'WBS・進捗管理']}
+          />
+          <SkillCard
+            category="個人開発・学習"
+            title=".NET / Quality"
+            note="公開リポジトリで設計・実装・検証を継続"
+            skills={['C#', 'ASP.NET Core', 'Blazor', 'TypeScript', 'React', 'GitHub Actions', 'Playwright', 'Azure']}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="l-section">
+      <div class="l-container l-grid l-grid--2">
+        <div>
+          <SectionHeading
+            eyebrow="Career"
+            title="Web運営から開発・IT実務へ領域を拡大"
+            lead="メディア運営からWeb制作、EC、受託開発と進み、今は個人開発しつつ外資系IT企業でインターン中です。"
+          />
+          <a class="button button--ghost" href={withBase('career/')}>職務要約を見る</a>
+        </div>
+        <div class="note-card">
+          <p class="eyebrow">Design Policy</p>
+          <h3>サイト設計について</h3>
+          <p class="u-muted">
+            Tailwindに頼りすぎず、CSS custom propertiesやcascade layers、FLOCSS風の命名で読みやすく保守しやすいCSSを書いています。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="l-section contact-section">
+      <div class="l-container contact-card">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>採用・業務のご相談</h2>
+          <p>ご連絡はメールかGitHubからお気軽にどうぞ。</p>
+        </div>
+        <div class="contact-card__actions">
+          <a class="button button--primary" href="mailto:cat5dog2.tskhrcm@gmail.com">メールを送る</a>
+          <a class="button button--ghost" href="https://github.com/Cat5Dog2" target="_blank" rel="noreferrer">GitHubを見る</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
