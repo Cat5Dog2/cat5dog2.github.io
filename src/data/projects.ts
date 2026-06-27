@@ -50,7 +50,7 @@ export const projects: Project[] = [
     summary: 'キーワード探索・検索ボリューム調査・機会スコア・CSV出力を扱うSEO分析基盤。.NETのClean ArchitectureでMVPを実装しています。',
     role: '要件定義 / ドメイン設計 / アーキテクチャ設計',
     stage: 'MVP実装済み',
-    stack: ['.NET', 'Blazor', 'Hangfire', 'PostgreSQL', 'Redis', 'Observability'],
+    stack: ['.NET', 'Blazor', 'Hangfire', 'PostgreSQL', 'Redis', 'OpenTelemetry'],
     metrics: ['SEO分析', '非同期ジョブ', 'Clean Architecture'],
     repo: 'https://github.com/Cat5Dog2/seo-intelligence-platform',
     status: 'MVP実装済み',

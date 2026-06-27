@@ -2,7 +2,7 @@
 layout: ../../layouts/ProjectLayout.astro
 title: "SEO Intelligence Platform"
 description: "キーワード探索・検索ボリューム調査・機会スコア・CSV出力を扱うSEO分析基盤。.NETのClean ArchitectureでMVPを実装しています。"
-tags: [".NET", "Blazor", "Hangfire", "PostgreSQL", "Redis", "Observability", "Clean Architecture"]
+tags: [".NET", "Blazor", "Hangfire", "PostgreSQL", "Redis", "OpenTelemetry", "Clean Architecture"]
 repo: "https://github.com/Cat5Dog2/seo-intelligence-platform"
 stage: "MVP実装済み"
 highlights:
@@ -35,7 +35,7 @@ evidence:
 - **Clean Architecture (.NET)**: ドメインロジックをインフラから分離し、API変更やDB差し替えに強い構造を実現
 - **Hangfire**: SEOデータ収集を永続化されたバックグラウンドジョブとして実行・再試行できる
 - **PostgreSQL + Redis**: 永続データとキャッシュ・レート制御を役割分担し、外部API制約に対応
-- **Observability**: `ActivitySource`と`Meter`でトレース・メトリクスの計装ポイントを実装し、OpenTelemetry連携へ拡張できる構成
+- **OpenTelemetry**: `ActivitySource`と`Meter`でトレース・メトリクスの計装ポイントを実装し、Exporter接続で本番オブザーバビリティへ拡張できる構成
 
 ## 技術判断
 
