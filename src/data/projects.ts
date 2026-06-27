@@ -25,13 +25,13 @@ export const projects: Project[] = [
   {
     title: 'Web Writing Tool',
     slug: 'projects/web-writing-tool/',
-    summary: 'AI記事作成からWordPress投稿までをつなぐ制作支援ツール。今は設計と開発基盤、Blazorの骨格、最小CIまでできています。',
+    summary: 'AI記事作成からWordPress投稿・Discord通知までをつなぐ制作支援ツール。Blazorと.NETでMVPの主要フローを実装しています。',
     role: '要件整理 / 設計 / 開発基盤 / CI',
-    stage: '実装済み',
+    stage: 'MVP実装済み',
     stack: ['Blazor Web App', 'ASP.NET Core', 'EF Core', 'PostgreSQL', 'Docker', 'Caddy'],
     metrics: ['AI連携', 'WordPress連携', 'Docker smoke'],
     repo: 'https://github.com/Cat5Dog2/web-writing-tool',
-    status: '実装済み',
+    status: 'MVP実装済み',
   },
   {
     title: 'Handmade Item Management',
@@ -47,12 +47,12 @@ export const projects: Project[] = [
   {
     title: 'SEO Intelligence Platform',
     slug: 'projects/seo-intelligence-platform/',
-    summary: 'キーワード調査と順位監視を一つにまとめるSEO分析基盤。設計ドキュメントとバックログを整備し、Clean Architectureの骨格まで作りました。',
+    summary: 'キーワード探索・検索ボリューム調査・機会スコア・CSV出力を扱うSEO分析基盤。.NETのClean ArchitectureでMVPを実装しています。',
     role: '要件定義 / ドメイン設計 / アーキテクチャ設計',
-    stage: '実装済み',
-    stack: ['.NET', 'Blazor', 'Hangfire', 'PostgreSQL', 'Redis', 'OpenTelemetry'],
+    stage: 'MVP実装済み',
+    stack: ['.NET', 'Blazor', 'Hangfire', 'PostgreSQL', 'Redis', 'Observability'],
     metrics: ['SEO分析', '非同期ジョブ', 'Clean Architecture'],
     repo: 'https://github.com/Cat5Dog2/seo-intelligence-platform',
-    status: '実装済み',
+    status: 'MVP実装済み',
   },
 ];
