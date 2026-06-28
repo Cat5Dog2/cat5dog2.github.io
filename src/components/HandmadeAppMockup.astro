@@ -1,0 +1,299 @@
+---
+import { Image } from 'astro:assets';
+
+import imgDashboard from '../assets/portfolio/handmade/dashboard.png';
+import imgItemList from '../assets/portfolio/handmade/item-list.png';
+import imgItemDetail from '../assets/portfolio/handmade/item-detail.png';
+import imgCustomerDetail from '../assets/portfolio/handmade/customer-detail.png';
+import imgQrScanner from '../assets/portfolio/handmade/qr-scanner.png';
+import imgQrScanSuccess from '../assets/portfolio/handmade/qr-scan-success.png';
+import imgQrBulkPrint from '../assets/portfolio/handmade/qr-bulk-print.png';
+
+const tabs = [
+  { id: 'tab-dashboard', label: 'ダッシュボード', img: imgDashboard, alt: 'ダッシュボード画面' },
+  { id: 'tab-item-list', label: '商品一覧', img: imgItemList, alt: '商品一覧画面' },
+  { id: 'tab-item-detail', label: '商品詳細', img: imgItemDetail, alt: '商品詳細画面' },
+  { id: 'tab-customer', label: '顧客詳細', img: imgCustomerDetail, alt: '顧客詳細画面' },
+  { id: 'tab-qr-scanner', label: 'QR読み取り', img: imgQrScanner, alt: 'QR読み取りカメラ' },
+  { id: 'tab-qr-success', label: '読み取り成功', img: imgQrScanSuccess, alt: 'QR読み取り成功画面' },
+  { id: 'tab-qr-print', label: 'QRまとめて印刷', img: imgQrBulkPrint, alt: 'QRまとめて印刷画面' },
+];
+---
+
+<div class="mockup-showcase">
+  <div class="showcase-layout">
+    {/* タブボタン（ラベル） */}
+    <div class="tab-list">
+      <h3 class="tab-title">機能一覧</h3>
+      <div class="tab-buttons">
+        {tabs.map((tab, index) => (
+          <label class="tab-button">
+            <input
+              type="radio"
+              name="handmade-mockup-tabs"
+              id={tab.id}
+              class="hidden-radio"
+              checked={index === 0}
+            />
+            {tab.label}
+          </label>
+        ))}
+      </div>
+    </div>
+
+    {/* スマホモックアップと画像表示エリア */}
+    <div class="mockup-container">
+      <div class="device-frame">
+        <div class="device-screen">
+          {tabs.map((tab) => (
+            <div class={`screen-content content-${tab.id}`}>
+              <Image src={tab.img} alt={tab.alt} />
+            </div>
+          ))}
+        </div>
+        <p class="scroll-hint">↓Scroll↓</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mockup-showcase {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: sans-serif;
+  }
+
+  .hidden-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .showcase-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- タブメニューのスタイル --- */
+  .tab-list {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .tab-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .tab-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tab-button {
+    display: block;
+    padding: 1rem 1.5rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .tab-button:hover {
+    background-color: #e5e7eb;
+  }
+
+  /* --- スマホモックアップのスタイル --- */
+  .mockup-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: min(300px, 100%);
+  }
+
+  .device-frame {
+    width: min(320px, 100%);
+    background-color: #1f2937;
+    border-radius: 2.5rem;
+    padding: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    position: relative;
+  }
+
+  @media (max-width: 520px) {
+    .mockup-showcase {
+      padding: 1rem 0;
+    }
+
+    .showcase-layout {
+      gap: 1.5rem;
+    }
+
+    .tab-list {
+      flex: none;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .tab-title {
+      margin-bottom: 0.75rem;
+    }
+
+    .tab-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .tab-button {
+      display: flex;
+      min-height: 3rem;
+      align-items: center;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
+    .tab-button:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* スマホのノッチ（カメラ部分）っぽく見せる装飾 */
+  .device-frame::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 14px;
+    background-color: #1f2937;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    z-index: 10;
+  }
+
+  .device-screen {
+    width: 100%;
+    aspect-ratio: 375 / 667;
+    background-color: #fff;
+    border-radius: 1.8rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: none;
+    /* スクロールをスムーズに */
+    scroll-behavior: smooth;
+  }
+
+  .device-screen::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .scroll-hint {
+    display: none;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    z-index: 20;
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+    background-color: rgb(31 41 55 / 0.82);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgb(15 23 42 / 0.2);
+    pointer-events: none;
+    animation: scroll-hint-float 1.6s ease-in-out infinite;
+  }
+
+  @keyframes scroll-hint-float {
+    0%,
+    100% {
+      transform: translate(-50%, 0);
+    }
+
+    50% {
+      transform: translate(-50%, -8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-hint {
+      animation: none;
+      transform: translateX(-50%);
+    }
+  }
+
+  .screen-content {
+    display: none;
+    width: 100%;
+  }
+
+  .screen-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* --- CSS（Radio Button Hack）による切り替えロジック --- */
+
+  .tab-button:has(.hidden-radio:focus-visible) {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .tab-button:has(.hidden-radio:checked) {
+    background-color: #8b5cf6;
+    color: white;
+  }
+
+  .mockup-showcase:has(#tab-dashboard:checked) .scroll-hint,
+  .mockup-showcase:has(#tab-item-detail:checked) .scroll-hint,
+  .mockup-showcase:has(#tab-customer:checked) .scroll-hint {
+    display: block;
+  }
+
+  /* tab-dashboard がチェックされている時 */
+  .mockup-showcase:has(#tab-dashboard:checked) .content-tab-dashboard { display: block; }
+
+  /* tab-item-list がチェックされている時 */
+  .mockup-showcase:has(#tab-item-list:checked) .content-tab-item-list { display: block; }
+
+  /* tab-item-detail がチェックされている時 */
+  .mockup-showcase:has(#tab-item-detail:checked) .content-tab-item-detail { display: block; }
+
+  /* tab-customer がチェックされている時 */
+  .mockup-showcase:has(#tab-customer:checked) .content-tab-customer { display: block; }
+
+  /* tab-qr-scanner がチェックされている時 */
+  .mockup-showcase:has(#tab-qr-scanner:checked) .content-tab-qr-scanner { display: block; }
+
+  /* tab-qr-success がチェックされている時 */
+  .mockup-showcase:has(#tab-qr-success:checked) .content-tab-qr-success { display: block; }
+
+  /* tab-qr-print がチェックされている時 */
+  .mockup-showcase:has(#tab-qr-print:checked) .content-tab-qr-print { display: block; }
+
+</style>
