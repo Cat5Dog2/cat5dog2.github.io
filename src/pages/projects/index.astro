@@ -3,18 +3,34 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { projects } from '../../data/projects';
+
+const featuredProjects = projects.filter((project) => project.featuredRank);
+const otherProjects = projects.filter((project) => !project.featuredRank);
 ---
 
 <BaseLayout title="Projects | Cat5Dog2 Portfolio" description="Cat5Dog2の個人開発・実績ページ一覧です。">
   <main class="l-section">
     <div class="l-container">
-      <SectionHeading
-        eyebrow="All Projects"
-        title="プロジェクト一覧"
-        lead="個人開発と実務経験のプロジェクトです。"
-      />
-      <div class="l-grid l-grid--2">
-        {projects.map((project) => <ProjectCard project={project} />)}
+      <div class="project-collection">
+        <SectionHeading
+          eyebrow="Main Projects"
+          title="主力プロジェクト"
+          lead="完成度と、現在目指している技術領域との関連性が高い2作品です。"
+        />
+        <div class="l-grid l-grid--2">
+          {featuredProjects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+
+      <div class="project-collection">
+        <SectionHeading
+          eyebrow="Other Projects"
+          title="その他のプロジェクト"
+          lead="ドメイン設計や外部連携を検証しているプロジェクトです。"
+        />
+        <div class="l-grid l-grid--2">
+          {otherProjects.map((project) => <ProjectCard project={project} />)}
+        </div>
       </div>
     </div>
   </main>

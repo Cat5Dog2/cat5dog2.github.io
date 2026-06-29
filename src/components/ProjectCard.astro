@@ -9,9 +9,14 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<a class="project-card" href={withBase(project.slug)}>
+<a
+  class:list={['project-card', { 'project-card--featured': project.featuredRank }]}
+  href={withBase(project.slug)}
+>
   <div class="project-card__meta">
-    <p class="eyebrow">Project</p>
+    <p class="eyebrow">
+      {project.featuredRank ? `Main Project 0${project.featuredRank}` : 'Project'}
+    </p>
     <span class="project-card__status">{project.status}</span>
   </div>
   <div class="l-stack">

@@ -6,6 +6,9 @@ import MetricCard from '../components/MetricCard.astro';
 import SkillCard from '../components/SkillCard.astro';
 import { projects } from '../data/projects';
 import { withBase } from '../utils/paths';
+
+const featuredProjects = projects.filter((project) => project.featuredRank);
+const otherProjects = projects.filter((project) => !project.featuredRank);
 ---
 
 <BaseLayout>
@@ -19,7 +22,7 @@ import { withBase } from '../utils/paths';
             <span>エンジニアリング。</span>
           </h1>
           <p class="lead">
-            Webメディアの集客からEC運営、Rails業務システム開発まで、技術でビジネス成果を出してきました。現在は外資系IT企業でインターン中。.NET・TypeScript・Azureで設計からCI/CDまで一貫した開発を個人で実践し、エンジニアとして復帰を目指しています。
+            Web集客・EC・業務システム開発の経験を活かし、.NET・TypeScript・Azureで設計からCI/CDまで実践しています。ビジネス成果と運用品質の両方を考えられるWebエンジニアとして復帰を目指しています。
           </p>
           <div class="hero__actions">
             <a class="button button--primary" href="#projects">実績を見る</a>
@@ -60,13 +63,26 @@ import { withBase } from '../utils/paths';
 
     <section id="projects" class="l-section">
       <div class="l-container">
-        <SectionHeading
-          eyebrow="Featured Projects"
-          title="実務経験と技術検証がつながるプロジェクト"
-          lead="何をどう作り、なぜその技術を選んだかをまとめています。"
-        />
-        <div class="l-grid l-grid--2">
-          {projects.map((project) => <ProjectCard project={project} />)}
+        <div class="project-collection">
+          <SectionHeading
+            eyebrow="Main Projects"
+            title="主力プロジェクト"
+            lead="課題、実装機能、技術判断、システム構成、動作確認環境まで、詳細ページ内で把握できます。"
+          />
+          <div class="l-grid l-grid--2">
+            {featuredProjects.map((project) => <ProjectCard project={project} />)}
+          </div>
+        </div>
+
+        <div class="project-collection">
+          <SectionHeading
+            eyebrow="Other Projects"
+            title="その他のプロジェクト"
+            lead="実務で得たドメイン知識を、現在の.NET開発へ接続したプロジェクトです。"
+          />
+          <div class="l-grid l-grid--2">
+            {otherProjects.map((project) => <ProjectCard project={project} />)}
+          </div>
         </div>
       </div>
     </section>

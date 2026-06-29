@@ -4,6 +4,7 @@ export type Project = {
   summary: string;
   role: string;
   stage: string;
+  featuredRank?: 1 | 2;
   stack: string[];
   metrics: string[];
   repo: string;
@@ -16,11 +17,24 @@ export const projects: Project[] = [
     slug: 'projects/pet-health-management/',
     summary: 'ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて作っています。',
     role: '設計 / 実装 / CI / 運用設計',
-    stage: 'デプロイ済み',
+    stage: 'Azure環境で動作確認済み',
+    featuredRank: 1,
     stack: ['ASP.NET Core MVC', 'Identity', 'EF Core', 'SQL Server', 'Azure', 'Playwright'],
     metrics: ['Azure設計', 'E2E', 'CI'],
     repo: 'https://github.com/Cat5Dog2/PetHealthManagement',
-    status: 'デプロイ済み',
+    status: 'Azure 動作確認済み',
+  },
+  {
+    title: 'Handmade Item Management',
+    slug: 'projects/handmade-item-management/',
+    summary: 'ハンドメイド作家向けの在庫・販売管理アプリ。QRコードで商品を識別して、販売状況・顧客別の購入履歴・ダッシュボードを見られます。',
+    role: 'プロダクト設計 / フロントエンド / API / Firebase設計',
+    stage: 'Firebase / GCP環境で動作確認済み',
+    featuredRank: 2,
+    stack: ['React', 'TypeScript', 'Vite', 'Express', 'Firebase', 'PWA'],
+    metrics: ['QR管理', 'PWA', 'モバイルファースト'],
+    repo: 'https://github.com/Cat5Dog2/Handmade_Item_Management',
+    status: 'Firebase / GCP 動作確認済み',
   },
   {
     title: 'Web Writing Tool',
@@ -32,17 +46,6 @@ export const projects: Project[] = [
     metrics: ['AI連携', 'WordPress連携', 'Docker smoke'],
     repo: 'https://github.com/Cat5Dog2/web-writing-tool',
     status: 'MVP実装済み',
-  },
-  {
-    title: 'Handmade Item Management',
-    slug: 'projects/handmade-item-management/',
-    summary: 'ハンドメイド作家向けの在庫・販売管理アプリ。QRコードで商品を識別して、販売状況・顧客別の購入履歴・ダッシュボードを見られます。',
-    role: 'プロダクト設計 / フロントエンド / API / Firebase設計',
-    stage: 'デプロイ済み',
-    stack: ['React', 'TypeScript', 'Vite', 'Express', 'Firebase', 'PWA'],
-    metrics: ['QR管理', 'PWA', 'モバイルファースト'],
-    repo: 'https://github.com/Cat5Dog2/Handmade_Item_Management',
-    status: 'デプロイ済み',
   },
   {
     title: 'SEO Intelligence Platform',

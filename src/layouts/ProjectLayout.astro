@@ -5,13 +5,15 @@ const { frontmatter } = Astro.props;
 const tags = frontmatter.tags ?? [];
 const highlights = frontmatter.highlights ?? [];
 const evidence = frontmatter.evidence ?? [];
+const facts = frontmatter.facts ?? [];
+const featuredRank = frontmatter.featuredRank;
 ---
 
 <BaseLayout title={`${frontmatter.title} | Cat5Dog2 Portfolio`} description={frontmatter.description}>
   <main>
     <header class="project-hero">
       <div class="l-container">
-        <p class="eyebrow">Project</p>
+        <p class="eyebrow">{featuredRank ? `Main Project 0${featuredRank}` : 'Project'}</p>
         <h1 class="project-hero__title">{frontmatter.title}</h1>
         <p class="project-hero__summary">{frontmatter.description}</p>
         {frontmatter.stage && <p class="project-hero__stage">現在の状態: {frontmatter.stage}</p>}
@@ -19,12 +21,17 @@ const evidence = frontmatter.evidence ?? [];
           <div class="tag-list" aria-label="使用技術">
             {tags.map((tag: string) => <span class="tag">{tag}</span>)}
           </div>
-          {frontmatter.repo && (
-            <a class="button button--ghost" href={frontmatter.repo} target="_blank" rel="noreferrer">
-              GitHubを見る
-            </a>
-          )}
         </div>
+        {facts.length > 0 && (
+          <dl class="project-facts">
+            {facts.map((fact: { label: string; value: string }) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
     </header>
 
@@ -32,8 +39,8 @@ const evidence = frontmatter.evidence ?? [];
       {(highlights.length > 0 || evidence.length > 0) && (
         <section class="project-evidence" aria-labelledby="project-evidence-title">
           <div>
-            <p class="eyebrow">Evidence</p>
-            <h2 id="project-evidence-title">GitHubで確認できる実装・設計</h2>
+            <p class="eyebrow">Project Summary</p>
+            <h2 id="project-evidence-title">このページで確認できる要点</h2>
           </div>
           {highlights.length > 0 && (
             <ul class="evidence-list">
@@ -41,10 +48,16 @@ const evidence = frontmatter.evidence ?? [];
             </ul>
           )}
           {evidence.length > 0 && (
-            <div class="evidence-links">
-              {evidence.map((item: { label: string; url: string }) => (
-                <a href={item.url} target="_blank" rel="noreferrer">{item.label}</a>
-              ))}
+            <div class="external-references">
+              <p class="external-references__title">補足資料（外部リンク）</p>
+              <p class="external-references__description">
+                実装や継続的な検証を詳しく確認したい場合の参考リンクです。このページだけでも概要と設計意図を把握できます。
+              </p>
+              <div class="evidence-links">
+                {evidence.map((item: { label: string; url: string }) => (
+                  <a href={item.url} target="_blank" rel="noreferrer">{item.label}</a>
+                ))}
+              </div>
             </div>
           )}
         </section>
