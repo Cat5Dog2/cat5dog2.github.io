@@ -65,9 +65,9 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
       <div class="l-container">
         <div class="project-collection">
           <SectionHeading
-            eyebrow="Main Projects"
-            title="主力プロジェクト"
-            lead="課題、実装機能、技術判断、システム構成、動作確認環境まで、詳細ページ内で把握できます。"
+            eyebrow="Featured Projects"
+            title="注力プロジェクト"
+            lead="設計から運用まで一貫して取り組んだ2作品です。詳細ページで課題・実装・技術判断を確認できます。"
           />
           <div class="l-grid l-grid--2">
             {featuredProjects.map((project) => <ProjectCard project={project} />)}
@@ -78,7 +78,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
           <SectionHeading
             eyebrow="Other Projects"
             title="その他のプロジェクト"
-            lead="実務で得たドメイン知識を、現在の.NET開発へ接続したプロジェクトです。"
+            lead="実務で得たドメイン知識を、.NET開発に活かしたプロジェクトです。"
           />
           <div class="l-grid l-grid--2">
             {otherProjects.map((project) => <ProjectCard project={project} />)}

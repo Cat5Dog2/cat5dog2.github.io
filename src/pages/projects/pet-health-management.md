@@ -6,15 +6,7 @@ tags: ["ASP.NET Core MVC", "Identity", "EF Core", "SQL Server", "Azure", "Playwr
 repo: "https://github.com/Cat5Dog2/PetHealthManagement"
 stage: "Azure環境で動作確認済み"
 featuredRank: 1
-facts:
-  - label: "位置づけ"
-    value: "主力プロジェクト 01"
-  - label: "動作確認"
-    value: "Azure App Service / Azure SQL Database"
-  - label: "担当範囲"
-    value: "要件整理・設計・実装・テスト・CI/CD・運用設計"
-  - label: "公開状況"
-    value: "アプリ環境は非公開 / ソースコードは公開"
+
 highlights:
   - "認証、健康ログ、予定、通院履歴、画像保存を一つのWebアプリで管理"
   - "Azure App Service、Azure SQL、Key Vaultを使う構成で動作確認"
@@ -33,7 +25,22 @@ evidence:
 
 ペットの健康記録、予定、通院履歴をまとめて管理できるWebアプリです。飼い主が日々の変化と通院時の情報を一か所で確認できることを目的に、ASP.NET Core MVC、Identity、EF Core、SQL Serverで実装しました。
 
-主力プロジェクトとして、画面機能だけでなく、認証・画像保存・自動テスト・Azure配置・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。
+このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azure配置・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。
+
+<dl class="project-facts">
+  <div>
+    <dt>動作確認</dt>
+    <dd>Azure App Service / Azure SQL Database</dd>
+  </div>
+  <div>
+    <dt>担当範囲</dt>
+    <dd>要件整理・設計・実装・テスト・CI/CD・運用設計</dd>
+  </div>
+  <div>
+    <dt>公開状況</dt>
+    <dd>アプリ環境は非公開 / ソースコードは公開</dd>
+  </div>
+</dl>
 
 ## 解決したい課題
 
