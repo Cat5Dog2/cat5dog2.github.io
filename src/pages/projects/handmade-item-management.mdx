@@ -4,17 +4,28 @@ title: "Handmade Item Management"
 description: "ハンドメイド作品を一点物単位で管理する在庫・販売管理アプリ。QRコードで商品を識別し、顧客履歴やダッシュボードも備えたモバイルファーストPWA。"
 tags: ["React", "TypeScript", "Vite", "Express", "Firebase", "Firestore", "Cloud Storage", "PWA"]
 repo: "https://github.com/Cat5Dog2/Handmade_Item_Management"
-stage: "デプロイ済み"
+stage: "Firebase / GCP環境で動作確認済み"
+featuredRank: 2
+facts:
+  - label: "位置づけ"
+    value: "主力プロジェクト 02"
+  - label: "動作確認"
+    value: "Firebase Hosting / Cloud Run / Firestore / Cloud Storage"
+  - label: "担当範囲"
+    value: "プロダクト設計・UI・API・データ設計・クラウド配置"
+  - label: "公開状況"
+    value: "アプリ環境は非公開 / 画面プレビューとソースコードは公開"
 highlights:
-  - "商品、画像、カテゴリ、タグ、タスク、顧客、購入履歴を実装"
-  - "QRコードによる商品識別と販売済み更新を実装"
-  - "Web、API、Firebase Emulatorを使ったローカル確認手順を整備"
+  - "商品、画像、カテゴリ、タグ、タスク、顧客、購入履歴を一つの業務フローとして実装"
+  - "QRコードによる商品識別と、販売可能状態を検証した販売済み更新を実装"
+  - "Firebase Hosting、Cloud Run、Firestore、Cloud Storageを使う環境で動作確認"
+  - "画面プレビューで主要7画面をこのページ内から確認可能"
 evidence:
-  - label: "リポジトリ"
+  - label: "GitHubリポジトリ"
     url: "https://github.com/Cat5Dog2/Handmade_Item_Management"
-  - label: "CI workflow"
+  - label: "CIワークフロー"
     url: "https://github.com/Cat5Dog2/Handmade_Item_Management/blob/main/.github/workflows/ci.yml"
-  - label: "README・MVP範囲"
+  - label: "README・詳細なMVP範囲"
     url: "https://github.com/Cat5Dog2/Handmade_Item_Management/blob/main/README.md"
 ---
 
@@ -24,17 +35,53 @@ import HandmadeAppMockup from '../../components/HandmadeAppMockup.astro';
 
 ハンドメイド作品を一点物単位で管理できる、モバイルファーストの在庫・販売管理アプリです。商品情報、画像、カテゴリ、タグ、タスク、顧客情報、QRコード、販売済更新、購入履歴、ダッシュボードを扱えます。
 
+主力プロジェクトの2番目として、実際の利用場面を想定したUI、QRコードを使う販売フロー、一点物特有の状態管理、Firebase / GCPへの配置までをまとめています。
+
 ## 画面プレビュー
 
 <HandmadeAppMockup />
 
-## ポイント
+## 解決したい課題
 
-- ハンドメイド作家の業務フローを想定したプロダクト設計
-- React + TypeScript + Viteのフロントエンド
-- Express + Firebase AdminのAPI
-- Firebase Authentication、Firestore、Cloud Storage、Firebase Hosting、Cloud Runを想定
-- QRコード表示・読み取り、PWA、モバイルファーストUI
+- 一点物の商品は、同じ商品名でも個体ごとに制作状況・在庫・販売状況が異なる
+- イベント会場では、商品を素早く識別して販売済みに更新する必要がある
+- 顧客情報と購入商品が分かれると、リピート対応や販売傾向の把握が難しい
+- 商品画像、タスク、カテゴリ、タグが複数の管理手段に分散しやすい
+
+## 実装した機能
+
+- ログイン、ログアウト、パスワード再設定
+- 商品登録・一覧・詳細・編集・論理削除と、商品画像の追加・差し替え・削除
+- カテゴリ、タグ、商品別タスクの管理
+- 顧客情報と顧客別購入履歴の管理
+- 商品ごとのQRコード表示と、QR読み取りによる販売済み更新
+- 制作・在庫・販売状況を集計するダッシュボード
+
+MVPは作家本人による単独利用を対象とし、決済、配送、会計、外部EC連携、複数ユーザー管理は対象外としています。
+
+## システム構成
+
+<div class="project-flow" role="list" aria-label="Handmade Item Managementのシステム構成">
+  <div class="project-flow__node" role="listitem">
+    <strong>React PWA</strong>
+    <span>Firebase Hosting / TypeScript / Vite</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>Express API</strong>
+    <span>Cloud Run / Firebase Admin / Zod</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>Firebase</strong>
+    <span>Authentication / Firestore / Cloud Storage</span>
+  </div>
+</div>
+
+- **Firebase Authentication**: Email / Password認証に加え、API側でも利用者本人のメールアドレスと一致するか検証
+- **Firestore**: 商品、タスク、カテゴリ、タグ、顧客、操作ログを管理
+- **Cloud Storage**: 商品画像をWebPへ変換し、表示用画像とサムネイルを保存
+- **Firebase Hosting + Cloud Run**: 静的なReact PWAとExpress APIを分離して配置
 
 ## なぜこの技術構成か
 
@@ -45,11 +92,25 @@ import HandmadeAppMockup from '../../components/HandmadeAppMockup.astro';
 
 ## 技術判断
 
-一点物ならではの商品ID・状態遷移・顧客購入履歴の設計を重視しました。フロントとAPIを分離し、ローカルではFirebase Emulatorで完結する開発環境を構築しています。
+一点物ならではの商品ID・状態遷移・顧客購入履歴の設計を重視しました。商品IDは再利用しない連番とし、販売済み更新は販売可能な状態の商品だけを対象にしています。同じQRコードを再度読み取っても重複更新しません。
 
-## 今後の計画
+画像は最大サイズと枚数を制限し、API側でWebPへ変換します。保存先のURLを固定保存せず、必要なときに期限付きURLを発行する方式です。
+
+フロントとAPIを分離し、ローカルではFirebase Emulatorを使って認証・データ・ストレージを含む開発環境を再現できます。
+
+## 品質保証と動作確認
+
+- TypeScript strictを前提に、Web・API・共有型をモノレポで管理
+- ESLint、型チェック、ビルド、ユニットテストをCIで検証
+- ログイン、商品管理、画像、QR販売、ダッシュボードを主要なテスト対象として定義
+- Firebase / GCP環境で、Hosting、Cloud Run、Firestore、Cloud Storageを含む動作を確認済み
+
+## 公開状況
+
+アプリ環境は、認証情報と利用データを扱う単独利用向けシステムのため一般公開していません。主要画面は上の画面プレビューで確認できます。
+
+## 今後の改善
 
 - GitHub Pages内のモックデモ
 - QRコード読み取りのデモ動画
-- モバイル画面のスクリーンショット
 - UI改善前後の比較
