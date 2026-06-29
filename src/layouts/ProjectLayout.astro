@@ -5,7 +5,7 @@ const { frontmatter } = Astro.props;
 const tags = frontmatter.tags ?? [];
 const highlights = frontmatter.highlights ?? [];
 const evidence = frontmatter.evidence ?? [];
-const facts = frontmatter.facts ?? [];
+
 const featuredRank = frontmatter.featuredRank;
 ---
 
@@ -13,7 +13,7 @@ const featuredRank = frontmatter.featuredRank;
   <main>
     <header class="project-hero">
       <div class="l-container">
-        <p class="eyebrow">{featuredRank ? `Main Project 0${featuredRank}` : 'Project'}</p>
+        <p class="eyebrow">{featuredRank ? `Featured Project 0${featuredRank}` : 'Project'}</p>
         <h1 class="project-hero__title">{frontmatter.title}</h1>
         <p class="project-hero__summary">{frontmatter.description}</p>
         {frontmatter.stage && <p class="project-hero__stage">現在の状態: {frontmatter.stage}</p>}
@@ -22,16 +22,7 @@ const featuredRank = frontmatter.featuredRank;
             {tags.map((tag: string) => <span class="tag">{tag}</span>)}
           </div>
         </div>
-        {facts.length > 0 && (
-          <dl class="project-facts">
-            {facts.map((fact: { label: string; value: string }) => (
-              <div>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
+
       </div>
     </header>
 
