@@ -4,28 +4,48 @@ title: "PetHealthManagement"
 description: "ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて作っています。"
 tags: ["ASP.NET Core MVC", "Identity", "EF Core", "SQL Server", "Azure", "Playwright", "GitHub Actions"]
 repo: "https://github.com/Cat5Dog2/PetHealthManagement"
-stage: "Azure環境で動作確認済み"
+stage: "Azure環境で公開中"
 featuredRank: 1
-
-highlights:
-  - "認証、健康ログ、予定、通院履歴、画像保存を一つのWebアプリで管理"
-  - "Azure App Service、Azure SQL、Key Vaultを使う構成で動作確認"
-  - "ビルド、テスト、フォーマット、Playwright E2E、デプロイ後smokeを自動検証"
-  - "Migration、機密情報、Data Protection、ロールバックまで運用手順を設計"
-evidence:
-  - label: "GitHubリポジトリ"
-    url: "https://github.com/Cat5Dog2/PetHealthManagement"
-  - label: "CIワークフロー"
-    url: "https://github.com/Cat5Dog2/PetHealthManagement/blob/main/.github/workflows/ci.yml"
-  - label: "README・詳細な運用設計"
-    url: "https://github.com/Cat5Dog2/PetHealthManagement/blob/main/README.md"
 ---
+
+import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 ## 概要
 
 ペットの健康記録、予定、通院履歴をまとめて管理できるWebアプリです。飼い主が日々の変化と通院時の情報を一か所で確認できることを目的に、ASP.NET Core MVC、Identity、EF Core、SQL Serverで実装しました。
 
 このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azure配置・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。
+
+<ProjectEvidence
+  headingId="pet-health-project-evidence-title"
+  highlights={[
+    '要件・設計・受け入れ条件を文書化し、仕様を起点に実装・検証する仕様駆動開発を実践',
+    '認証、健康ログ、予定、通院履歴、画像保存を一つのWebアプリで管理',
+    'Azure App Service、Azure SQL、Key Vaultを使う構成で動作確認',
+    'ビルド、テスト、フォーマット、Playwright E2E、デプロイ後スモークテストを自動検証',
+    'Migration、機密情報、Data Protection、ロールバックまで運用手順を設計',
+  ]}
+  evidence={[
+    {
+      label: '公開アプリを試す',
+      url: 'https://app-pethealth-prod-dkedakd8c0g2hza2.japanwest-01.azurewebsites.net/',
+      primary: true,
+      note: '初回アクセス時は表示まで時間がかかる場合があります。登録ユーザーと保存データは定期的に削除します。',
+    },
+    {
+      label: 'GitHubリポジトリ',
+      url: 'https://github.com/Cat5Dog2/PetHealthManagement',
+    },
+    {
+      label: 'CIワークフロー',
+      url: 'https://github.com/Cat5Dog2/PetHealthManagement/blob/main/.github/workflows/ci.yml',
+    },
+    {
+      label: 'README・詳細な運用設計',
+      url: 'https://github.com/Cat5Dog2/PetHealthManagement/blob/main/README.md',
+    },
+  ]}
+/>
 
 <dl class="project-facts">
   <div>
@@ -38,7 +58,7 @@ evidence:
   </div>
   <div>
     <dt>公開状況</dt>
-    <dd>アプリ環境は非公開 / ソースコードは公開</dd>
+    <dd>アプリ環境・ソースコードを公開</dd>
   </div>
 </dl>
 
@@ -98,16 +118,12 @@ evidence:
 
 - GitHub Actionsでビルド、テスト、フォーマットチェックを実行
 - Playwrightでログインなどの主要導線をE2E検証
-- Azureへのデプロイ後にログイン・一覧表示・画像取得のsmokeテストを実行
+- Azureへのデプロイ後にログイン・一覧表示・画像取得のスモークテストを実行
 - Azureへの認証にはOIDCを使用し、長期間有効なデプロイ用シークレットを持たない
 - Migrationとアプリデプロイを分離し、適用順序とロールバック条件を明文化
 
 ## 動作確認・公開状況
 
-Azure App ServiceとAzure SQL Databaseを使う環境で、デプロイと主要機能の動作を確認済みです。現在、アプリ環境は認証情報・保存データ・運用コストを考慮して一般公開していません。
+[公開アプリ](https://app-pethealth-prod-dkedakd8c0g2hza2.japanwest-01.azurewebsites.net/)で新規登録を行うと、登録したユーザーでログインして主要機能を確認できます。
 
-## 今後の改善
-
-- 実画面のスクリーンショットと主要操作の短いデモ動画を追加
-- Azureリソースの監視結果をもとに、アラート条件と運用手順を継続改善
-- 画像容量や配信要件が増えた段階で、画像保存をAzure Blob Storageへ移行
+初回アクセス時は、アプリのウォームアップにより表示まで時間がかかる場合があります。検証用環境のため、登録ユーザーと保存データは定期的に削除する予定です。

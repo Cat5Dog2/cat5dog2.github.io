@@ -34,7 +34,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
           <div class="hero-panel__list">
             <div class="hero-panel__item">
               <strong>Now</strong>
-              <span>グローバルIT企業でインターン（PM・技術検証）</span>
+              <span>グローバルIT企業でインターン（技術検証・プロジェクト推進）</span>
             </div>
             <div class="hero-panel__item">
               <strong>Stack</strong>
@@ -42,11 +42,11 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
             </div>
             <div class="hero-panel__item">
               <strong>Delivery</strong>
-              <span>要件定義 → 設計 → 実装 → テスト → デプロイ</span>
+              <span>仕様駆動開発：要件・設計・受け入れ条件 → 実装 → 検証</span>
             </div>
             <div class="hero-panel__item">
-              <strong>Impact</strong>
-              <span>月間セッション120倍 / 問い合わせ6〜12倍</span>
+              <strong>Web Marketing</strong>
+              <span>SEO / Paid Search Advertising</span>
             </div>
           </div>
         </aside>
@@ -55,9 +55,9 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
 
     <section class="l-section--compact">
       <div class="l-container l-grid l-grid--3">
-        <MetricCard value="120倍" label="月間セッション改善" note="約1,000から120,000へ増加" href={withBase('career/#results')} />
-        <MetricCard value="ROAS 1000%" label="月次広告運用改善" note="SEO収益を広告へ再投資" href={withBase('career/#results')} />
-        <MetricCard value="E2E / CI" label="個人開発の品質管理" note="Playwright、GitHub Actions、Docker smoke" />
+        <MetricCard value=".NET / TS" label="フルスタックWeb開発" note="ASP.NET Core、React、Blazor" />
+        <MetricCard value="CI / CD" label="継続的な品質検証・デリバリー" note="GitHub Actions / Playwright E2E / Docker Container Smoke Tests" />
+        <MetricCard value="Azure / GCP" label="クラウド配置・運用設計" note="App Service、Firebase、Cloud Run" />
       </div>
     </section>
 
@@ -67,7 +67,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
           <SectionHeading
             eyebrow="Featured Projects"
             title="注力プロジェクト"
-            lead="設計から運用まで一貫して取り組んだ2作品です。詳細ページで課題・実装・技術判断を確認できます。"
+            lead="仕様駆動開発で、設計から運用まで一貫して取り組んだ2作品です。詳細ページで課題・実装・技術判断を確認できます。"
           />
           <div class="l-grid l-grid--2">
             {featuredProjects.map((project) => <ProjectCard project={project} />)}
@@ -78,7 +78,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
           <SectionHeading
             eyebrow="Other Projects"
             title="その他のプロジェクト"
-            lead="実務で得たドメイン知識を、.NET開発に活かしたプロジェクトです。"
+            lead="仕様を先に整理し、実務で得たドメイン知識を.NET開発に活かしたプロジェクトです。"
           />
           <div class="l-grid l-grid--2">
             {otherProjects.map((project) => <ProjectCard project={project} />)}
@@ -111,7 +111,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
             category="DevOps & Process"
             title="品質管理 / チーム推進"
             note="自動テスト・CI/CD・プロジェクト管理を実践"
-            skills={['GitHub Actions', 'Playwright E2E', 'CI/CD', 'Git', '要件定義', 'DB設計', 'チームリード', 'アジャイル']}
+            skills={['仕様駆動開発', 'GitHub Actions', 'Playwright E2E', 'CI/CD', 'Git', '要件定義', 'DB設計', 'チームリード', 'アジャイル']}
           />
         </div>
       </div>
