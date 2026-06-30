@@ -5,22 +5,37 @@ description: "キーワード探索・検索ボリューム調査・機会スコ
 tags: [".NET", "Blazor", "Hangfire", "PostgreSQL", "Redis", "OpenTelemetry", "Clean Architecture"]
 repo: "https://github.com/Cat5Dog2/seo-intelligence-platform"
 stage: "MVP実装済み"
-highlights:
-  - "要件、API、DB、画面、非同期ジョブ、外部API、運用を文書化"
-  - "キーワード探索、検索ボリューム調査、機会スコア、CSV出力をMVPとして実装"
-  - "API、Blazor UI、Hangfire Worker、PostgreSQL、Redisを統合"
-evidence:
-  - label: "リポジトリ"
-    url: "https://github.com/Cat5Dog2/seo-intelligence-platform"
-  - label: "CI workflow"
-    url: "https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/.github/workflows/ci.yaml"
-  - label: "設計・実装バックログ"
-    url: "https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/todo.md"
 ---
+
+import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 ## 概要
 
 ラッコキーワードAPIを中核に、SEO・コンテンツ・競合分析・順位監視をまとめるプラットフォームです。.NET 10 / Clean Architectureで、キーワード探索から検索ボリューム調査、機会スコア、CSV出力までのMVPを実装しています。
+
+<ProjectEvidence
+  headingId="seo-platform-project-evidence-title"
+  highlights={[
+    '要件・設計・受け入れ条件を文書化し、仕様を起点に実装・検証する仕様駆動開発を実践',
+    '要件、API、DB、画面、非同期ジョブ、外部API、運用を文書化',
+    'キーワード探索、検索ボリューム調査、機会スコア、CSV出力をMVPとして実装',
+    'API、Blazor UI、Hangfire Worker、PostgreSQL、Redisを統合',
+  ]}
+  evidence={[
+    {
+      label: 'リポジトリ',
+      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform',
+    },
+    {
+      label: 'CI workflow',
+      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/.github/workflows/ci.yaml',
+    },
+    {
+      label: '設計・実装バックログ',
+      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/todo.md',
+    },
+  ]}
+/>
 
 ## ポイント
 
@@ -40,10 +55,3 @@ evidence:
 ## 技術判断
 
 SEOの実務で培った知識を、業務用語・状態設計・API制約・非同期処理・監査要件としてシステム設計に落とし込み、MVPとして実装しました。実装範囲と進捗はコード、`todo.md`、Issue単位のバックログで管理しています。
-
-## 今後の計画
-
-- キーワード調査画面のモック
-- ジョブ設計図
-- Clean Architecture構成図
-- SEO業務フローとシステム機能の対応表

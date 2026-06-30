@@ -3,8 +3,6 @@ import BaseLayout from './BaseLayout.astro';
 
 const { frontmatter } = Astro.props;
 const tags = frontmatter.tags ?? [];
-const highlights = frontmatter.highlights ?? [];
-const evidence = frontmatter.evidence ?? [];
 
 const featuredRank = frontmatter.featuredRank;
 ---
@@ -27,32 +25,6 @@ const featuredRank = frontmatter.featuredRank;
     </header>
 
     <div class="l-container">
-      {(highlights.length > 0 || evidence.length > 0) && (
-        <section class="project-evidence" aria-labelledby="project-evidence-title">
-          <div>
-            <p class="eyebrow">Project Summary</p>
-            <h2 id="project-evidence-title">このページで確認できる要点</h2>
-          </div>
-          {highlights.length > 0 && (
-            <ul class="evidence-list">
-              {highlights.map((highlight: string) => <li>{highlight}</li>)}
-            </ul>
-          )}
-          {evidence.length > 0 && (
-            <div class="external-references">
-              <p class="external-references__title">補足資料（外部リンク）</p>
-              <p class="external-references__description">
-                実装や継続的な検証を詳しく確認したい場合の参考リンクです。このページだけでも概要と設計意図を把握できます。
-              </p>
-              <div class="evidence-links">
-                {evidence.map((item: { label: string; url: string }) => (
-                  <a href={item.url} target="_blank" rel="noreferrer">{item.label}</a>
-                ))}
-              </div>
-            </div>
-          )}
-        </section>
-      )}
       <article class="markdown-body">
         <slot />
       </article>
