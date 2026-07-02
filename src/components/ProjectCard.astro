@@ -25,7 +25,7 @@ const { project } = Astro.props;
     <p class="project-card__role"><strong>担当:</strong> {project.role}</p>
     <p class="project-card__stage"><strong>現在:</strong> {project.stage}</p>
   </div>
-  <div class="tag-list" aria-label={`${project.title} の特徴`}>
+  <div class="tag-list project-card__tags" aria-label={`${project.title} の特徴`}>
     {project.metrics.map((metric) => <span class="tag">{metric}</span>)}
   </div>
 </a>

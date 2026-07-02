@@ -8,6 +8,7 @@ import { withBase } from '../utils/paths';
   <main class="l-section">
     <div class="l-container">
       <SectionHeading
+        as="h1"
         eyebrow="Career Summary"
         title="Web集客から制作・システム開発・IT実務へ"
         lead="SEOとメディア運営から始めて、Web制作・EC・Rails業務システムと領域を広げてきました。現在はグローバルIT企業でインターン中です。"
@@ -20,20 +21,19 @@ import { withBase } from '../utils/paths';
           <h2 class="career-card__title">グローバルIT企業</h2>
           <p class="career-card__role">長期インターン／ITスペシャリスト</p>
           <p class="career-card__text">約1.5か月のグループプロジェクトを2件経験。明確なPM役はありませんでしたが、参加者の中で実務経験があったことから、チームの合意形成、進行状況の整理、成果物の品質レビューなど、リードやマネジメントが必要な場面を担いました。技術選定に関する調査や、提案資料の作成も行いました。</p>
-          <p class="career-card__note">必要な場面で進行と品質面をリードしました。</p>
         </section>
         <section class="career-card">
           <p class="career-card__period">約3年（ITスキル提供による長期参画含む）</p>
           <h2 class="career-card__title">スクール運営企業</h2>
           <p class="career-card__role">WEB部門リーダー</p>
-          <p class="career-card__text">WordPressサイトの構築・刷新からSEO、LP制作、メディア運営、スタッフ育成まで担当。月間セッションを100倍以上に成長させました。</p>
+          <p class="career-card__text">WordPressサイトの構築・刷新からSEO、LP制作、メディア運営、スタッフ育成まで担当。月間セッションを120倍に成長させました。</p>
           <a class="career-card__link" href="#case-school-operations">成果の背景を見る</a>
         </section>
         <section class="career-card">
           <p class="career-card__period">約3年</p>
           <h2 class="career-card__title">システム受託開発企業</h2>
           <p class="career-card__role">Webエンジニア / ディレクター / マーケター</p>
-          <p class="career-card__text">Rails業務システムや医療系メディアの開発を担当。自社サイトではSEO・LP・表示速度を改善して、月間PVを4倍に、年間の問い合わせを12件まで増やしました。</p>
+          <p class="career-card__text">Rails業務システムや医療系メディアの開発を担当。自社サイトではSEO・LP・表示速度を改善して、月間PVを4倍に、年間の問い合わせを1～2件から12件へ増やしました。</p>
           <a class="career-card__link" href="#case-system-development">自社サイト改善の詳細を見る</a>
         </section>
         <section class="career-card">
@@ -60,12 +60,13 @@ import { withBase } from '../utils/paths';
         <SectionHeading
           eyebrow="Professional Development"
           title="個人開発・継続学習"
+          headingId="professional-development-title"
           lead="職歴ではなく、公開リポジトリで続けている実践的な技術検証です。"
         />
         <div class="development-card">
-          <p class="career-card__period">- 現在</p>
-          <h2 id="professional-development-title">.NET / TypeScript / Docker / CI/CD / Azure / GCP / Firebase</h2>
-          <p>C#・ASP.NET Core・Blazor・TypeScriptでWebアプリを開発し、CI/CD、Docker、本番運用の設計まで実践しています。</p>
+          <p class="career-card__period">継続中</p>
+          <h3>.NET / TypeScript / Docker / CI/CD / Azure / GCP / Firebase</h3>
+          <p>C#・ASP.NET Core・Blazor・TypeScriptでWebアプリを開発し、CI/CD、Docker、本番運用の設計まで実践しています。題材には、過去の業務で「あれば便利だった」ツールを選び、実務の解像度で要件を定義することを重視しています。</p>
           <a class="button button--ghost" href={withBase('projects/')}>個人開発を見る</a>
         </div>
       </section>
@@ -88,15 +89,15 @@ import { withBase } from '../utils/paths';
               <div class="case-study__metrics" aria-label="主な成果">
                 <div>
                   <strong>120倍</strong>
-                  <span>月間セッション<br />100倍以上に成長</span>
+                  <span>月間セッション<br />の成長</span>
                 </div>
                 <div>
                   <strong>3～5倍</strong>
                   <span>WEBからの<br />月間申込数</span>
                 </div>
                 <div>
-                  <strong>1000%</strong>
-                  <span>リスティング広告<br />月次ROAS</span>
+                  <strong>500%</strong>
+                  <span>リスティング広告<br />平均ROAS（最大1,000%）</span>
                 </div>
               </div>
             </header>
@@ -145,7 +146,7 @@ import { withBase } from '../utils/paths';
 
               <section class="case-study__section">
                 <h3>計測方法</h3>
-                <p>Google Analyticsで月間セッション数、Search Consoleで検索状況、AdSenseで収益を確認。広告管理画面では月次ROASを計測し、WEB申込の記録とあわせて改善を判断しました。</p>
+                <p>Google Analyticsで月間セッション数、Search Consoleで検索状況、AdSenseで収益を確認。広告管理画面では月次ROASを計測し、WEB申込の記録とあわせて改善を判断しました。月次ROASは平均500%・最大1,000%で、運用期間中に100%を下回った月はありません。</p>
               </section>
 
               <section class="case-study__section">
@@ -172,7 +173,7 @@ import { withBase } from '../utils/paths';
                   <span>Lighthouse<br />Performance</span>
                 </div>
                 <div>
-                  <strong>約6～12倍</strong>
+                  <strong>6倍以上</strong>
                   <span>年間問い合わせ<br />1～2件 → 12件</span>
                 </div>
               </div>
@@ -243,7 +244,7 @@ import { withBase } from '../utils/paths';
         />
         <div class="development-card">
           <h3>ビジネス課題を技術で解決できるエンジニアへ</h3>
-          <p>Web集客・メディア運営で培った「ビジネス視点」と、.NET・TypeScript・Azureで磨いている「技術力」を掛け合わせ、お客様の課題解決に貢献したいと考えています。要件定義から設計・実装・テスト・デプロイまで一貫して担当できるエンジニアを目指しています。</p>
+          <p>キャリアの前半ではWeb制作・EC・Rails受託開発と、開発の実務を経験してきました。後半ではSEO・メディア運営などビジネス側を担当し、数字で仮説検証する習慣を得ました。現在は開発へ軸足を戻し、.NET・TypeScript・Azureで、要件定義から設計・実装・テスト・デプロイまで一貫して担当できるエンジニアを目指しています。</p>
           <a class="button button--ghost" href={withBase('#contact')}>詳細を問い合わせる</a>
         </div>
       </section>
