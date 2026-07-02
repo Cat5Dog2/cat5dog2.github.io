@@ -13,9 +13,10 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
     <div class="l-container">
       <div class="project-collection">
         <SectionHeading
+          as="h1"
           eyebrow="Featured Projects"
           title="注力プロジェクト"
-          lead="仕様駆動開発で、設計から運用まで一貫して取り組んだ2作品です。"
+          lead="要件・受け入れ条件の文書化から運用まで、一貫して取り組んだ2作品です。"
         />
         <div class="l-grid l-grid--2">
           {featuredProjects.map((project) => <ProjectCard project={project} />)}
@@ -26,7 +27,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
         <SectionHeading
           eyebrow="Other Projects"
           title="その他のプロジェクト"
-          lead="仕様駆動開発で、ドメイン設計や外部連携の検証に取り組んだプロジェクトです。"
+          lead="実務で得たドメイン知識を題材に、設計と外部連携の検証に取り組んだプロジェクトです。"
         />
         <div class="l-grid l-grid--2">
           {otherProjects.map((project) => <ProjectCard project={project} />)}

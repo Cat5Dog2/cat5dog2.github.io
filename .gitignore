@@ -12,6 +12,9 @@ coverage/
 .env.*
 !.env.example
 
+# Local Claude settings
+.claude/settings.local.json
+
 # Logs
 *.log
 

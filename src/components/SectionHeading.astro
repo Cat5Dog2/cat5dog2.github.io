@@ -4,13 +4,15 @@ interface Props {
   title: string;
   lead?: string;
   headingId?: string;
+  as?: 'h1' | 'h2';
 }
 
-const { eyebrow, title, lead, headingId } = Astro.props;
+const { eyebrow, title, lead, headingId, as = 'h2' } = Astro.props as Props;
+const Heading = as;
 ---
 
 <div class="section-heading">
   <p class="section-heading__eyebrow">{eyebrow}</p>
-  <h2 id={headingId} class="section-heading__title">{title}</h2>
+  <Heading id={headingId} class="section-heading__title">{title}</Heading>
   {lead && <p class="section-heading__lead">{lead}</p>}
 </div>

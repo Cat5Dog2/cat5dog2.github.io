@@ -14,12 +14,12 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 ペットの健康記録、予定、通院履歴をまとめて管理できるWebアプリです。飼い主が日々の変化と通院時の情報を一か所で確認できることを目的に、ASP.NET Core MVC、Identity、EF Core、SQL Serverで実装しました。
 
-このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azure配置・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。
+このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azure配置・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。要件定義書・基本設計書・ER図・テストケースは[リポジトリのdocs/](https://github.com/Cat5Dog2/PetHealthManagement/tree/main/docs)で公開しています。
 
 <ProjectEvidence
   headingId="pet-health-project-evidence-title"
   highlights={[
-    '要件・設計・受け入れ条件を文書化し、仕様を起点に実装・検証する仕様駆動開発を実践',
+    '要件定義書・基本設計書・画面定義・テストケースをdocs/として公開し、仕様を起点に実装・検証',
     '認証、健康ログ、予定、通院履歴、画像保存を一つのWebアプリで管理',
     'Azure App Service、Azure SQL、Key Vaultを使う構成で動作確認',
     'ビルド、テスト、フォーマット、Playwright E2E、デプロイ後スモークテストを自動検証',
@@ -35,6 +35,10 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
     {
       label: 'GitHubリポジトリ',
       url: 'https://github.com/Cat5Dog2/PetHealthManagement',
+    },
+    {
+      label: '要件・設計ドキュメント',
+      url: 'https://github.com/Cat5Dog2/PetHealthManagement/tree/main/docs',
     },
     {
       label: 'CIワークフロー',
@@ -121,6 +125,13 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 - Azureへのデプロイ後にログイン・一覧表示・画像取得のスモークテストを実行
 - Azureへの認証にはOIDCを使用し、長期間有効なデプロイ用シークレットを持たない
 - Migrationとアプリデプロイを分離し、適用順序とロールバック条件を明文化
+
+## 制約と今後の課題
+
+現状のシステムが持つ制約と、次に取り組む課題です。
+
+- 画像の保存先は現在App Serviceの永続領域。`IImageStorageService`の実装差し替えでBlob Storageへ移行できる設計にしており、この移行が次の課題
+- Playwright E2Eの対象は、ログインなどの主要導線に絞っている。画面カバレッジの拡大は継続的に進める
 
 ## 動作確認・公開状況
 

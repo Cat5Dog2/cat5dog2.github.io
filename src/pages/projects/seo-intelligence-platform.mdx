@@ -16,18 +16,22 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 <ProjectEvidence
   headingId="seo-platform-project-evidence-title"
   highlights={[
-    '要件・設計・受け入れ条件を文書化し、仕様を起点に実装・検証する仕様駆動開発を実践',
-    '要件、API、DB、画面、非同期ジョブ、外部API、運用を文書化',
+    'SEO実務で必要性を感じた分析ワークフローを題材に、要件と受け入れ条件を定義してから実装',
+    '要件、API、DB、画面、非同期ジョブ、外部API、運用をdocs/として公開',
     'キーワード探索、検索ボリューム調査、機会スコア、CSV出力をMVPとして実装',
     'API、Blazor UI、Hangfire Worker、PostgreSQL、Redisを統合',
   ]}
   evidence={[
     {
-      label: 'リポジトリ',
+      label: 'GitHubリポジトリ',
       url: 'https://github.com/Cat5Dog2/seo-intelligence-platform',
     },
     {
-      label: 'CI workflow',
+      label: '設計ドキュメント',
+      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/tree/main/docs',
+    },
+    {
+      label: 'CIワークフロー',
       url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/.github/workflows/ci.yaml',
     },
     {

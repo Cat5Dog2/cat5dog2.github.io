@@ -58,7 +58,7 @@
     --color-accent-strong: #1d4ed8;
     --color-inverse: #020617;
 
-    --font-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-base: 'Inter', 'Noto Sans JP', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 
     --container: 1120px;
@@ -294,8 +294,8 @@
 
   .section-heading__title {
     font-size: clamp(2rem, 5vw, 3.25rem);
-    line-height: 1.15;
-    letter-spacing: -0.04em;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
   }
 
   .section-heading__lead,
@@ -322,10 +322,10 @@
 
   .hero__title {
     margin-block: 1rem 1.2rem;
-    font-size: clamp(2.75rem, 8vw, 5.9rem);
+    font-size: clamp(2.5rem, 7vw, 4.75rem);
     font-weight: 900;
-    line-height: 0.98;
-    letter-spacing: -0.075em;
+    line-height: 1.18;
+    letter-spacing: 0.01em;
   }
 
   .hero__title span {
@@ -388,7 +388,7 @@
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     line-height: 1;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.01em;
   }
 
   .metric-card__label {
@@ -414,8 +414,9 @@
   }
 
   .project-card {
-    display: grid;
+    display: flex;
     min-height: 100%;
+    flex-direction: column;
     gap: 1.1rem;
     padding: clamp(1.25rem, 3vw, 1.65rem);
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -443,6 +444,8 @@
     padding: 0.25rem 0.65rem;
     font-size: 0.76rem;
     font-weight: 900;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   .project-card__title {
@@ -461,9 +464,17 @@
     font-size: 0.9rem;
   }
 
+  /* カードの余剰高さはタグの上へ寄せ、タグ行をカード下端に揃える */
+  .project-card__tags {
+    margin-block-start: auto;
+  }
+
+  /* コンテナが伸びてもピル自体は自然な高さを保つ */
   .tag-list {
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
     gap: 0.5rem;
   }
 
@@ -475,6 +486,7 @@
     padding: 0.32rem 0.65rem;
     font-size: 0.78rem;
     font-weight: 800;
+    line-height: 1.2;
   }
 
   @media (hover: hover) {
@@ -569,8 +581,8 @@
   .contact-card h2 {
     margin-top: 0.5rem;
     font-size: clamp(2rem, 5vw, 3.25rem);
-    line-height: 1.15;
-    letter-spacing: -0.04em;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
   }
 
   .contact-card p:not(.eyebrow) {
@@ -638,6 +650,7 @@
 
   .project-hero__stage {
     display: inline-flex;
+    align-items: center;
     margin-top: 1.25rem;
     border-radius: 999px;
     background: var(--color-accent-soft);
@@ -645,6 +658,7 @@
     padding: 0.4rem 0.8rem;
     font-size: 0.84rem;
     font-weight: 900;
+    line-height: 1.2;
   }
 
   .project-hero__meta {
@@ -737,6 +751,7 @@
     color: var(--color-text-soft);
     font-size: 0.84rem;
     font-weight: 800;
+    line-height: 1.2;
   }
 
   .evidence-link-notes .evidence-link-note {
@@ -883,8 +898,10 @@
     background: linear-gradient(135deg, #eff6ff, #ffffff);
   }
 
-  .development-card h2 {
+  .development-card h2,
+  .development-card h3 {
     font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.3;
   }
 
   .development-card p:not(.career-card__period) {
@@ -923,8 +940,8 @@
   .case-study__header h2 {
     margin-top: 0.5rem;
     font-size: clamp(1.65rem, 4vw, 2.5rem);
-    line-height: 1.2;
-    letter-spacing: -0.04em;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
   }
 
   .case-study__period {
@@ -954,7 +971,7 @@
     font-size: clamp(1.25rem, 3vw, 1.8rem);
     font-weight: 900;
     line-height: 1.1;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
   }
 
   .case-study__metrics span {
@@ -1075,8 +1092,8 @@
   .markdown-body h2 {
     margin-top: 3rem;
     font-size: clamp(1.55rem, 4vw, 2.2rem);
-    line-height: 1.25;
-    letter-spacing: -0.04em;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
   }
 
   .markdown-body h3 {
@@ -1111,6 +1128,34 @@
     padding: 0.1rem 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.9em;
+  }
+
+  /* ピル内の文字を、フォントメトリクスに依存せず光学的に上下中央へ。
+     トリムで消える行送り分をpaddingへ振り替えて高さを維持する。 */
+  @supports (text-box: trim-both cap alphabetic) {
+    .tag,
+    .project-card__status,
+    .project-hero__stage,
+    .evidence-links a {
+      text-box: trim-both cap alphabetic;
+    }
+
+    .tag {
+      padding-block: 0.5rem;
+    }
+
+    .project-card__status {
+      padding-block: 0.42rem;
+    }
+
+    .project-hero__stage {
+      display: inline-block;
+      padding-block: 0.6rem;
+    }
+
+    .evidence-links a {
+      padding-block: 0.65rem;
+    }
   }
 }
 

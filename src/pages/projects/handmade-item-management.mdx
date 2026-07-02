@@ -24,7 +24,7 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 <ProjectEvidence
   headingId="handmade-project-evidence-title"
   highlights={[
-    '要件・設計・受け入れ条件を文書化し、仕様を起点に実装・検証する仕様駆動開発を実践',
+    '一点物の状態遷移やQR販売フローを含む要件・設計・テスト仕様をdocs/として公開し、仕様を起点に実装・検証',
     '商品、画像、カテゴリ、タグ、タスク、顧客、購入履歴を一つの業務フローとして実装',
     'QRコードによる商品識別と、販売可能状態を検証した販売済み更新を実装',
     'Firebase Hosting、Cloud Run、Firestore、Cloud Storageを使う環境で動作確認',
@@ -40,6 +40,10 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
     {
       label: 'GitHubリポジトリ',
       url: 'https://github.com/Cat5Dog2/Handmade_Item_Management',
+    },
+    {
+      label: '要件・設計ドキュメント',
+      url: 'https://github.com/Cat5Dog2/Handmade_Item_Management/tree/main/docs',
     },
     {
       label: 'CIワークフロー',
@@ -83,7 +87,13 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 - 商品ごとのQRコード表示と、QR読み取りによる販売済み更新
 - 制作・在庫・販売状況を集計するダッシュボード
 
-MVPは作家本人による単独利用を対象とし、決済、配送、会計、外部EC連携、複数ユーザー管理は対象外としています。
+## MVPの範囲と制約
+
+MVPの対象範囲を明示的に区切り、範囲外の機能は意図的に実装していません。
+
+- 対象は作家本人による単独利用。複数ユーザー管理・権限管理は対象外
+- 決済、配送、会計、外部EC連携は対象外とし、在庫・販売記録の管理に集中
+- 要件・設計・テスト仕様は[リポジトリのdocs/](https://github.com/Cat5Dog2/Handmade_Item_Management/tree/main/docs)で公開
 
 ## システム構成
 
