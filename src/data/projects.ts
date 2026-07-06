@@ -15,7 +15,7 @@ export const projects: Project[] = [
   {
     title: 'PetHealthManagement',
     slug: 'projects/pet-health-management/',
-    summary: 'ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて作っています。',
+    summary: 'ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて開発しています。',
     role: '設計 / 実装 / CI / 運用設計',
     stage: 'Azure環境で公開中',
     featuredRank: 1,
@@ -27,7 +27,7 @@ export const projects: Project[] = [
   {
     title: 'Handmade Item Management',
     slug: 'projects/handmade-item-management/',
-    summary: 'ハンドメイド作家向けの在庫・販売管理アプリ。QRコードで商品を識別して、販売状況・顧客別の購入履歴・ダッシュボードを見られます。',
+    summary: 'ハンドメイド作家向けの在庫・販売管理アプリ。QRコードで商品を識別し、販売状況・顧客別の購入履歴・ダッシュボードを確認できます。',
     role: 'プロダクト設計 / フロントエンド / API / Firebase設計',
     stage: 'Firebase / GCP環境で公開中',
     featuredRank: 2,

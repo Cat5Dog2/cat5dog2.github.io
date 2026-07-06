@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ProjectLayout.astro
 title: "PetHealthManagement"
-description: "ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて作っています。"
+description: "ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて開発しています。"
 tags: ["ASP.NET Core MVC", "Identity", "EF Core", "SQL Server", "Azure", "Playwright", "GitHub Actions"]
 repo: "https://github.com/Cat5Dog2/PetHealthManagement"
 stage: "Azure環境で公開中"
@@ -14,7 +14,7 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 ペットの健康記録、予定、通院履歴をまとめて管理できるWebアプリです。飼い主が日々の変化と通院時の情報を一か所で確認できることを目的に、ASP.NET Core MVC、Identity、EF Core、SQL Serverで実装しました。
 
-このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azure配置・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。要件定義書・基本設計書・ER図・テストケースは[リポジトリのdocs/](https://github.com/Cat5Dog2/PetHealthManagement/tree/main/docs)で公開しています。
+このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azureへのデプロイ・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。要件定義書・基本設計書・ER図・テストケースは[リポジトリのdocs/](https://github.com/Cat5Dog2/PetHealthManagement/tree/main/docs)で公開しています。
 
 <ProjectEvidence
   headingId="pet-health-project-evidence-title"
@@ -79,7 +79,7 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 - ペット情報、健康ログ、予定、通院履歴の登録・更新・参照
 - ペットに紐づく画像のアップロード、取得、削除
 - 管理者ユーザーの開発環境限定セットアップ
-- 入力値と環境設定の検証、Productionでの不正設定を起動時に検知
+- 入力値と環境設定を検証し、Productionでの不正な設定を起動時に検知
 
 ## システム構成
 
@@ -109,7 +109,7 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 - **ASP.NET Core MVC**: 型安全なサーバーサイドで認証・認可を堅牢に実装できる。Identityとの統合で、セッション管理・パスワードハッシュ・CSRF対策を一貫して扱える
 - **Azure App Service + SQL Database**: 個人開発でもコスト管理しやすく、Key VaultやManaged Identityで本番水準のセキュリティを実現できる
-- **Playwright E2E**: 手動テストの限界を個人開発でも超えるため導入。CIに組み込むことでリグレッションを防止
+- **Playwright E2E**: 個人開発では手動テストに限界があるため導入。CIに組み込むことでリグレッションを防止
 - **GitHub Actions**: プッシュごとにビルド・テスト・フォーマットを検証し、品質を自動で担保
 
 ## 技術判断
@@ -135,6 +135,6 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 ## 動作確認・公開状況
 
-[公開アプリ](https://app-pethealth-prod-dkedakd8c0g2hza2.japanwest-01.azurewebsites.net/)で新規登録を行うと、登録したユーザーでログインして主要機能を確認できます。
+[公開アプリ](https://app-pethealth-prod-dkedakd8c0g2hza2.japanwest-01.azurewebsites.net/)で新規登録すると、作成したアカウントでログインして主要機能を確認できます。
 
 初回アクセス時は、アプリのウォームアップにより表示まで時間がかかる場合があります。検証用環境のため、登録ユーザーと保存データは定期的に削除する予定です。
