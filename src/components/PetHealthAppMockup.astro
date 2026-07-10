@@ -1,0 +1,287 @@
+---
+import { Image } from 'astro:assets';
+
+import imgMyPage from '../assets/portfolio/pethealth/my-page.png';
+import imgRecordMenu from '../assets/portfolio/pethealth/record-menu.png';
+import imgHealthLogList from '../assets/portfolio/pethealth/health-log-list.png';
+import imgHealthLogCreate from '../assets/portfolio/pethealth/health-log-create.png';
+import imgScheduleList from '../assets/portfolio/pethealth/schedule-list.png';
+import imgPetList from '../assets/portfolio/pethealth/pet-list.png';
+import imgVisitDetail from '../assets/portfolio/pethealth/visit-detail.png';
+
+const tabs = [
+  { id: 'pethealth-tab-my-page', label: 'マイページ', img: imgMyPage, alt: 'マイページ画面' },
+  { id: 'pethealth-tab-record-menu', label: '記録メニュー', img: imgRecordMenu, alt: 'ペットごとの記録メニュー画面' },
+  { id: 'pethealth-tab-health-log-list', label: '健康ログ一覧', img: imgHealthLogList, alt: '健康ログ一覧画面' },
+  { id: 'pethealth-tab-health-log-create', label: '健康ログ作成', img: imgHealthLogCreate, alt: '健康ログ作成画面' },
+  { id: 'pethealth-tab-schedule-list', label: '予定一覧', img: imgScheduleList, alt: '予定一覧画面' },
+  { id: 'pethealth-tab-pet-list', label: 'ペット一覧', img: imgPetList, alt: 'ペット一覧画面' },
+  { id: 'pethealth-tab-visit-detail', label: '通院履歴詳細', img: imgVisitDetail, alt: '通院履歴詳細画面' },
+];
+---
+
+<div class="mockup-showcase">
+  <div class="showcase-layout">
+    <div class="tab-list">
+      <h3 class="tab-title">機能一覧</h3>
+      <div class="tab-buttons">
+        {tabs.map((tab, index) => (
+          <label class="tab-button">
+            <input
+              type="radio"
+              name="pethealth-mockup-tabs"
+              id={tab.id}
+              class="hidden-radio"
+              checked={index === 0}
+            />
+            {tab.label}
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <div class="mockup-container">
+      <div class="device-frame">
+        <div class="device-screen" tabindex="0" aria-label="選択した画面のプレビュー">
+          {tabs.map((tab) => (
+            <div class={`screen-content content-${tab.id}`}>
+              <Image src={tab.img} alt={tab.alt} />
+            </div>
+          ))}
+        </div>
+        <p class="scroll-hint">↓ Scroll ↓</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mockup-showcase {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: sans-serif;
+  }
+
+  .hidden-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .showcase-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab-list {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .tab-title {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.25rem;
+  }
+
+  .tab-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tab-button {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .tab-button:hover {
+    background-color: #e5e7eb;
+  }
+
+  .tab-button:has(.hidden-radio:focus-visible) {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .tab-button:has(.hidden-radio:checked) {
+    background-color: #2a9f9d;
+    color: #fff;
+  }
+
+  .mockup-container {
+    flex: 1;
+    display: flex;
+    min-width: min(300px, 100%);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .device-frame {
+    position: relative;
+    width: min(320px, 100%);
+    padding: 12px;
+    border-radius: 2.5rem;
+    background-color: #1f2937;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  }
+
+  .device-frame::before {
+    position: absolute;
+    z-index: 10;
+    top: 12px;
+    left: 50%;
+    width: 72px;
+    height: 14px;
+    border-bottom-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    background-color: #1f2937;
+    content: '';
+    transform: translateX(-50%);
+  }
+
+  .device-screen {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 1.8rem;
+    aspect-ratio: 375 / 667;
+    background-color: #fff;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+
+  .device-screen:focus-visible {
+    outline: 3px solid #2a9f9d;
+    outline-offset: 3px;
+  }
+
+  .device-screen::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    z-index: 20;
+    bottom: 24px;
+    left: 50%;
+    display: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background-color: rgb(31 41 55 / 0.82);
+    box-shadow: 0 4px 12px rgb(15 23 42 / 0.2);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    pointer-events: none;
+    white-space: nowrap;
+    animation: scroll-hint-float 1.6s ease-in-out infinite;
+  }
+
+  @keyframes scroll-hint-float {
+    0%,
+    100% {
+      transform: translate(-50%, 0);
+    }
+
+    50% {
+      transform: translate(-50%, -8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-hint {
+      animation: none;
+      transform: translateX(-50%);
+    }
+  }
+
+  .screen-content {
+    display: none;
+    width: 100%;
+  }
+
+  .screen-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .mockup-showcase:has(#pethealth-tab-my-page:checked) .scroll-hint,
+  .mockup-showcase:has(#pethealth-tab-health-log-list:checked) .scroll-hint,
+  .mockup-showcase:has(#pethealth-tab-health-log-create:checked) .scroll-hint,
+  .mockup-showcase:has(#pethealth-tab-schedule-list:checked) .scroll-hint,
+  .mockup-showcase:has(#pethealth-tab-pet-list:checked) .scroll-hint,
+  .mockup-showcase:has(#pethealth-tab-visit-detail:checked) .scroll-hint {
+    display: block;
+  }
+
+  .mockup-showcase:has(#pethealth-tab-my-page:checked) .content-pethealth-tab-my-page,
+  .mockup-showcase:has(#pethealth-tab-record-menu:checked) .content-pethealth-tab-record-menu,
+  .mockup-showcase:has(#pethealth-tab-health-log-list:checked) .content-pethealth-tab-health-log-list,
+  .mockup-showcase:has(#pethealth-tab-health-log-create:checked) .content-pethealth-tab-health-log-create,
+  .mockup-showcase:has(#pethealth-tab-schedule-list:checked) .content-pethealth-tab-schedule-list,
+  .mockup-showcase:has(#pethealth-tab-pet-list:checked) .content-pethealth-tab-pet-list,
+  .mockup-showcase:has(#pethealth-tab-visit-detail:checked) .content-pethealth-tab-visit-detail {
+    display: block;
+  }
+
+  @media (max-width: 520px) {
+    .mockup-showcase {
+      padding: 1rem 0;
+    }
+
+    .showcase-layout {
+      gap: 1.5rem;
+    }
+
+    .tab-list {
+      flex: none;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .tab-title {
+      margin-bottom: 0.75rem;
+    }
+
+    .tab-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .tab-button {
+      display: flex;
+      min-height: 3rem;
+      align-items: center;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
+    .tab-button:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
