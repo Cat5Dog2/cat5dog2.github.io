@@ -49,6 +49,35 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 - 外部API連携、監査ログ、リトライ、通知など運用面まで実装
 - CIでビルド、テスト、Migration dry-run、スモークテスト、コンテナスキャンを検証
 
+## システム構成
+
+<div class="project-flow project-flow--4" role="list" aria-label="SEO Intelligence Platformのシステム構成">
+  <div class="project-flow__node" role="listitem">
+    <strong>利用者</strong>
+    <span>ブラウザからBlazor UIを操作</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>.NETアプリケーション</strong>
+    <span>Blazor UI / API / Clean Architecture</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>Hangfire Worker</strong>
+    <span>非同期ジョブで外部APIと連携</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>データ基盤</strong>
+    <span>PostgreSQL / Redis</span>
+  </div>
+</div>
+
+- **Blazor UI / API**: キーワード探索、機会スコア、CSV出力の操作画面とエンドポイント
+- **Hangfire Worker**: 検索ボリューム調査などの収集ジョブを、永続化・リトライ付きのバックグラウンドジョブとして実行
+- **PostgreSQL**: キーワード、調査結果、監査ログを永続化
+- **Redis**: キャッシュ、レート制御、分散ロックを担当
+
 ## なぜこの技術構成か
 
 - **Clean Architecture (.NET)**: ドメインロジックをインフラから分離し、API変更やDB差し替えに強い構造を実現

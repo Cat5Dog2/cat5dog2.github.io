@@ -7,15 +7,41 @@ import { withBase } from '../utils/paths';
 interface Props {
   title?: string;
   description?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
-  title = 'Cat5Dog2 Portfolio',
+  title = 'Cat5Dog2 | .NET / TypeScript / Azure Webエンジニア ポートフォリオ',
   description = '.NET・TypeScript・Azureで設計からCI/CDまで一貫した開発を実践するWebエンジニアのポートフォリオです。',
+  ogType = 'website',
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
-const ogImageUrl = new URL(withBase('og-image.png'), Astro.site ?? Astro.url.origin);
+const siteOrigin = Astro.site ?? Astro.url.origin;
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin);
+const ogImageUrl = new URL(withBase('og-image.png'), siteOrigin);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': new URL(withBase(), siteOrigin).href + '#website',
+      url: new URL(withBase(), siteOrigin).href,
+      name: 'Cat5Dog2 Portfolio',
+      inLanguage: 'ja',
+      publisher: { '@id': new URL(withBase(), siteOrigin).href + '#person' },
+    },
+    {
+      '@type': 'Person',
+      '@id': new URL(withBase(), siteOrigin).href + '#person',
+      name: 'Cat5Dog2',
+      url: new URL(withBase(), siteOrigin).href,
+      jobTitle: 'Web Engineer',
+      knowsAbout: ['.NET', 'C#', 'ASP.NET Core', 'TypeScript', 'React', 'Azure', 'CI/CD', 'SEO'],
+      sameAs: ['https://github.com/Cat5Dog2', 'https://x.com/Cat5Dog2'],
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -24,7 +50,10 @@ const ogImageUrl = new URL(withBase('og-image.png'), Astro.site ?? Astro.url.ori
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Cat5Dog2 Portfolio" />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
@@ -34,10 +63,13 @@ const ogImageUrl = new URL(withBase('og-image.png'), Astro.site ?? Astro.url.ori
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" href={withBase('sitemap-index.xml')} />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
   </head>
   <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
     <Header />
     <slot />
     <Footer />

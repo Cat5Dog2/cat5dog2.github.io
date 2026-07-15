@@ -7,8 +7,8 @@ const tags = frontmatter.tags ?? [];
 const featuredRank = frontmatter.featuredRank;
 ---
 
-<BaseLayout title={`${frontmatter.title} | Cat5Dog2 Portfolio`} description={frontmatter.description}>
-  <main>
+<BaseLayout title={`${frontmatter.title} | Cat5Dog2 Portfolio`} description={frontmatter.description} ogType="article">
+  <main id="main">
     <header class="project-hero">
       <div class="l-container">
         <p class="eyebrow">{featuredRank ? `Featured Project 0${featuredRank}` : 'Project'}</p>
