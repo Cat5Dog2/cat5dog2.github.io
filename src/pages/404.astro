@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout title="ページが見つかりません | Cat5Dog2 Portfolio" description="お探しのページは見つかりませんでした。">
+  <main id="main" class="l-section">
+    <div class="l-container">
+      <p class="eyebrow">404 Not Found</p>
+      <h1>ページが見つかりません</h1>
+      <p class="lead">URLが変更されたか、ページが削除された可能性があります。以下のリンクからお探しください。</p>
+      <div class="hero__actions">
+        <a class="button button--primary" href={withBase()}>トップページへ戻る</a>
+        <a class="button button--ghost" href={withBase('projects/')}>プロジェクト一覧を見る</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

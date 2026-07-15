@@ -75,7 +75,13 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-padding-block-start: calc(var(--header-height) + 1rem);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -140,6 +146,24 @@
 }
 
 @layer components {
+  .skip-link {
+    position: fixed;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 0.75rem;
+    z-index: 40;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-inverse);
+    color: #ffffff;
+    font-weight: 600;
+    transform: translateY(calc(-100% - 1.5rem));
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    color: #ffffff;
+  }
+
   .site-header {
     position: sticky;
     inset-block-start: 0;
@@ -834,6 +858,10 @@
     .project-flow {
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: stretch;
+    }
+
+    .project-flow--4 {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
     }
 
     .project-flow__arrow {

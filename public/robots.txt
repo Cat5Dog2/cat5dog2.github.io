@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cat5dog2.github.io/sitemap-index.xml
