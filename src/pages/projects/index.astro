@@ -8,7 +8,14 @@ const featuredProjects = projects.filter((project) => project.featuredRank);
 const otherProjects = projects.filter((project) => !project.featuredRank);
 ---
 
-<BaseLayout title="Projects | Cat5Dog2 Portfolio" description="Cat5Dog2の個人開発・実績ページ一覧です。">
+<BaseLayout
+  title="Projects | Cat5Dog2 Portfolio"
+  description="Cat5Dog2の個人開発・実績ページ一覧です。"
+  breadcrumbs={[
+    { name: 'Home', path: '' },
+    { name: 'Projects', path: 'projects/' },
+  ]}
+>
   <main id="main" class="l-section">
     <div class="l-container">
       <div class="project-collection">
@@ -19,7 +26,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
           lead="要件・受け入れ条件の文書化から運用まで、一貫して取り組んだ2作品です。"
         />
         <div class="l-grid l-grid--2">
-          {featuredProjects.map((project) => <ProjectCard project={project} />)}
+          {featuredProjects.map((project) => <ProjectCard project={project} as="h2" />)}
         </div>
       </div>
 

@@ -105,7 +105,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid rgb(37 99 235 / 0.35);
+    outline: 3px solid var(--color-accent);
     outline-offset: 4px;
   }
 }
@@ -592,6 +592,14 @@
     background: linear-gradient(135deg, #ffffff, #eff6ff);
   }
 
+  .note-card__highlight {
+    color: var(--color-accent);
+  }
+
+  .note-card__cta {
+    margin-top: 0.75rem;
+  }
+
   .contact-card {
     display: grid;
     gap: 1.5rem;
@@ -985,7 +993,7 @@
     gap: 0.75rem;
   }
 
-  .case-study__metrics div {
+  .case-study__metrics li {
     display: grid;
     align-content: start;
     gap: 0.35rem;

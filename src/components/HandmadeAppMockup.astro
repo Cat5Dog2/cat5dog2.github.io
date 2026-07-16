@@ -44,7 +44,7 @@ const tabs = [
     {/* スマホモックアップと画像表示エリア */}
     <div class="mockup-container">
       <div class="device-frame">
-        <div class="device-screen">
+        <div class="device-screen" tabindex="0" role="region" aria-label="選択した画面のプレビュー">
           {tabs.map((tab) => (
             <div class={`screen-content content-${tab.id}`}>
               <Image src={tab.img} alt={tab.alt} />
@@ -205,6 +205,11 @@ const tabs = [
     scroll-behavior: smooth;
   }
 
+  .device-screen:focus-visible {
+    outline: 3px solid #7c3aed;
+    outline-offset: 3px;
+  }
+
   .device-screen::-webkit-scrollbar {
     width: 0;
     height: 0;
@@ -264,8 +269,9 @@ const tabs = [
     outline-offset: 3px;
   }
 
+  /* 白文字とのコントラスト比4.5:1以上を満たす色を使う */
   .tab-button:has(.hidden-radio:checked) {
-    background-color: #8b5cf6;
+    background-color: #7c3aed;
     color: white;
   }
 

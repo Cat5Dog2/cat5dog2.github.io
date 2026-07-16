@@ -56,7 +56,7 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
     <section class="l-section--compact">
       <div class="l-container l-grid l-grid--3">
         <MetricCard value="2本" label="クラウドで公開中のWebアプリ" note="Azure App Service / Firebase + Cloud Run。デモ利用可" />
-        <MetricCard value="4/4" label="全リポジトリでCI/CDを運用" note="GitHub Actions / Playwright E2E / デプロイ後スモークテスト" />
+        <MetricCard value="4/4" label="全リポジトリでCI/CDを運用" note="GitHub Actionsで自動検証。うち3リポジトリはPlaywright E2E・スモークテストまで運用" />
         <MetricCard value="docs/" label="要件・設計・テスト仕様を文書化" note="要件定義・基本設計・受け入れ条件を各リポジトリで公開" />
       </div>
     </section>
@@ -131,9 +131,9 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
           <p class="eyebrow">This Site is Code</p>
           <h3>このポートフォリオ自体がコード品質のサンプルです</h3>
           <p class="u-muted">
-            CSS Cascade Layersによる詳細度に依存しない設計、Custom Propertiesによるデザイントークン、セマンティックHTML。Astroの静的生成で、ブラウザへ配信するJavaScriptは<strong style="color: var(--color-accent);">0KB</strong>。これが高速表示の理由です。
+            CSS Cascade Layersによる詳細度に依存しない設計、Custom Propertiesによるデザイントークン、セマンティックHTML。Astroの静的生成で、JavaScriptバンドルは<strong class="note-card__highlight">0KB</strong>。これが高速表示の理由です。
           </p>
-          <a class="button button--ghost" href="https://github.com/Cat5Dog2/cat5dog2.github.io" target="_blank" rel="noreferrer" style="margin-top: 0.75rem;">ソースコードを見る</a>
+          <a class="button button--ghost note-card__cta" href="https://github.com/Cat5Dog2/cat5dog2.github.io" target="_blank" rel="noreferrer">ソースコードを見る</a>
         </div>
       </div>
     </section>

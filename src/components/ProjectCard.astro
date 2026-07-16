@@ -4,9 +4,12 @@ import { withBase } from '../utils/paths';
 
 interface Props {
   project: Project;
+  /** 配置先セクションの見出し階層に合わせて指定する */
+  as?: 'h2' | 'h3';
 }
 
-const { project } = Astro.props;
+const { project, as = 'h3' } = Astro.props as Props;
+const Heading = as;
 ---
 
 <a
@@ -20,12 +23,12 @@ const { project } = Astro.props;
     <span class="project-card__status">{project.status}</span>
   </div>
   <div class="l-stack">
-    <h3 class="project-card__title">{project.title}</h3>
+    <Heading class="project-card__title">{project.title}</Heading>
     <p class="project-card__summary">{project.summary}</p>
     <p class="project-card__role"><strong>担当:</strong> {project.role}</p>
     <p class="project-card__stage"><strong>現在:</strong> {project.stage}</p>
   </div>
-  <div class="tag-list project-card__tags" aria-label={`${project.title} の特徴`}>
-    {project.metrics.map((metric) => <span class="tag">{metric}</span>)}
-  </div>
+  <ul class="tag-list project-card__tags" role="list" aria-label={`${project.title} の特徴`}>
+    {project.metrics.map((metric) => <li class="tag">{metric}</li>)}
+  </ul>
 </a>

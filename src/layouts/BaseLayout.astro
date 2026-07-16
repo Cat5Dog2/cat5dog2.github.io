@@ -8,39 +8,56 @@ interface Props {
   title?: string;
   description?: string;
   ogType?: 'website' | 'article';
+  breadcrumbs?: { name: string; path: string }[];
 }
 
 const {
   title = 'Cat5Dog2 | .NET / TypeScript / Azure Webエンジニア ポートフォリオ',
   description = '.NET・TypeScript・Azureで設計からCI/CDまで一貫した開発を実践するWebエンジニアのポートフォリオです。',
   ogType = 'website',
+  breadcrumbs = [],
 } = Astro.props;
 
 const siteOrigin = Astro.site ?? Astro.url.origin;
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin);
 const ogImageUrl = new URL(withBase('og-image.png'), siteOrigin);
+const ogImageAlt = 'Cat5Dog2 Portfolio — .NET / TypeScript / Azure';
+
+const graph: object[] = [
+  {
+    '@type': 'WebSite',
+    '@id': new URL(withBase(), siteOrigin).href + '#website',
+    url: new URL(withBase(), siteOrigin).href,
+    name: 'Cat5Dog2 Portfolio',
+    inLanguage: 'ja',
+    publisher: { '@id': new URL(withBase(), siteOrigin).href + '#person' },
+  },
+  {
+    '@type': 'Person',
+    '@id': new URL(withBase(), siteOrigin).href + '#person',
+    name: 'Cat5Dog2',
+    url: new URL(withBase(), siteOrigin).href,
+    jobTitle: 'Web Engineer',
+    knowsAbout: ['.NET', 'C#', 'ASP.NET Core', 'TypeScript', 'React', 'Azure', 'CI/CD', 'SEO'],
+    sameAs: ['https://github.com/Cat5Dog2', 'https://x.com/Cat5Dog2'],
+  },
+];
+
+if (breadcrumbs.length > 0) {
+  graph.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: new URL(withBase(crumb.path), siteOrigin).href,
+    })),
+  });
+}
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      '@id': new URL(withBase(), siteOrigin).href + '#website',
-      url: new URL(withBase(), siteOrigin).href,
-      name: 'Cat5Dog2 Portfolio',
-      inLanguage: 'ja',
-      publisher: { '@id': new URL(withBase(), siteOrigin).href + '#person' },
-    },
-    {
-      '@type': 'Person',
-      '@id': new URL(withBase(), siteOrigin).href + '#person',
-      name: 'Cat5Dog2',
-      url: new URL(withBase(), siteOrigin).href,
-      jobTitle: 'Web Engineer',
-      knowsAbout: ['.NET', 'C#', 'ASP.NET Core', 'TypeScript', 'React', 'Azure', 'CI/CD', 'SEO'],
-      sameAs: ['https://github.com/Cat5Dog2', 'https://x.com/Cat5Dog2'],
-    },
-  ],
+  '@graph': graph,
 };
 ---
 
@@ -58,10 +75,15 @@ const structuredData = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="536" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Cat5Dog2" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" href={withBase('sitemap-index.xml')} />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
