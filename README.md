@@ -9,7 +9,8 @@
 - **Astro** — 静的サイト生成。JavaScriptバンドルは0KB（モバイルメニュー補助の軽量インラインJSのみ）
 - **MDX** — プロジェクト詳細ページのコンテンツ管理
 - **自前CSS** — フレームワーク不使用。Cascade Layers + Custom Properties + FLOCSS風命名
-- **GitHub Actions** — `astro check` + ビルドを検証し、GitHub Pagesへ自動デプロイ
+- **GitHub Actions** — PRで `astro check` + Playwright E2Eを検証し、mainへのマージでGitHub Pagesへ自動デプロイ
+- **Playwright** — モバイルメニューの開閉・フォーカス管理・履歴、主要ページの表示をE2Eで検証
 
 ## 設計方針
 
@@ -54,10 +55,12 @@ src/
 
 ```bash
 npm install
+npx playwright install chromium  # E2E用ブラウザ（初回のみ）
 npm run dev      # 開発サーバー（localhost:4321）
 npm run check    # 型・構文チェック
 npm run build    # 本番ビルド
 npm run preview  # ビルド結果の確認
+npm run test:e2e # Playwright E2Eテスト（事前ビルド後、preview を4322番ポートで自動起動）
 ```
 
 ## デプロイ
