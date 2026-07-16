@@ -29,3 +29,43 @@ const navigation = [
     </details>
   </div>
 </header>
+
+{/* details/summaryは開閉セマンティクスの通知とJS無効時の動作をネイティブに持つ。
+    足りない挙動（選択後に閉じる・Escape・メニュー外操作で閉じる）だけをJSで補う。
+    同一ページ内アンカーやtarget="_blank"はページ遷移が起きず開いたままになるため */}
+<script is:inline>
+  (() => {
+    const menu = document.querySelector('.mobile-menu');
+    const summary = menu && menu.querySelector('summary');
+    if (!menu || !summary) return;
+
+    const close = () => menu.removeAttribute('open');
+
+    // リンク選択で閉じる（同一ページ内アンカー・別タブで開くリンクを含む）
+    menu.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) close();
+    });
+
+    // Escapeで閉じ、フォーカスをトグルへ戻す
+    menu.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu.open) {
+        close();
+        summary.focus();
+      }
+    });
+
+    // Tab移動でメニューの外へ出たら閉じる（隠れた要素へフォーカスが残らない）
+    menu.addEventListener('focusout', (event) => {
+      if (menu.open && event.relatedTarget instanceof Node && !menu.contains(event.relatedTarget)) {
+        close();
+      }
+    });
+
+    // メニュー外のクリック・タップで閉じる
+    document.addEventListener('click', (event) => {
+      if (menu.open && event.target instanceof Node && !menu.contains(event.target)) {
+        close();
+      }
+    });
+  })();
+</script>

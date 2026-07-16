@@ -5,9 +5,20 @@ const { frontmatter } = Astro.props;
 const tags = frontmatter.tags ?? [];
 
 const featuredRank = frontmatter.featuredRank;
+
+const breadcrumbs = [
+  { name: 'Home', path: '' },
+  { name: 'Projects', path: 'projects/' },
+  { name: frontmatter.title, path: Astro.url.pathname },
+];
 ---
 
-<BaseLayout title={`${frontmatter.title} | Cat5Dog2 Portfolio`} description={frontmatter.description} ogType="article">
+<BaseLayout
+  title={`${frontmatter.title} | Cat5Dog2 Portfolio`}
+  description={frontmatter.description}
+  ogType="article"
+  breadcrumbs={breadcrumbs}
+>
   <main id="main">
     <header class="project-hero">
       <div class="l-container">
@@ -16,9 +27,9 @@ const featuredRank = frontmatter.featuredRank;
         <p class="project-hero__summary">{frontmatter.description}</p>
         {frontmatter.stage && <p class="project-hero__stage">現在の状態: {frontmatter.stage}</p>}
         <div class="project-hero__meta">
-          <div class="tag-list" aria-label="使用技術">
-            {tags.map((tag: string) => <span class="tag">{tag}</span>)}
-          </div>
+          <ul class="tag-list" role="list" aria-label="使用技術">
+            {tags.map((tag: string) => <li class="tag">{tag}</li>)}
+          </ul>
         </div>
 
       </div>

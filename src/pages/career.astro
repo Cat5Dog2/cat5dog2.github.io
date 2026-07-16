@@ -4,7 +4,14 @@ import SectionHeading from '../components/SectionHeading.astro';
 import { withBase } from '../utils/paths';
 ---
 
-<BaseLayout title="Career | Cat5Dog2 Portfolio" description="SEO、CMS、EC、Web制作、業務システム開発から現在のIT実務までの職務要約です。">
+<BaseLayout
+  title="Career | Cat5Dog2 Portfolio"
+  description="SEO、CMS、EC、Web制作、業務システム開発から現在のIT実務までの職務要約です。"
+  breadcrumbs={[
+    { name: 'Home', path: '' },
+    { name: 'Career', path: 'career/' },
+  ]}
+>
   <main id="main" class="l-section">
     <div class="l-container">
       <SectionHeading
@@ -18,39 +25,39 @@ import { withBase } from '../utils/paths';
         <h2 id="professional-career" class="u-visually-hidden">職務経歴</h2>
         <section class="career-card">
           <p class="career-card__period">2026.02 - 現在</p>
-          <h2 class="career-card__title">グローバルIT企業</h2>
+          <h3 class="career-card__title">グローバルIT企業</h3>
           <p class="career-card__role">長期インターン／ITスペシャリスト</p>
           <p class="career-card__text">約1.5か月のグループプロジェクトを2件経験。明確なPM役は置かれていませんでしたが、参加者の中で実務経験があったことから、チームの合意形成、進行状況の整理、成果物の品質レビューなど、リードやマネジメントが必要な場面で役割を担いました。技術選定に関する調査や、提案資料の作成も行いました。</p>
         </section>
         <section class="career-card">
           <p class="career-card__period">約3年（ITスキル提供による長期参画含む）</p>
-          <h2 class="career-card__title">スクール運営企業</h2>
+          <h3 class="career-card__title">スクール運営企業</h3>
           <p class="career-card__role">Web部門リーダー</p>
           <p class="career-card__text">WordPressサイトの構築・刷新からSEO、LP制作、メディア運営、スタッフ育成まで担当。月間セッション数を約1,200から120,000へと100倍に伸ばしました。</p>
           <a class="career-card__link" href="#case-school-operations">成果の背景を見る</a>
         </section>
         <section class="career-card">
           <p class="career-card__period">約3年</p>
-          <h2 class="career-card__title">システム受託開発企業</h2>
+          <h3 class="career-card__title">システム受託開発企業</h3>
           <p class="career-card__role">Webエンジニア / ディレクター / マーケター</p>
           <p class="career-card__text">Rails業務システムや医療系メディアの開発を担当。自社サイトではSEO・LP・表示速度を改善して、月間PVを4倍に、年間の問い合わせを1～2件から12件へ増やしました。</p>
           <a class="career-card__link" href="#case-system-development">自社サイト改善の詳細を見る</a>
         </section>
         <section class="career-card">
           <p class="career-card__period">約1年半</p>
-          <h2 class="career-card__title">ECサイト運営企業</h2>
+          <h3 class="career-card__title">ECサイト運営企業</h3>
           <p class="career-card__role">フロントエンドエンジニア</p>
           <p class="career-card__text">ECサイトのリニューアルやページ制作、不具合修正、SEO施策、商品管理などを担当。</p>
         </section>
         <section class="career-card">
           <p class="career-card__period">約1年半</p>
-          <h2 class="career-card__title">Web制作会社</h2>
+          <h3 class="career-card__title">Web制作会社</h3>
           <p class="career-card__role">コーダー / エンジニア</p>
           <p class="career-card__text">企業サイトや医療機関サイトの制作を担当。HTML/CSS、JavaScript、PHP、WordPressでの実装を経験。</p>
         </section>
         <section class="career-card">
           <p class="career-card__period">約1年半</p>
-          <h2 class="career-card__title">個人事業 / サイト運営</h2>
+          <h3 class="career-card__title">個人事業 / サイト運営</h3>
           <p class="career-card__role">メディア運営者</p>
           <p class="career-card__text">キーワード選定・記事企画・ライター管理・アクセス解析を行い、検索上位表示と広告収益化を達成。</p>
         </section>
@@ -86,20 +93,20 @@ import { withBase } from '../utils/paths';
                 <h2>限られた予算で、集客と再投資の循環を構築</h2>
                 <p class="case-study__period">スクール運営企業 / 約3年（ITスキル提供による長期参画含む）</p>
               </div>
-              <div class="case-study__metrics" aria-label="主な成果">
-                <div>
+              <ul class="case-study__metrics" role="list" aria-label="主な成果">
+                <li>
                   <strong>100倍</strong>
                   <span>月間セッション数<br />約1,200 → 120,000</span>
-                </div>
-                <div>
+                </li>
+                <li>
                   <strong>3～5倍</strong>
                   <span>Webからの<br />月間申込数</span>
-                </div>
-                <div>
+                </li>
+                <li>
                   <strong>500%</strong>
                   <span>リスティング広告<br />平均ROAS（最大1,000%）</span>
-                </div>
-              </div>
+                </li>
+              </ul>
             </header>
 
             <div class="case-study__body">
@@ -161,22 +168,22 @@ import { withBase } from '../utils/paths';
               <div>
                 <p class="eyebrow">System Development</p>
                 <h2>SEO・表示速度・LPを一体で改善し、問い合わせを6倍以上に</h2>
-                <p class="case-study__period">システム受託開発企業 / 約2年</p>
+                <p class="case-study__period">システム受託開発企業 / 在籍約3年のうち約2年の取り組み</p>
               </div>
-              <div class="case-study__metrics" aria-label="主な成果">
-                <div>
+              <ul class="case-study__metrics" role="list" aria-label="主な成果">
+                <li>
                   <strong>4倍</strong>
                   <span>月間PV<br />約4,000 → 16,000</span>
-                </div>
-                <div>
+                </li>
+                <li>
                   <strong>20点台 → 70点台</strong>
                   <span>Lighthouse<br />Performance</span>
-                </div>
-                <div>
+                </li>
+                <li>
                   <strong>6倍以上</strong>
                   <span>年間問い合わせ<br />1～2件 → 12件</span>
-                </div>
-              </div>
+                </li>
+              </ul>
             </header>
 
             <div class="case-study__body">
@@ -213,7 +220,7 @@ import { withBase } from '../utils/paths';
 
               <section class="case-study__section">
                 <h3>期間</h3>
-                <p>約2年間。システム受託開発企業に在籍中、自社サイトの改善と自社Webメディアの運営に取り組みました。</p>
+                <p>在籍約3年のうち約2年間、自社サイトの改善と自社Webメディアの運営に取り組みました。</p>
               </section>
 
               <section class="case-study__section">

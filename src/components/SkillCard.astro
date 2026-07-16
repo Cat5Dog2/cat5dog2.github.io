@@ -13,7 +13,7 @@ const { title, skills, category, note } = Astro.props;
   {category && <p class="skill-card__category">{category}</p>}
   <h3 class="skill-card__title">{title}</h3>
   {note && <p class="skill-card__note">{note}</p>}
-  <div class="tag-list">
-    {skills.map((skill) => <span class="tag">{skill}</span>)}
-  </div>
+  <ul class="tag-list" role="list">
+    {skills.map((skill) => <li class="tag">{skill}</li>)}
+  </ul>
 </section>

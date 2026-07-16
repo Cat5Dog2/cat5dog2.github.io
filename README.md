@@ -6,7 +6,7 @@
 
 ## 技術スタック
 
-- **Astro** — 静的サイト生成。ブラウザへ配信するJavaScriptは0KB
+- **Astro** — 静的サイト生成。JavaScriptバンドルは0KB（モバイルメニュー補助の軽量インラインJSのみ）
 - **MDX** — プロジェクト詳細ページのコンテンツ管理
 - **自前CSS** — フレームワーク不使用。Cascade Layers + Custom Properties + FLOCSS風命名
 - **GitHub Actions** — `astro check` + ビルドを検証し、GitHub Pagesへ自動デプロイ
@@ -24,18 +24,18 @@
 - セマンティックHTMLと適切なランドマーク・見出し階層
 - スキップリンク、`:focus-visible` によるフォーカスインジケーター
 - `prefers-reduced-motion` を尊重したスクロール挙動
-- JavaScriptに依存しないモバイルメニュー（`details`/`summary`）
+- `details`/`summary` ベースのモバイルメニュー（JS無効でも開閉可能。リンク選択・Escape・メニュー外操作で閉じる挙動をインラインJSで補助）
 
 ### SEO / メタデータ
 
 - サイトマップ自動生成（`@astrojs/sitemap`）+ `robots.txt`
-- JSON-LD構造化データ（`WebSite` / `Person`）
+- JSON-LD構造化データ（`WebSite` / `Person` / 下層ページの`BreadcrumbList`）
 - OGP・Twitter Card・canonical URLを全ページで出力
 
 ### パフォーマンス
 
 - 画像は `astro:assets` でWebPへ自動変換・遅延読み込み
-- クライアントサイドJavaScriptなしの完全静的配信
+- JavaScriptバンドルなしの完全静的配信
 
 ## ディレクトリ構成
 
