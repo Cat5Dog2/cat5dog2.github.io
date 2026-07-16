@@ -7,6 +7,10 @@ dist/
 .astro/
 coverage/
 
+# Playwright
+test-results/
+playwright-report/
+
 # Environment variables
 .env
 .env.*
