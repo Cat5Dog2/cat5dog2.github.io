@@ -1,38 +1,29 @@
 ---
 layout: ../../layouts/ProjectLayout.astro
 title: "SEO Intelligence Platform"
-description: "キーワード探索・検索ボリューム調査・機会スコア・CSV出力を扱うSEO分析基盤。.NETのClean ArchitectureでMVPを実装しています。"
-tags: [".NET", "Blazor", "Hangfire", "PostgreSQL", "Redis", "OpenTelemetry", "Clean Architecture"]
-repo: "https://github.com/Cat5Dog2/seo-intelligence-platform"
-stage: "MVP実装済み"
+description: "キーワード調査、競合・コンテンツ分析、順位監視、レポートをまとめるSEO分析基盤。Web・API・Workerの3プロセスを.NET 10で実装し、VPS上で公開しています。"
+tags: [".NET 10", "ASP.NET Core", "Blazor Web App", "Hangfire", "PostgreSQL", "Redis", "Docker", "Clean Architecture"]
 ---
 
 import ProjectEvidence from '../../components/ProjectEvidence.astro';
-
-## 概要
-
-ラッコキーワードAPIを中核に、SEO・コンテンツ・競合分析・順位監視をまとめるプラットフォームです。.NET 10 / Clean Architectureで、キーワード探索から検索ボリューム調査、機会スコア、CSV出力までのMVPを実装しています。
 
 <ProjectEvidence
   headingId="seo-platform-project-evidence-title"
   highlights={[
     'SEO実務で必要性を感じた分析ワークフローを題材に、要件と受け入れ条件を定義してから実装',
-    '要件、API、DB、画面、非同期ジョブ、外部API、運用をdocs/として公開',
-    'キーワード探索、検索ボリューム調査、機会スコア、CSV出力をMVPとして実装',
-    'API、Blazor UI、Hangfire Worker、PostgreSQL、Redisを統合',
+    '要件、API、DB、画面、非同期ジョブ、外部API、運用をdocs/として公開し、主要な技術判断をADRに記録',
+    'Phase 1（MVP）からPhase 3までのIssueと受入テストを完了',
+    'Web・API・WorkerとPostgreSQL・RedisをDocker Composeで構成し、VPS上で公開',
+    '登録不要のゲストデモを用意し、外部APIを使わないサンプルデータで主要な操作を体験可能',
   ]}
   evidence={[
     {
-      label: 'GitHubリポジトリ',
-      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform',
-    },
-    {
-      label: '設計ドキュメント',
-      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/tree/main/docs',
-    },
-    {
       label: 'CIワークフロー',
       url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/.github/workflows/ci.yaml',
+    },
+    {
+      label: 'ADR（技術判断の記録）',
+      url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/tree/main/docs/adr',
     },
     {
       label: '設計・実装バックログ',
@@ -41,13 +32,13 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
   ]}
 />
 
-## ポイント
+## 題材と実装範囲
 
-- SEOドメイン知識をシステム設計へ落とし込んでいる
-- Clean Architectureを意識したDomain / Application / Infrastructure分離
-- Hangfire、PostgreSQL、Redisによる非同期ジョブ・キャッシュ・分散ロックを実装
-- 外部API連携、監査ログ、リトライ、通知など運用面まで実装
-- CIでビルド、テスト、Migration dry-run、Playwright E2Eを含むスモークテスト、コンテナスキャンを検証
+SEO実務で必要性を感じた、キーワードの探索から優先度付け、競合・順位の把握、レポート作成までの分析作業を題材にしています。ラッコキーワードAPIを中核に、次の範囲を実装しました。
+
+- **Phase 1（MVP）**: キーワード探索、最大50,000語の検索ボリューム調査、機会スコア、ダッシュボード、CSV出力、クレジット監視、ジョブ失敗時の通知
+- **Phase 2（SEO実務の拡張）**: トピッククラスター、競合・獲得キーワード分析、コンテンツ分析、記事ブリーフと版履歴、順位監視とアラート
+- **Phase 3（自動化・外部連携）**: リライト優先度、カニバリゼーション検出、PDF/Excelレポートと共有URL、CSV/Excelの入出力、AIアシスタント、外部サービス連携の設定と接続テスト
 
 ## システム構成
 
@@ -58,8 +49,8 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
   </div>
   <span class="project-flow__arrow" aria-hidden="true">→</span>
   <div class="project-flow__node" role="listitem">
-    <strong>.NETアプリケーション</strong>
-    <span>Blazor UI / API / Clean Architecture</span>
+    <strong>Web / API</strong>
+    <span>Blazor Web App / ASP.NET Core Minimal API</span>
   </div>
   <span class="project-flow__arrow" aria-hidden="true">→</span>
   <div class="project-flow__node" role="listitem">
@@ -73,18 +64,64 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
   </div>
 </div>
 
-- **Blazor UI / API**: キーワード探索、機会スコア、CSV出力の操作画面とエンドポイント
-- **Hangfire Worker**: 検索ボリューム調査などの収集ジョブを、永続化・リトライ付きのバックグラウンドジョブとして実行
-- **PostgreSQL**: キーワード、調査結果、監査ログを永続化
-- **Redis**: キャッシュ、レート制御、分散ロックを担当
+- **Blazor Web App**: 画面と管理者ログイン（Identity + Cookie）を担当し、APIへはサービスキーで接続
+- **ASP.NET Core API**: Minimal APIで業務処理を提供し、Web以外からの呼び出しを拒否
+- **Hangfire Worker**: 検索ボリューム調査などの登録・ポーリング・結果取得を、永続化と再試行のあるジョブとして実行
+- **PostgreSQL / Redis**: 業務データとジョブ状態の正本はPostgreSQL。Redisはキャッシュ・分散ロック・レート制御に使う
 
-## なぜこの技術構成か
+## 設計判断とトレードオフ
 
-- **Clean Architecture (.NET)**: ドメインロジックをインフラから分離し、API変更やDB差し替えに強い構造を実現
-- **Hangfire**: SEOデータ収集を永続化されたバックグラウンドジョブとして実行・再試行できる
-- **PostgreSQL + Redis**: 永続データとキャッシュ・レート制御を役割分担し、外部API制約に対応
-- **OpenTelemetry**: `ActivitySource`と`Meter`でトレース・メトリクスの計装ポイントを実装し、Exporter接続で本番オブザーバビリティへ拡張できる構成
+主要な技術判断は、背景・決定・利点・注意点をADR（Architecture Decision Record）に記録しています。
 
-## 技術判断
+### Web・API・Workerを.NET 10で揃える（ADR 0001）
 
-SEOの実務で培った知識を、業務用語・状態設計・API制約・非同期処理・監査要件としてシステム設計に落とし込み、MVPとして実装しました。実装範囲と進捗はコード、`todo.md`、Issue単位のバックログで管理しています。
+- **優先したこと**: Web・API・Worker・UIを同じ言語とランタイムで実装し、DI・Options・ロギング・EF Core・OpenAPIとの統合を活かすこと
+- **引き受けた制約**: .NET 10に対応したライブラリのバージョン固定と、更新の確認が必要。CI・コンテナのベースイメージ・SDKも.NET 10へ統一する
+
+### 画面はBlazor Web Appで実装する（ADR 0002）
+
+- **優先したこと**: 開発者本人が使う業務ツールとして、.NETのDTOやバリデーションを共有し、少ない技術差分で画面を作ること
+- **引き受けた制約**: Interactive ServerはSignalRの接続状態と負荷を考慮する必要がある。大量のテーブルやグラフには、仮想化やページングの設計が要る
+
+### PostgreSQLとJSONBを併用する（ADR 0003）
+
+- **優先したこと**: リレーショナルな整合性と、可変な分析条件や外部APIのレスポンスを保持する柔軟性の両立
+- **引き受けた制約**: JSONBに寄せすぎると検索性と型安全性が落ちるため、業務キーと検索条件は列として持つ
+
+### 非同期処理はHangfire、業務上のジョブ状態は独自テーブルで管理する（ADR 0004）
+
+- **優先したこと**: 再試行・スケジュール・管理画面を早く使えることと、ジョブの保存先をPostgreSQLに寄せて初期構成を単純にすること
+- **引き受けた制約**: Hangfireの内部状態と業務上のジョブ状態を混同しない設計が必要。業務状態の正本は`jobs`テーブルに置く
+
+### Redisは補助的な用途に限定する（ADR 0005）
+
+- **優先したこと**: 外部APIの重複呼び出しの防止、同時実行数の制御、短時間のキャッシュを高速に扱うこと。Redisが止まっても、DB上の永続データは失われない
+- **引き受けた制約**: Redis上の値を監査の正本にはしない。ロックのTTLや障害時の解放はテストで確認する
+
+### 認証はWebのIdentityとAPIのサービスキーの2層にする（ADR 0008）
+
+- **優先したこと**: 同じVPSで動くWeb Writing Toolと認証方式を揃え、運用手順を1つにすること。APIがWeb以外からの呼び出しを拒否するため、リバースプロキシの設定を誤っても無防備にならない
+- **引き受けた制約**: APIは呼び出し元のロールを判別できないため、認可の境界はWeb側で完結させる必要がある
+
+## ゲストデモの設計
+
+公開環境で誰でも試せるように、ゲストデモはWebアプリのメモリ内だけで完結させています。
+
+- ゲストではIdentityユーザーや業務データを作らず、内部API・Worker・外部APIへは接続しない。ラッコキーワードAPIのクレジットも消費しない
+- ログインのPOSTにはCSRF検証とレート制限を適用し、ゲストには管理者ロールを付与しない。管理画面とパスワード変更はサーバー側で拒否する
+- セッションは1時間で失効し、延長しない。ログアウトするとデモセッションも失効する
+
+## 品質保証とデプロイ
+
+- GitHub Actionsで、Releaseビルド、テスト、実際のRedisを使う分散ロックの結合テスト、EF CoreのMigration SQLの生成を実行
+- Web・API・Worker・Migrationのコンテナイメージをビルドし、隔離したCompose環境でMigration・HTTP応答・非rootでの実行などを検証
+- 依存サービスの起動からCSV出力ジョブの完了までを確認するスモークテストを実行。PlaywrightによるブラウザE2Eはローカルで実行し、CIではリポジトリ変数で有効にした場合に追加で実行
+- Trivyでコンテナイメージをスキャンし、受容済みでない修正可能なHIGH/CRITICALの脆弱性があればCIを失敗させる
+- mainのCI成功後、リリース候補をインフラ用リポジトリへ通知し、本番の更新をPRで確認してからVPSへデプロイ
+
+## 制約と今後の課題
+
+- AIアシスタントは、根拠データから下書きを作る決定論的な実装。外部のAIプロバイダーとの通信は未実装
+- GSC・GA4・CMS・BIとの連携は、設定・接続テスト履歴までのスタブで、実データは取得しない
+- OpenTelemetryは計装ポイント（`ActivitySource`・`Meter`）まで。SDKとExporterは未登録で、外部の監視基盤とは接続していない
+- 複数ユーザー、ロールベースの権限管理、SSO、承認フローは、Phase 4の将来構想

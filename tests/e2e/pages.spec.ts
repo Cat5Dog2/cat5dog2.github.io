@@ -5,9 +5,11 @@ test.describe('ページ表示', () => {
   const pages = [
     { path: '/', heading: '仕様書から、' },
     { path: '/career/', heading: 'Web集客から制作・システム開発・IT実務へ' },
-    { path: '/projects/', heading: '注力プロジェクト' },
+    { path: '/projects/', heading: '制作実績' },
     { path: '/projects/pet-health-management/', heading: 'PetHealthManagement' },
     { path: '/projects/web-writing-tool/', heading: 'Web Writing Tool' },
+    { path: '/projects/handmade-item-management/', heading: 'Handmade Item Management' },
+    { path: '/projects/seo-intelligence-platform/', heading: 'SEO Intelligence Platform' },
   ];
 
   for (const { path, heading } of pages) {

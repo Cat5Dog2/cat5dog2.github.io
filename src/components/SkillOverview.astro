@@ -1,0 +1,55 @@
+---
+import { findProject } from '../data/projects';
+import { personalSkills, workSkillGroups } from '../data/skills';
+import { withBase } from '../utils/paths';
+---
+
+<div class="skill-overview">
+  <section class="skill-panel" aria-labelledby="skills-work-title">
+    <div class="skill-panel__header">
+      <h3 id="skills-work-title" class="skill-panel__title">実務で使用</h3>
+      <a class="skill-panel__link" href={withBase('career/')}>職務経歴を見る<span aria-hidden="true"> →</span></a>
+    </div>
+    <dl class="skill-groups">
+      {
+        workSkillGroups.map((group) => (
+          <div>
+            <dt>{group.area}</dt>
+            <dd>
+              <ul class="tag-list" role="list">
+                {group.skills.map((skill) => (
+                  <li class="tag">{skill}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="skill-panel__evidence">
+      <strong>成果の例：</strong>自社サイトの表示が遅い原因を調べ、HTML構造とフロントエンドを改善してLighthouse Performanceを20点台から70点台へ（システム受託開発企業）。
+      <a href={withBase('career/#case-system-development')}>ケーススタディを見る</a>
+    </p>
+  </section>
+
+  <section class="skill-panel" aria-labelledby="skills-personal-title">
+    <div class="skill-panel__header">
+      <h3 id="skills-personal-title" class="skill-panel__title">個人開発で使用</h3>
+    </div>
+    <ul class="skill-list" role="list">
+      {
+        personalSkills.map((skill) => (
+          <li>
+            <span class="skill-list__name">{skill.name}</span>
+            <span class="skill-list__projects">
+              {skill.projects.map((id) => {
+                const project = findProject(id);
+                return <a href={withBase(project.slug)}>{project.shortTitle}</a>;
+              })}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</div>

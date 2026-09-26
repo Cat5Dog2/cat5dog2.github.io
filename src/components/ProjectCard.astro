@@ -1,5 +1,7 @@
 ---
 import type { Project } from '../data/projects';
+import { demoAccessLabels } from '../data/projects';
+import ProjectThumbnail from './ProjectThumbnail.astro';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -12,23 +14,30 @@ const { project, as = 'h3' } = Astro.props as Props;
 const Heading = as;
 ---
 
-<a
-  class:list={['project-card', { 'project-card--featured': project.featuredRank }]}
-  href={withBase(project.slug)}
->
+{/* 画面 → 用途 → 技術・担当 → 詳細への導線の順に読ませる */}
+<a class="project-card" href={withBase(project.slug)}>
+  <ProjectThumbnail preview={project.preview} />
   <div class="project-card__meta">
-    <p class="eyebrow">
-      {project.featuredRank ? `Featured Project 0${project.featuredRank}` : 'Project'}
-    </p>
-    <span class="project-card__status">{project.status}</span>
+    <p class="project-card__category">{project.category}</p>
+    <span class:list={['access-badge', `access-badge--${project.demo.access}`]}>
+      {demoAccessLabels[project.demo.access]}
+    </span>
   </div>
-  <div class="l-stack">
-    <Heading class="project-card__title">{project.title}</Heading>
-    <p class="project-card__summary">{project.summary}</p>
-    <p class="project-card__role"><strong>担当:</strong> {project.role}</p>
-    <p class="project-card__stage"><strong>現在:</strong> {project.stage}</p>
-  </div>
-  <ul class="tag-list project-card__tags" role="list" aria-label={`${project.title} の特徴`}>
-    {project.metrics.map((metric) => <li class="tag">{metric}</li>)}
+  <Heading class="project-card__title">{project.title}</Heading>
+  <p class="project-card__summary">{project.summary}</p>
+  <dl class="project-card__facts">
+    <div>
+      <dt>担当</dt>
+      <dd>{project.role}</dd>
+    </div>
+    <div>
+      <dt>現在</dt>
+      <dd>{project.stage}</dd>
+    </div>
+  </dl>
+  <ul class="tag-list project-card__tags" role="list" aria-label={`${project.title} の使用技術`}>
+    {project.stack.map((tech) => <li class="tag">{tech}</li>)}
   </ul>
+  {/* ホバーのないタッチ端末でも、カード全体が詳細ページへのリンクだと分かるようにする */}
+  <span class="project-card__more">詳細を見る<span aria-hidden="true"> →</span></span>
 </a>

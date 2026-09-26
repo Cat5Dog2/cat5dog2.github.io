@@ -2,10 +2,7 @@
 layout: ../../layouts/ProjectLayout.astro
 title: "Handmade Item Management"
 description: "ハンドメイド作品を一点物単位で管理する在庫・販売管理アプリ。QRコードで商品を識別し、顧客履歴やダッシュボードも備えたモバイルファーストPWA。"
-tags: ["React", "TypeScript", "Vite", "Express", "Firebase", "Firestore", "Cloud Storage", "PWA"]
-repo: "https://github.com/Cat5Dog2/Handmade_Item_Management"
-stage: "Firebase / GCP環境で公開中"
-featuredRank: 2
+tags: ["React", "TypeScript", "Vite", "Express", "Firebase", "Firestore", "Cloud Storage", "Cloud Run", "PWA"]
 ---
 
 import HandmadeAppMockup from '../../components/HandmadeAppMockup.astro';
@@ -15,36 +12,15 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 <HandmadeAppMockup />
 
-## 概要
-
-ハンドメイド作品を一点物単位で管理できる、モバイルファーストの在庫・販売管理アプリです。商品情報、画像、カテゴリ、タグ、タスク、顧客情報、QRコード、販売済み更新、購入履歴、ダッシュボードを扱えます。
-
-このプロジェクトでは、実際の利用場面を想定したUI、QRコードを使う販売フロー、一点物特有の状態管理、Firebase / GCPへのデプロイまでをまとめています。
-
 <ProjectEvidence
   headingId="handmade-project-evidence-title"
   highlights={[
     '一点物の状態遷移やQR販売フローを含む要件・設計・テスト仕様をdocs/として公開し、仕様を起点に実装・検証',
     '商品、画像、カテゴリ、タグ、タスク、顧客、購入履歴を一つの業務フローとして実装',
     'QRコードによる商品識別と、販売可能状態を検証した販売済み更新を実装',
-    'Firebase Hosting、Cloud Run、Firestore、Cloud Storageを使う環境で動作確認',
-    '画面プレビューで主要7画面をこのページ内から確認可能',
+    'Firebase Hosting、Cloud Run、Firestore、Cloud Storageを使う環境で本番公開',
   ]}
   evidence={[
-    {
-      label: '公開アプリを試す',
-      url: 'https://fir-handmade-item-management.web.app/login',
-      primary: true,
-      note: '「ゲストとして試す」からログインできます。データは定期的にリセットします。',
-    },
-    {
-      label: 'GitHubリポジトリ',
-      url: 'https://github.com/Cat5Dog2/Handmade_Item_Management',
-    },
-    {
-      label: '要件・設計ドキュメント',
-      url: 'https://github.com/Cat5Dog2/Handmade_Item_Management/tree/main/docs',
-    },
     {
       label: 'CIワークフロー',
       url: 'https://github.com/Cat5Dog2/Handmade_Item_Management/blob/main/.github/workflows/ci.yml',
@@ -55,21 +31,6 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
     },
   ]}
 />
-
-<dl class="project-facts">
-  <div>
-    <dt>動作確認</dt>
-    <dd>Firebase Hosting / Cloud Run / Firestore / Cloud Storage</dd>
-  </div>
-  <div>
-    <dt>担当範囲</dt>
-    <dd>プロダクト設計・UI・API・データ設計・クラウドデプロイ</dd>
-  </div>
-  <div>
-    <dt>公開状況</dt>
-    <dd>アプリ環境・画面プレビュー・ソースコードを公開</dd>
-  </div>
-</dl>
 
 ## 解決したい課題
 
@@ -93,7 +54,7 @@ MVPの対象範囲を明示的に区切り、範囲外の機能は意図的に�
 
 - 対象は作家本人による単独利用。複数ユーザー管理・権限管理は対象外
 - 決済、配送、会計、外部EC連携は対象外とし、在庫・販売記録の管理に集中
-- 要件・設計・テスト仕様は[リポジトリのdocs/](https://github.com/Cat5Dog2/Handmade_Item_Management/tree/main/docs)で公開
+- PWAの範囲は、マニフェストとアイコンによるホーム画面への追加と、静的ファイルの事前キャッシュまで。商品の登録や販売済み更新などの業務操作はAPIへの接続が前提で、オフラインでの操作は対象外
 
 ## システム構成
 
@@ -119,28 +80,47 @@ MVPの対象範囲を明示的に区切り、範囲外の機能は意図的に�
 - **Cloud Storage**: 商品画像をWebPへ変換し、表示用画像とサムネイルを保存
 - **Firebase Hosting + Cloud Run**: 静的なReact PWAとExpress APIを分離してデプロイ
 
-## なぜこの技術構成か
+## 設計判断とトレードオフ
 
-- **React + TypeScript + Vite**: 型安全なSPAと高速ビルドで、モバイルファーストPWAの開発体験を最適化
-- **Firebase (Auth / Firestore / Cloud Storage)**: 小規模でもリアルタイム同期・認証・ファイル管理がすぐに使え、スケールも可能
-- **Express API分離**: フロントエンドとバックエンドの責務を明確に分離し、将来のバックエンド差し替えにも対応
-- **PWA**: オフライン対応とホーム画面追加により、イベント会場などネットワークが不安定な環境でも使える設計
+設計書に記録した判断と、その判断で引き受けた制約です。
 
-## 技術判断
+### 業務データの更新はAPIに集約する
 
-一点物ならではの商品ID・状態遷移・顧客購入履歴の設計を重視しました。商品IDは再利用しない連番とし、販売済み更新は販売可能な状態の商品だけを対象にしています。同じQRコードを再度読み取っても重複更新しません。
+FirestoreとCloud Storageのセキュリティルールで、クライアントからの直接アクセスを一律に禁止しています。ID採番・論理削除・販売済み更新・画像の制約といった業務ルールは、Express APIで判定します。たとえば商品IDは再利用しない連番で採番し、販売済み更新は販売可能な状態の商品だけを対象にするため、同じQRコードを再度読み取っても重複更新しません。
 
-画像は最大サイズと枚数を制限し、API側でWebPへ変換します。画像URLは固定で保存せず、必要なときに期限付きURLを発行する方式です。
+- **優先したこと**: 業務ルールとデータの整合性を、API側の1か所で守ること
+- **引き受けた制約**: FirestoreのクライアントSDKによるリアルタイム購読は使わず、画面はAPIから取得し直す。すべての更新がCloud Run上のAPIを経由する
 
-フロントとAPIを分離し、ローカルではFirebase Emulatorを使って認証・データ・ストレージを含む開発環境を再現できます。
+### 商品の現在状態を正とし、履歴管理は将来対応にする
+
+一点物のため数量の概念を持たず、制作中・在庫中・販売済みといった商品ごとの現在の状態を正として管理します。
+
+- **優先したこと**: 単独で使う作家にとっての、操作の速さと分かりやすさ。MVPでは過度に複雑な仕組みを避ける
+- **引き受けた制約**: 状態の変更履歴や、完全な売上台帳は持たない
+
+### 検索は500件程度の運用規模を前提にする
+
+カテゴリ・タグ・ステータスはFirestoreで先に絞り込み、キーワードはAPI層で後段フィルタします。
+
+- **優先したこと**: 要件の「商品一覧500件程度までは実用上支障のない速度」を、検索専用の基盤を追加せずに満たすこと
+- **引き受けた制約**: 数万件規模での性能は保証しない。件数が増えた場合は検索方式を見直す
+
+### 一覧の検索条件はURLに保持する
+
+キーワード・カテゴリ・タグ・ステータス・並び順・ページをURLのクエリ文字列で持ちます。
+
+- **優先したこと**: リロードや戻る操作で条件を復元でき、TanStack QueryのqueryKeyとも揃うこと。グローバルな状態管理を増やさずに済む
+
+### 画像は最適化後のものだけを保存する
+
+要件で「元画像は保持せず、最適化後の画像を保存する」と定めています。APIでWebPの表示用画像とサムネイルに変換し、画像URLは固定で保存せず、必要なときに期限付きURLを発行します。
+
+- **引き受けた制約**: アップロードした元画像は、後から取り出せない
 
 ## 品質保証と動作確認
 
 - TypeScript strictを前提に、Web・API・共有型をモノレポで管理
 - ESLint、型チェック、ビルド、ユニットテストをCIで検証
+- Firebase Emulatorで、認証・Firestore・Cloud Storageを含む開発環境をローカルに再現
 - ログイン、商品管理、画像、QR販売、ダッシュボードを主要なテスト対象として定義
 - Firebase / GCP環境で、Hosting、Cloud Run、Firestore、Cloud Storageを含む動作を確認済み
-
-## 公開状況
-
-[公開アプリ](https://fir-handmade-item-management.web.app/login)のログイン画面で「ゲストとして試す」を選ぶと、主要機能を確認できます。検証用環境のため、データは定期的にリセットする予定です。

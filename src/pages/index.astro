@@ -3,12 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import MetricCard from '../components/MetricCard.astro';
-import SkillCard from '../components/SkillCard.astro';
+import SkillOverview from '../components/SkillOverview.astro';
 import { projects } from '../data/projects';
 import { withBase } from '../utils/paths';
 
-const featuredProjects = projects.filter((project) => project.featuredRank);
-const otherProjects = projects.filter((project) => !project.featuredRank);
+const guestDemoCount = projects.filter((project) => project.demo.access === 'guest').length;
+const guestDemoNote =
+  guestDemoCount === projects.length
+    ? 'すべて登録不要のゲストログインで試せます'
+    : `うち${guestDemoCount}本は登録不要のゲストログインで試せます`;
 ---
 
 <BaseLayout>
@@ -25,64 +28,55 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
             要件定義・受け入れ条件の文書化から、実装、E2Eテスト、CI/CD、クラウド運用設計まで。Web集客・EC・業務システム開発の実務で得たドメイン知識を、.NET・TypeScript・Azureでのプロダクト開発に活かしています。
           </p>
           <div class="hero__actions">
-            <a class="button button--primary" href="#projects">実績を見る</a>
+            <a class="button button--primary" href="#projects">制作実績を見る</a>
             <a class="button button--ghost" href="https://github.com/Cat5Dog2" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
 
         <aside class="hero-panel" aria-label="強みの要約">
-          <div class="hero-panel__list">
+          <dl class="hero-panel__list">
             <div class="hero-panel__item">
-              <strong>Now</strong>
-              <span>グローバルIT企業でインターン（技術検証・プロジェクト推進）</span>
+              <dt>Now</dt>
+              <dd>グローバルIT企業でインターン（技術検証・プロジェクト推進）</dd>
             </div>
             <div class="hero-panel__item">
-              <strong>Stack</strong>
-              <span>.NET / TypeScript / React / Azure / Docker</span>
+              <dt>Stack</dt>
+              <dd>.NET / TypeScript / React / Azure / Docker</dd>
             </div>
             <div class="hero-panel__item">
-              <strong>Delivery</strong>
-              <span>仕様駆動開発：要件・設計・受け入れ条件 → 実装 → 検証</span>
+              <dt>Delivery</dt>
+              <dd>仕様駆動開発：要件・設計・受け入れ条件 → 実装 → 検証</dd>
             </div>
             <div class="hero-panel__item">
-              <strong>Web Marketing</strong>
-              <span>SEO / Paid Search Advertising</span>
+              <dt>Domain</dt>
+              <dd>SEO・CMSの実務知識を、記事作成・SEO分析ツールの要件に活用</dd>
             </div>
-          </div>
+          </dl>
         </aside>
       </div>
     </section>
 
     <section class="l-section--compact">
-      <div class="l-container l-grid l-grid--3">
-        <MetricCard value="3本" label="本番環境で公開中のWebアプリ" note="Azure App Service / Firebase + Cloud Run / VPS（Docker Compose）。デモ利用可" />
-        <MetricCard value="4/4" label="全リポジトリでCI/CDを運用" note="GitHub Actionsで自動検証。うち3リポジトリはPlaywright E2E・スモークテストまで運用" />
+      <div class="l-container metric-grid">
+        <MetricCard
+          value={`${projects.length}本`}
+          label="本番環境で公開中のWebアプリ"
+          note={`Azure App Service / Firebase + Cloud Run / VPS（Docker Compose）。${guestDemoNote}`}
+        />
+        <MetricCard value="4/4" label="全リポジトリでCIを運用" note="GitHub Actionsで自動検証。3リポジトリは本番へのCDまで整備し、PetHealth・Web Writing ToolはPlaywright E2EもCIで実行" />
         <MetricCard value="docs/" label="要件・設計・テスト仕様を文書化" note="要件定義・基本設計・受け入れ条件を各リポジトリで公開" />
       </div>
     </section>
 
     <section id="projects" class="l-section">
       <div class="l-container">
-        <div class="project-collection">
-          <SectionHeading
-            eyebrow="Featured Projects"
-            title="注力プロジェクト"
-            lead="仕様駆動開発で、設計から運用まで一貫して取り組んだ2作品です。詳細ページで課題・実装・技術判断を確認できます。"
-          />
-          <div class="l-grid l-grid--2">
-            {featuredProjects.map((project) => <ProjectCard project={project} />)}
-          </div>
-        </div>
-
-        <div class="project-collection">
-          <SectionHeading
-            eyebrow="Other Projects"
-            title="その他のプロジェクト"
-            lead="仕様を先に整理し、実務で得たドメイン知識を.NET開発に活かしたプロジェクトです。"
-          />
-          <div class="l-grid l-grid--2">
-            {otherProjects.map((project) => <ProjectCard project={project} />)}
-          </div>
+        <SectionHeading
+          eyebrow="Projects"
+          title="制作実績"
+          lead={`${projects.length}作品とも本番環境で公開中です。詳細ページでは、デモの入口・設計資料・技術判断を確認できます。`}
+        />
+        <div class="l-grid l-grid--2">
+          {projects.map((project) => <ProjectCard project={project} />)}
         </div>
       </div>
     </section>
@@ -92,28 +86,9 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
         <SectionHeading
           eyebrow="Skills"
           title="技術スタック"
-          lead="領域別に整理しています。実務と個人開発の両方を含みます。"
+          lead="実務で使った技術と、個人開発で使った技術を分けています。個人開発の技術は、使用した作品から実装を確認できます。"
         />
-        <div class="l-grid l-grid--3">
-          <SkillCard
-            category="Backend & Cloud"
-            title="サーバーサイド / インフラ"
-            note="業務システム開発・個人プロダクトで使用"
-            skills={['C#', 'ASP.NET Core', 'Ruby on Rails', 'PHP', 'Docker', 'Azure', 'Firebase', 'SQL Server', 'PostgreSQL']}
-          />
-          <SkillCard
-            category="Frontend & UI"
-            title="フロントエンド / UI"
-            note="EC・メディア・業務画面・SPAで使用"
-            skills={['TypeScript', 'React', 'Blazor', 'HTML/CSS', 'JavaScript', 'Vite', 'WordPress', 'jQuery']}
-          />
-          <SkillCard
-            category="DevOps & Process"
-            title="品質管理 / チーム推進"
-            note="自動テスト・CI/CD・プロジェクト管理を実践"
-            skills={['仕様駆動開発', 'GitHub Actions', 'Playwright E2E', 'CI/CD', 'Git', '要件定義', 'DB設計', 'チームリード', 'アジャイル']}
-          />
-        </div>
+        <SkillOverview />
       </div>
     </section>
 
@@ -143,12 +118,12 @@ const otherProjects = projects.filter((project) => !project.featuredRank);
         <div>
           <p class="eyebrow">Contact</p>
           <h2>お気軽にご連絡ください</h2>
-          <p>ご連絡はメールまたはXのDMで、個人開発についてはGitHubからお気軽にどうぞ。</p>
+          <p>ご連絡はメールでお願いします。GitHubとXのプロフィールもご覧いただけます。</p>
         </div>
         <div class="contact-card__actions">
           <a class="button button--primary" href="mailto:cat5dog2.tskhrcm@gmail.com">メールを送る</a>
-          <a class="button button--ghost" href="https://x.com/Cat5Dog2" target="_blank" rel="noreferrer">XでDMを送る</a>
           <a class="button button--ghost" href="https://github.com/Cat5Dog2" target="_blank" rel="noreferrer">GitHubを見る</a>
+          <a class="button button--ghost" href="https://x.com/Cat5Dog2" target="_blank" rel="noreferrer">Xのプロフィールを見る</a>
         </div>
       </div>
     </section>

@@ -3,9 +3,6 @@ layout: ../../layouts/ProjectLayout.astro
 title: "PetHealthManagement"
 description: "ペットの健康記録や通院履歴を管理するWebアプリ。認証・画像保存・Azure運用設計・E2Eテストまで含めて開発しています。"
 tags: ["ASP.NET Core MVC", "Identity", "EF Core", "SQL Server", "Azure", "Playwright", "GitHub Actions"]
-repo: "https://github.com/Cat5Dog2/PetHealthManagement"
-stage: "Azure環境で公開中"
-featuredRank: 1
 ---
 
 import PetHealthAppMockup from '../../components/PetHealthAppMockup.astro';
@@ -15,61 +12,30 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 <PetHealthAppMockup />
 
-## 概要
-
-ペットの健康記録、予定、通院履歴をまとめて管理できるWebアプリです。飼い主が日々の変化と通院時の情報を一か所で確認できることを目的に、ASP.NET Core MVC、Identity、EF Core、SQL Serverで実装しました。
-
-このプロジェクトでは画面機能だけでなく、認証・画像保存・自動テスト・Azureへのデプロイ・機密情報管理・障害時の復旧までを一つの開発範囲として扱っています。要件定義書・基本設計書・ER図・テストケースは[リポジトリのdocs/](https://github.com/Cat5Dog2/PetHealthManagement/tree/main/docs)で公開しています。
-
 <ProjectEvidence
   headingId="pet-health-project-evidence-title"
   highlights={[
     '要件定義書・基本設計書・画面定義・テストケースをdocs/として公開し、仕様を起点に実装・検証',
     '認証、健康ログ、予定、通院履歴、画像保存を一つのWebアプリで管理',
-    'Azure App Service、Azure SQL、Key Vaultを使う構成で動作確認',
+    'Azure App Service、Azure SQL、Key Vaultを使う構成で本番公開',
     'ビルド、テスト、フォーマット、Playwright E2E、デプロイ後スモークテストを自動検証',
     'Migration、機密情報、Data Protection、ロールバックまで運用手順を設計',
   ]}
   evidence={[
     {
-      label: '公開アプリを試す',
-      url: 'https://app-pethealth-prod-dkedakd8c0g2hza2.japanwest-01.azurewebsites.net/',
-      primary: true,
-      note: '初回アクセス時は表示まで時間がかかる場合があります。登録ユーザーと保存データは定期的に削除します。',
-    },
-    {
-      label: 'GitHubリポジトリ',
-      url: 'https://github.com/Cat5Dog2/PetHealthManagement',
-    },
-    {
-      label: '要件・設計ドキュメント',
-      url: 'https://github.com/Cat5Dog2/PetHealthManagement/tree/main/docs',
-    },
-    {
       label: 'CIワークフロー',
       url: 'https://github.com/Cat5Dog2/PetHealthManagement/blob/main/.github/workflows/ci.yml',
     },
     {
-      label: 'README・詳細な運用設計',
+      label: 'CDワークフロー',
+      url: 'https://github.com/Cat5Dog2/PetHealthManagement/blob/main/.github/workflows/cd.yml',
+    },
+    {
+      label: 'README・運用設計',
       url: 'https://github.com/Cat5Dog2/PetHealthManagement/blob/main/README.md',
     },
   ]}
 />
-
-<dl class="project-facts">
-  <div>
-    <dt>動作確認</dt>
-    <dd>Azure App Service / Azure SQL Database</dd>
-  </div>
-  <div>
-    <dt>担当範囲</dt>
-    <dd>要件整理・設計・実装・テスト・CI/CD・運用設計</dd>
-  </div>
-  <div>
-    <dt>公開状況</dt>
-    <dd>アプリ環境・ソースコードを公開</dd>
-  </div>
-</dl>
 
 ## 解決したい課題
 
@@ -110,18 +76,43 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 - **Blob Storage + Key Vault key**: Data Protectionキーを永続化・暗号化し、再デプロイ後も認証状態を安全に扱う
 - **App Service永続領域**: 現在の画像保存先。将来は`IImageStorageService`の実装差し替えでBlobへ移行できる設計
 
-## なぜこの技術構成か
+## 設計判断とトレードオフ
 
-- **ASP.NET Core MVC**: 型安全なサーバーサイドで認証・認可を堅牢に実装できる。Identityとの統合で、セッション管理・パスワードハッシュ・CSRF対策を一貫して扱える
-- **Azure App Service + SQL Database**: 個人開発でもコスト管理しやすく、Key VaultやManaged Identityで本番水準のセキュリティを実現できる
-- **Playwright E2E**: 個人開発では手動テストに限界があるため導入。CIに組み込むことでリグレッションを防止
-- **GitHub Actions**: プッシュごとにビルド・テスト・フォーマットを検証し、品質を自動で担保
+READMEに記録した判断と、その判断で引き受けた制約です。
 
-## 技術判断
+### 無料枠を前提にAzureで公開する
 
-単純なCRUDに留めず、fail fastな設定検証・機密情報管理・Data Protectionキーの永続化・Migrationの適用手順まで設計しました。本番Migrationはアプリ起動時に自動実行せず、レビュー後に一度だけ適用する方式です。
+App Service（Linux / Free F1）とAzure SQL Database（free offer）を使い、ポートフォリオとして公開し続けられるコストに抑えています。リソースを作る前にBudget Alertを設定し、月500〜1,000円を目安に通知を受け取ります。
 
-また、障害時は安易なDown Migrationではなく、既知の正常バージョンの再デプロイと、必要に応じたDBバックアップからの復元を基本方針にしています。
+- **優先したこと**: 継続して公開できるコストと、App Service・Azure SQL・Key Vault・Managed Identityという本番に近い構成の両立
+- **引き受けた制約**: SLAやスケールアウトはない。アクセスが途切れた後は、初回表示やDBの再開待ちに時間がかかる。常時安定稼働が必要になったら、App ServiceをBasic以上へ、DBを有料の構成へ切り替える
+
+### 機密情報はKey VaultとManaged Identityで扱う
+
+接続文字列などの機密値はApp Serviceへ直接置かず、Key Vault参照で読み込みます。App ServiceのManaged Identityには、Key Vaultのシークレットを読み取る権限だけを付与しています。
+
+- **優先したこと**: 機密値をアプリの設定やリポジトリに残さないこと
+- **引き受けた制約**: 無料枠だけでは完結せず、Key VaultやStorage Accountには小額の従量課金が発生し得る
+
+### 画像はApp Serviceの永続領域に保存する
+
+Blob Storageのマウントは読み取り専用で、アップロードや削除の保存先に使えません。そのため初期リリースでは、`/home`配下の専用ディレクトリへ保存しています。
+
+- **優先したこと**: 既存の`FileSystemImageStorageService`をそのまま使い、構成を増やさずに公開すること
+- **引き受けた制約**: 保存容量とバックアップがApp Serviceに依存する。容量・CDN配信・他サービスとの共有が必要になったら、`IImageStorageService`の実装をBlob Storage向けに差し替えて移行する
+
+### Data ProtectionキーをBlob StorageとKey Vault keyで保護する
+
+App Service既定の保存先は、スロット間で共有されず、保存時の保護もありません。そのため本番では、Blob Storageへ永続化したキーをKey Vault keyで暗号化しています。
+
+- **優先したこと**: 再デプロイ後も認証Cookieを正しく検証でき、キー自体も保護された状態で保存されること
+
+### 本番Migrationはアプリ起動時に実行しない
+
+本番Migrationは、レビュー後にGitHub Actionsのワークフローから1回だけ適用します。障害時は安易なDown Migrationではなく、既知の正常バージョンの再デプロイと、必要に応じたDBバックアップからの復元を基本方針にしています。
+
+- **優先したこと**: スキーマ変更をレビューしてから、意図したタイミングで一度だけ適用すること
+- **引き受けた制約**: アプリのデプロイとは別に、Migrationを適用する手順が1つ増える
 
 ## 品質保証とデプロイ
 
@@ -133,13 +124,5 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
 
 ## 制約と今後の課題
 
-現状のシステムが持つ制約と、次に取り組む課題です。
-
-- 画像の保存先は現在App Serviceの永続領域。`IImageStorageService`の実装差し替えでBlob Storageへ移行できる設計にしており、この移行が次の課題
+- 画像の保存先をBlob Storageへ移すこと。`IImageStorageService`の実装差し替えで移行できる設計にしている
 - Playwright E2Eの対象は、ログインなどの主要導線に絞っている。画面カバレッジの拡大は継続的に進める
-
-## 動作確認・公開状況
-
-[公開アプリ](https://app-pethealth-prod-dkedakd8c0g2hza2.japanwest-01.azurewebsites.net/)で新規登録すると、作成したアカウントでログインして主要機能を確認できます。
-
-初回アクセス時は、アプリのウォームアップにより表示まで時間がかかる場合があります。検証用環境のため、登録ユーザーと保存データは定期的に削除する予定です。

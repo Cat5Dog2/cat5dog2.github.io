@@ -1,11 +1,11 @@
 ---
 import { withBase } from '../utils/paths';
 
+// 作品一覧（projects/）はトップの #projects と同じ内容のため、ナビでは #projects だけを案内する
 const navigation = [
   { href: withBase('#projects'), label: 'Projects' },
   { href: withBase('#skills'), label: 'Skills' },
   { href: withBase('career/'), label: 'Career' },
-  { href: withBase('projects/'), label: 'All Projects' },
   { href: withBase('#contact'), label: 'Contact' },
 ];
 ---

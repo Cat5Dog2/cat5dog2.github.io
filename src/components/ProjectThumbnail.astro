@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import type { ProjectPreview } from '../data/projects';
+
+interface Props {
+  preview: ProjectPreview;
+}
+
+const { preview } = Astro.props;
+---
+
+{/* カード本文と詳細ページで内容を説明しているため、サムネイルは装飾として読み上げ対象から外す。
+    画面キャプチャは縦長の全画面画像なので、ビルド時に上端基準で切り出して転送量を抑える */}
+<div class:list={['project-thumb', `project-thumb--${preview.kind}`]} aria-hidden="true">
+  {
+    preview.kind === 'mobile' &&
+      preview.images.map((image) => (
+        <div class="project-thumb__phone">
+          <Image src={image} alt="" width={180} height={320} fit="cover" position="top" densities={[1, 2]} />
+        </div>
+      ))
+  }
+  {
+    preview.kind === 'desktop' && (
+      <div class="project-thumb__browser">
+        <span class="project-thumb__browser-bar" />
+        <Image src={preview.image} alt="" width={480} height={300} fit="cover" position="top" densities={[1, 2]} />
+      </div>
+    )
+  }
+  {
+    preview.kind === 'flow' && (
+      <div class="project-thumb__flow">
+        <p class="project-thumb__flow-title">主な処理の流れ</p>
+        <ol class="project-thumb__flow-steps">
+          {preview.steps.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+      </div>
+    )
+  }
+</div>
