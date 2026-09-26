@@ -7,6 +7,7 @@ test.describe('ページ表示', () => {
     { path: '/career/', heading: 'Web集客から制作・システム開発・IT実務へ' },
     { path: '/projects/', heading: '注力プロジェクト' },
     { path: '/projects/pet-health-management/', heading: 'PetHealthManagement' },
+    { path: '/projects/web-writing-tool/', heading: 'Web Writing Tool' },
   ];
 
   for (const { path, heading } of pages) {

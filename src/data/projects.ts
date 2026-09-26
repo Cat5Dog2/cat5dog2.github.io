@@ -39,13 +39,13 @@ export const projects: Project[] = [
   {
     title: 'Web Writing Tool',
     slug: 'projects/web-writing-tool/',
-    summary: 'AI記事作成からWordPress投稿・Discord通知までをつなぐ制作支援ツール。Blazorと.NETでMVPの主要フローを実装しています。',
-    role: '要件整理 / 設計 / 開発基盤 / CI',
-    stage: 'MVP実装済み',
+    summary: 'AI記事作成からWordPress投稿・Discord通知までをつなぐ制作支援ツール。Blazorと.NETで実装し、VPS上の本番環境で公開しています。',
+    role: '要件整理 / 設計 / 開発基盤 / CI / 本番デプロイ',
+    stage: 'VPS環境で公開中',
     stack: ['Blazor Web App', 'ASP.NET Core', 'EF Core', 'PostgreSQL', 'Docker', 'Caddy'],
     metrics: ['AI連携', 'WordPress連携', 'Dockerスモークテスト'],
     repo: 'https://github.com/Cat5Dog2/web-writing-tool',
-    status: 'ソースコード公開',
+    status: '公開デモ利用可',
   },
   {
     title: 'SEO Intelligence Platform',
