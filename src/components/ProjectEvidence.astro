@@ -2,8 +2,6 @@
 type EvidenceLink = {
   label: string;
   url: string;
-  primary?: boolean;
-  note?: string;
 };
 
 interface Props {
@@ -19,12 +17,13 @@ const {
 } = Astro.props;
 ---
 
+{/* デモ・GitHub・設計資料の入口はページ冒頭にあるため、ここでは要点と、より詳しい補足資料だけを扱う */}
 {
   (highlights.length > 0 || evidence.length > 0) && (
     <section class="project-evidence" aria-labelledby={headingId}>
       <div>
         <p class="eyebrow">Project Summary</p>
-        <h2 id={headingId}>このページで確認できる要点</h2>
+        <h2 id={headingId}>要点</h2>
       </div>
       {highlights.length > 0 && (
         <ul class="evidence-list">
@@ -34,33 +33,13 @@ const {
       {evidence.length > 0 && (
         <div class="external-references">
           <p class="external-references__title">補足資料（外部リンク）</p>
-          <p class="external-references__description">
-            実装や継続的な検証を詳しく確認したい場合の参考リンクです。このページだけでも概要と設計意図を把握できます。
-          </p>
           <div class="evidence-links">
-            {evidence.map((item, index) => (
-              <a
-                class:list={{ 'evidence-link--primary': item.primary }}
-                href={item.url}
-                target="_blank"
-                rel="noreferrer"
-                aria-describedby={item.note ? `${headingId}-link-note-${index}` : undefined}
-              >
+            {evidence.map((item) => (
+              <a href={item.url} target="_blank" rel="noreferrer">
                 {item.label}
               </a>
             ))}
           </div>
-          {evidence.some((item) => item.note) && (
-            <div class="evidence-link-notes">
-              {evidence.map((item, index) => (
-                item.note && (
-                  <p id={`${headingId}-link-note-${index}`} class="evidence-link-note">
-                    {item.note}
-                  </p>
-                )
-              ))}
-            </div>
-          )}
         </div>
       )}
     </section>

@@ -1,10 +1,23 @@
 ---
+import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
+import { demoAccessLabels, projects } from '../data/projects';
+import { withBase } from '../utils/paths';
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings = [] } = Astro.props as {
+  frontmatter: { title: string; description: string; tags?: string[] };
+  headings?: MarkdownHeading[];
+};
 const tags = frontmatter.tags ?? [];
 
-const featuredRank = frontmatter.featuredRank;
+// デモ・リポジトリ・設計資料の入口はカードと同じ作品データから引き、URLの二重管理を避ける
+const normalizePath = (path: string) => path.replace(/\/+$/, '');
+const project = projects.find((item) => normalizePath(withBase(item.slug)) === normalizePath(Astro.url.pathname));
+if (!project) {
+  throw new Error(`src/data/projects.ts に ${Astro.url.pathname} の作品データがありません`);
+}
+
+const tableOfContents = headings.filter((heading) => heading.depth === 2);
 
 const breadcrumbs = [
   { name: 'Home', path: '' },
@@ -22,16 +35,51 @@ const breadcrumbs = [
   <main id="main">
     <header class="project-hero">
       <div class="l-container">
-        <p class="eyebrow">{featuredRank ? `Featured Project 0${featuredRank}` : 'Project'}</p>
+        <p class="eyebrow">{project.category}</p>
         <h1 class="project-hero__title">{frontmatter.title}</h1>
         <p class="project-hero__summary">{frontmatter.description}</p>
-        {frontmatter.stage && <p class="project-hero__stage">現在の状態: {frontmatter.stage}</p>}
-        <div class="project-hero__meta">
-          <ul class="tag-list" role="list" aria-label="使用技術">
-            {tags.map((tag: string) => <li class="tag">{tag}</li>)}
-          </ul>
-        </div>
 
+        {/* 読み手が最初に試したいデモを、プレビューや本文より前に置く */}
+        <div class="project-hero__actions">
+          <a class="button button--primary" href={project.demo.url} target="_blank" rel="noreferrer">デモを試す</a>
+          <a class="button button--ghost" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button button--ghost" href={project.docs} target="_blank" rel="noreferrer">設計資料</a>
+        </div>
+        <p class="project-hero__access">
+          <span class:list={['access-badge', `access-badge--${project.demo.access}`]}>
+            {demoAccessLabels[project.demo.access]}
+          </span>
+          <span>{project.demo.note}</span>
+        </p>
+
+        <dl class="project-hero__facts">
+          <div>
+            <dt>現在</dt>
+            <dd>{project.stage}</dd>
+          </div>
+          <div>
+            <dt>担当</dt>
+            <dd>{project.role}</dd>
+          </div>
+        </dl>
+        <ul class="tag-list project-hero__tags" role="list" aria-label="使用技術">
+          {tags.map((tag) => <li class="tag">{tag}</li>)}
+        </ul>
+
+        {
+          tableOfContents.length > 0 && (
+            <details class="project-toc">
+              <summary>このページの目次</summary>
+              <ol>
+                {tableOfContents.map((heading) => (
+                  <li>
+                    <a href={`#${heading.slug}`}>{heading.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )
+        }
       </div>
     </header>
 

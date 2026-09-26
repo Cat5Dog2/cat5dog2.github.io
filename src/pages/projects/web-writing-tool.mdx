@@ -3,8 +3,6 @@ layout: ../../layouts/ProjectLayout.astro
 title: "Web Writing Tool"
 description: "AI記事作成からWordPress投稿・Discord通知までをつなぐ制作支援ツール。Blazorと.NETで実装し、VPS上の本番環境で公開しています。"
 tags: ["Blazor Web App", "ASP.NET Core", "EF Core", "PostgreSQL", "Docker", "Caddy", "Gemini", "WordPress"]
-repo: "https://github.com/Cat5Dog2/web-writing-tool"
-stage: "VPS環境で公開中"
 ---
 
 import ProjectEvidence from '../../components/ProjectEvidence.astro';
@@ -13,10 +11,6 @@ import WebWritingAppMockup from '../../components/WebWritingAppMockup.astro';
 ## 画面プレビュー
 
 <WebWritingAppMockup />
-
-## 概要
-
-AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知をひとつの流れで扱うWebアプリです。過去のSEO・CMS実務で「あれば便利だった」ワークフローを題材に、Blazorと.NETでMVPの主要フローを実装し、Docker Compose + CaddyでVPS上の本番環境へデプロイしました。
 
 <ProjectEvidence
   headingId="web-writing-project-evidence-title"
@@ -27,26 +21,15 @@ AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知�
     'Docker Compose + CaddyでVPS上の本番環境へデプロイし、公開URLで提供',
     '登録不要のゲストログインを実装し、外部APIに接続しないサンプル応答で主要フローを体験可能',
     'GitHub Actionsでビルド、テスト、Playwright E2E、Docker Container Smoke Testsを検証',
-    '画面プレビューで主要6画面をこのページ内から確認可能',
   ]}
   evidence={[
     {
-      label: '公開アプリを試す',
-      url: 'https://web-writing.cloud/login',
-      primary: true,
-      note: '「ゲストとして試す」から登録不要でログインできます。ゲストのデータは利用開始から8時間後に自動削除されます。',
-    },
-    {
-      label: 'GitHubリポジトリ',
-      url: 'https://github.com/Cat5Dog2/web-writing-tool',
-    },
-    {
-      label: '設計ドキュメント',
-      url: 'https://github.com/Cat5Dog2/web-writing-tool/tree/main/docs',
-    },
-    {
       label: 'CIワークフロー',
       url: 'https://github.com/Cat5Dog2/web-writing-tool/blob/main/.github/workflows/ci.yaml',
+    },
+    {
+      label: 'CI/CD設計',
+      url: 'https://github.com/Cat5Dog2/web-writing-tool/blob/main/docs/ci-cd-design.md',
     },
     {
       label: '実装バックログ',
@@ -55,28 +38,18 @@ AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知�
   ]}
 />
 
-<dl class="project-facts">
-  <div>
-    <dt>動作確認</dt>
-    <dd>VPS / Docker Compose / Caddy / PostgreSQL</dd>
-  </div>
-  <div>
-    <dt>担当範囲</dt>
-    <dd>要件整理・設計・実装・テスト・CI・本番デプロイ</dd>
-  </div>
-  <div>
-    <dt>公開状況</dt>
-    <dd>アプリ環境・画面プレビュー・ソースコードを公開</dd>
-  </div>
-</dl>
+## 題材と目的
 
-## ポイント
+過去のSEO・CMS実務で「あれば便利だった」ワークフローを題材にしています。キーワード入力から見出し構成、本文生成、記事編集、WordPress投稿、通知までを、一連のワークフローとして扱えるようにすることが目的です。
 
-- SEO・WordPressの実務経験を、現在の.NET開発につなげている
-- Blazor Web App、ASP.NET Core、EF Core、PostgreSQL、BackgroundServiceを使用
-- Gemini、検索API、X API、WordPress、Discordとの外部連携を実装
-- Docker Compose + CaddyでVPS上の本番環境へデプロイ
-- Playwright E2E Smoke Tests、Docker Container Smoke Tests、ヘルスチェックをCIで検証
+## 主な機能
+
+- キーワードからの見出し構成・本文生成（Gemini）と、生成ジョブの進捗表示
+- Web検索・X投稿検索による参考情報の収集
+- 記事の編集・管理と、WordPressへの投稿
+- 複数記事の一括作成と、一括生成の進捗確認
+- Discordへの通知
+- Identityによる認証と、利用者ごとのデータ分離
 
 ## システム構成
 
@@ -102,16 +75,27 @@ AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知�
 - **PostgreSQL**: 記事、ジョブ、設定データを永続化
 - **外部連携**: Gemini（本文生成）、検索API・X API（情報収集）、WordPress（投稿）、Discord（通知）
 
-## なぜこの技術構成か
+## 設計判断とトレードオフ
 
-- **Blazor Web App**: SEO・CMSの実務で蓄積したドメイン知識を、C#の型安全な環境で形にできる。サーバーサイドレンダリングとインタラクティブモードの使い分けが可能
-- **PostgreSQL**: オープンソースで運用コストを抑えつつ、JSON型やフルテキスト検索など柔軟なデータ操作に対応
-- **Docker Compose + Caddy**: VPS上の本番環境を、リバースプロキシ・TLS・ヘルスチェックまで含めてコードで管理
-- **BackgroundService**: 記事生成やAPI連携を非同期ジョブとして分離し、UIの応答性を確保
+要件定義書・基本設計書に記録した判断と、その判断で引き受けた制約です。
 
-## 技術判断
+### WebアプリとBackgroundServiceを1つのコンテナで動かす
 
-SEO・CMSの実務経験から生まれた要件を.NETで設計し、MVPの主要フローを実装して本番環境へデプロイしました。実装範囲と進捗は、完了条件を定義したバックログ（todo.md）で管理しています。
+要件で初期構成を単一VPS上のDocker Compose運用と定め、MVPではBlazor Web App・API・BackgroundServiceを1つの`app`コンテナに同居させています。専用のキュー基盤は置かず、PostgreSQLの行ロックで、複数のワーカーが同じジョブを取得しないようにしています。
+
+- **引き受けた制約**: 生成ジョブはWebと同じプロセスの資源を使う。ジョブ量が増えた場合は、同じイメージから`worker`コンテナを分離する
+
+### 画面ごとにSSRとInteractive Serverを使い分ける
+
+初期表示・一覧・設定画面はSSRを基本とし、記事編集・見出しの並び替え・ジョブ状態の更新など操作が多い画面だけInteractive Serverを使います。
+
+- **引き受けた制約**: Interactive Serverの画面はSignalRの接続に依存するため、接続が切れた場合や再接続時の扱いを考慮する必要がある
+
+### 公開するポートをCaddyだけに絞る
+
+Docker Composeでは`caddy`だけが80/443を公開し、PostgreSQLとアプリのポートは外部に公開しません。本番の秘密情報はVPS側の環境変数で渡し、リポジトリには含めません。
+
+- **引き受けた制約**: 単一VPSのため、サーバー障害時はアプリ全体が止まる。DBは`pg_dump`によるバックアップを基本とし、手順を運用設計書で定めている
 
 ## ゲストログインの設計
 
@@ -121,6 +105,14 @@ SEO・CMSの実務経験から生まれた要件を.NETで設計し、MVPの主�
 - 外部APIクライアントをユーザー単位でサンプル応答へ切り替え、Gemini・検索API・X API・WordPress・Discordの実APIには接続しない。バックグラウンドジョブでは、Cookieや入力内容に頼らず、DBに保存したジョブ所有者の情報からゲストかどうかを判定
 - データはユーザーIDで分離し、セッションは永続化・延長なしの8時間。期限を迎えたゲストのアカウントと関連データは、バックグラウンド処理が1分ごとに確認して物理削除（処理中のジョブがある場合は完了後）
 
-## 公開状況
+## 品質保証とデプロイ
 
-[公開アプリ](https://web-writing.cloud/login)のログイン画面で「ゲストとして試す」を選ぶと、登録不要で主要機能を確認できます。ゲストモードの生成・検索結果はサンプルで、外部APIへの接続、WordPress投稿、Discord通知は行いません。ゲストのアカウントとデータは、利用開始から8時間後に自動削除されます。
+- GitHub Actionsで、フォーマット、NuGetの脆弱性スキャン、ビルド、テストを実行
+- PlaywrightによるE2Eスモークテストと、Dockerコンテナのスモークテストを実行
+- mainのCI成功後、リリース候補をインフラ用リポジトリへ通知し、本番の更新をPRで確認してからVPSへデプロイ
+
+## 制約と今後の課題
+
+- ゲストの生成・検索結果はサンプル応答。実APIとの連携は通常ユーザーだけが使える
+- Gemini以外のAIプロバイダー、CSVインポート、WordPress投稿時のアイキャッチ画像指定、ライター権限は後続フェーズの対象
+- 生成ジョブが増えた場合は、`worker`コンテナの分離を検討する
