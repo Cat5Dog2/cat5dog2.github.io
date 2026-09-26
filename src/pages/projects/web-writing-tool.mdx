@@ -1,17 +1,22 @@
 ---
 layout: ../../layouts/ProjectLayout.astro
 title: "Web Writing Tool"
-description: "AI記事作成からWordPress投稿・Discord通知までをつなぐ制作支援ツール。Blazorと.NETでMVPの主要フローを実装しています。"
+description: "AI記事作成からWordPress投稿・Discord通知までをつなぐ制作支援ツール。Blazorと.NETで実装し、VPS上の本番環境で公開しています。"
 tags: ["Blazor Web App", "ASP.NET Core", "EF Core", "PostgreSQL", "Docker", "Caddy", "Gemini", "WordPress"]
 repo: "https://github.com/Cat5Dog2/web-writing-tool"
-stage: "MVP実装済み"
+stage: "VPS環境で公開中"
 ---
 
 import ProjectEvidence from '../../components/ProjectEvidence.astro';
+import WebWritingAppMockup from '../../components/WebWritingAppMockup.astro';
+
+## 画面プレビュー
+
+<WebWritingAppMockup />
 
 ## 概要
 
-AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知をひとつの流れで扱うWebアプリです。過去のSEO・CMS実務で「あれば便利だった」ワークフローを題材に、Blazorと.NETでMVPの主要フローを実装しています。
+AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知をひとつの流れで扱うWebアプリです。過去のSEO・CMS実務で「あれば便利だった」ワークフローを題材に、Blazorと.NETでMVPの主要フローを実装し、Docker Compose + CaddyでVPS上の本番環境へデプロイしました。
 
 <ProjectEvidence
   headingId="web-writing-project-evidence-title"
@@ -19,9 +24,18 @@ AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知�
     'SEO・CMS実務の課題を題材に、要件と完了条件を定義してから実装',
     '要件、画面、データ、外部連携、運用をdocs/の設計書として公開',
     'Identity認証、記事管理、AI生成ジョブ、検索連携、WordPress投稿、Discord通知を実装',
+    'Docker Compose + CaddyでVPS上の本番環境へデプロイし、公開URLで提供',
+    '登録不要のゲストログインを実装し、外部APIに接続しないサンプル応答で主要フローを体験可能',
     'GitHub Actionsでビルド、テスト、Playwright E2E、Docker Container Smoke Testsを検証',
+    '画面プレビューで主要6画面をこのページ内から確認可能',
   ]}
   evidence={[
+    {
+      label: '公開アプリを試す',
+      url: 'https://web-writing.cloud/login',
+      primary: true,
+      note: '「ゲストとして試す」から登録不要でログインできます。ゲストのデータは利用開始から8時間後に自動削除されます。',
+    },
     {
       label: 'GitHubリポジトリ',
       url: 'https://github.com/Cat5Dog2/web-writing-tool',
@@ -41,12 +55,27 @@ AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知�
   ]}
 />
 
+<dl class="project-facts">
+  <div>
+    <dt>動作確認</dt>
+    <dd>VPS / Docker Compose / Caddy / PostgreSQL</dd>
+  </div>
+  <div>
+    <dt>担当範囲</dt>
+    <dd>要件整理・設計・実装・テスト・CI・本番デプロイ</dd>
+  </div>
+  <div>
+    <dt>公開状況</dt>
+    <dd>アプリ環境・画面プレビュー・ソースコードを公開</dd>
+  </div>
+</dl>
+
 ## ポイント
 
 - SEO・WordPressの実務経験を、現在の.NET開発につなげている
 - Blazor Web App、ASP.NET Core、EF Core、PostgreSQL、BackgroundServiceを使用
 - Gemini、検索API、X API、WordPress、Discordとの外部連携を実装
-- Docker Compose + CaddyによるVPSデプロイ構成をコード化
+- Docker Compose + CaddyでVPS上の本番環境へデプロイ
 - Playwright E2E Smoke Tests、Docker Container Smoke Tests、ヘルスチェックをCIで検証
 
 ## システム構成
@@ -77,9 +106,21 @@ AI記事作成、記事管理、本文生成、WordPress投稿、Discord通知�
 
 - **Blazor Web App**: SEO・CMSの実務で蓄積したドメイン知識を、C#の型安全な環境で形にできる。サーバーサイドレンダリングとインタラクティブモードの使い分けが可能
 - **PostgreSQL**: オープンソースで運用コストを抑えつつ、JSON型やフルテキスト検索など柔軟なデータ操作に対応
-- **Docker Compose + Caddy**: VPSへのデプロイを想定し、リバースプロキシ・TLS・ヘルスチェックをコードで管理
+- **Docker Compose + Caddy**: VPS上の本番環境を、リバースプロキシ・TLS・ヘルスチェックまで含めてコードで管理
 - **BackgroundService**: 記事生成やAPI連携を非同期ジョブとして分離し、UIの応答性を確保
 
 ## 技術判断
 
-SEO・CMSの実務経験から生まれた要件を.NETで設計し、MVPの主要フローまで実装しました。実装範囲と進捗は、完了条件を定義したバックログ（todo.md）で管理しています。
+SEO・CMSの実務経験から生まれた要件を.NETで設計し、MVPの主要フローを実装して本番環境へデプロイしました。実装範囲と進捗は、完了条件を定義したバックログ（todo.md）で管理しています。
+
+## ゲストログインの設計
+
+公開環境は誰でも試せるようにしつつ、外部APIの費用発生や不正利用、WordPress・Discordへの意図しない送信は防ぐ必要があります。そこで、ゲストも通常ユーザーと同じ画面・処理を使い、外部との接続だけをサンプル応答へ切り替える設計にしました。
+
+- 登録不要のゲストログインにもCSRF検証とログイン用のレート制限を適用し、Admin権限を持たない一般ユーザーとして作成
+- 外部APIクライアントをユーザー単位でサンプル応答へ切り替え、Gemini・検索API・X API・WordPress・Discordの実APIには接続しない。バックグラウンドジョブでは、Cookieや入力内容に頼らず、DBに保存したジョブ所有者の情報からゲストかどうかを判定
+- データはユーザーIDで分離し、セッションは永続化・延長なしの8時間。期限を迎えたゲストのアカウントと関連データは、バックグラウンド処理が1分ごとに確認して物理削除（処理中のジョブがある場合は完了後）
+
+## 公開状況
+
+[公開アプリ](https://web-writing.cloud/login)のログイン画面で「ゲストとして試す」を選ぶと、登録不要で主要機能を確認できます。ゲストモードの生成・検索結果はサンプルで、外部APIへの接続、WordPress投稿、Discord通知は行いません。ゲストのアカウントとデータは、利用開始から8時間後に自動削除されます。
