@@ -1,0 +1,72 @@
+---
+/**
+ * Web Writing ToolとSEO Intelligence Platformの作品ページで共通の、本番への反映の説明。
+ * 2作品は同じVPSで動き、反映の仕組みも共通なので、両ページの記述が食い違わないよう1か所で持つ。
+ * 仕組みを持つインフラ用リポジトリは非公開のため、リンク先は公開しているアプリ側の設計書だけにする。
+ */
+const specLinks = [
+  {
+    label: 'Web Writing Tool：CI/CD設計 23章',
+    url: 'https://github.com/Cat5Dog2/web-writing-tool/blob/main/docs/ci-cd-design.md#23-リリース候補通知web-writing-tool--infra',
+  },
+  {
+    label: 'SEO Intelligence Platform：運用Runbook 7.4節',
+    url: 'https://github.com/Cat5Dog2/seo-intelligence-platform/blob/main/docs/operations_runbook.md#74-cdリリース候補通知release-candidate-notify',
+  },
+];
+---
+
+<p>
+  Web Writing ToolとSEO Intelligence Platformは、同じVPSで動いています。2つのドメインのTLSを終端する共通のCaddyと、「どのコミットを本番に出すか」の決定は、どちらのアプリにも属さないため、インフラ用のリポジトリ（wwt-seo-infra）に分けています。
+</p>
+
+<div class="project-flow project-flow--4" role="list" aria-label="本番への反映の流れ">
+  <div class="project-flow__node" role="listitem">
+    <strong>アプリのCI</strong>
+    <span>mainへのpushでCIが成功したら、リリース候補をインフラ側へ通知</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>候補の検証</strong>
+    <span>元のCI実行をGitHub APIで照合し、本番に出すコミットを書き換えるPRを作成</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>PRで承認</strong>
+    <span>人がレビューしてマージする</span>
+  </div>
+  <span class="project-flow__arrow" aria-hidden="true">→</span>
+  <div class="project-flow__node" role="listitem">
+    <strong>VPSへ反映</strong>
+    <span>SSHで更新し、公開URLへの疎通を外から確認</span>
+  </div>
+</div>
+
+<ul>
+  <li>
+    <strong>本番に出す判断はPRのマージ1か所</strong>: アプリのCIが保証できるのは「このコミットは正しい」ところまで。本番に出すかどうかは運用側の判断として、インフラ側のPRで決める
+  </li>
+  <li>
+    <strong>通知の内容を信用しない</strong>: 送信元のリポジトリは通知の記載ではなく設定値から決め、元のCI実行をGitHub APIで取り直して、workflowのファイルパス・イベント・ブランチ・コミット・成否を照合する。偽装のパターンごとに回帰テストを用意
+  </li>
+  <li>
+    <strong>自動で帳尻を合わせない</strong>: 稼働中のイメージが記録と違うときは、再デプロイで上書きせずに止める。アプリを止めた後の段階で失敗したときは、人が状態を確かめて指示するまで再実行しない
+  </li>
+  <li>
+    <strong>引き受けた制約</strong>: 無停止デプロイとロールバック機能は持たない（前回より古いコミットは拒否し、戻すときは手動で対応）。どちらのアプリの更新でも共通のCaddyを作り直すため、もう一方も一時的にアクセスが途切れる。Caddyを単独で更新できるようにするのは今後の課題
+  </li>
+</ul>
+
+<p>
+  インフラ用リポジトリは、本番サーバーの接続先や構成の詳細を含むため非公開です。パスワードや鍵はリポジトリに置かず、GitHubのSecretsとサーバー上の環境ファイルで管理しています。アプリ側から見た連携の仕様は、公開している設計書で確認できます。
+</p>
+
+<div class="evidence-links">
+  {
+    specLinks.map((link) => (
+      <a href={link.url} target="_blank" rel="noreferrer">
+        {link.label}
+      </a>
+    ))
+  }
+</div>
