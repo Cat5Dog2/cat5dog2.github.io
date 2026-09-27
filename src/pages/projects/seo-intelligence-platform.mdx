@@ -6,6 +6,7 @@ tags: [".NET 10", "ASP.NET Core", "Blazor Web App", "Hangfire", "PostgreSQL", "R
 ---
 
 import ProjectEvidence from '../../components/ProjectEvidence.astro';
+import SharedVpsDeployment from '../../components/SharedVpsDeployment.astro';
 
 <ProjectEvidence
   headingId="seo-platform-project-evidence-title"
@@ -13,7 +14,7 @@ import ProjectEvidence from '../../components/ProjectEvidence.astro';
     'SEO実務で必要性を感じた分析ワークフローを題材に、要件と受け入れ条件を定義してから実装',
     '要件、API、DB、画面、非同期ジョブ、外部API、運用をdocs/として公開し、主要な技術判断をADRに記録',
     'Phase 1（MVP）からPhase 3までのIssueと受入テストを完了',
-    'Web・API・WorkerとPostgreSQL・RedisをDocker Composeで構成し、VPS上で公開',
+    'Web・API・WorkerとPostgreSQL・RedisをDocker Composeで構成し、VPS上で公開。CI成功後、PRで承認したコミットを自動で本番へ反映',
     '登録不要のゲストデモを用意し、外部APIを使わないサンプルデータで主要な操作を体験可能',
   ]}
   evidence={[
@@ -117,7 +118,10 @@ SEO実務で必要性を感じた、キーワードの探索から優先度付�
 - Web・API・Worker・Migrationのコンテナイメージをビルドし、隔離したCompose環境でMigration・HTTP応答・非rootでの実行などを検証
 - 依存サービスの起動からCSV出力ジョブの完了までを確認するスモークテストを実行。PlaywrightによるブラウザE2Eはローカルで実行し、CIではリポジトリ変数で有効にした場合に追加で実行
 - Trivyでコンテナイメージをスキャンし、受容済みでない修正可能なHIGH/CRITICALの脆弱性があればCIを失敗させる
-- mainのCI成功後、リリース候補をインフラ用リポジトリへ通知し、本番の更新をPRで確認してからVPSへデプロイ
+
+### 本番への反映（Web Writing Toolと共通）
+
+<SharedVpsDeployment />
 
 ## 制約と今後の課題
 

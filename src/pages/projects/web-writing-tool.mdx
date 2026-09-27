@@ -6,6 +6,7 @@ tags: ["Blazor Web App", "ASP.NET Core", "EF Core", "PostgreSQL", "Docker", "Cad
 ---
 
 import ProjectEvidence from '../../components/ProjectEvidence.astro';
+import SharedVpsDeployment from '../../components/SharedVpsDeployment.astro';
 import WebWritingAppMockup from '../../components/WebWritingAppMockup.astro';
 
 ## 画面プレビュー
@@ -18,7 +19,7 @@ import WebWritingAppMockup from '../../components/WebWritingAppMockup.astro';
     'SEO・CMS実務の課題を題材に、要件と完了条件を定義してから実装',
     '要件、画面、データ、外部連携、運用をdocs/の設計書として公開',
     'Identity認証、記事管理、AI生成ジョブ、検索連携、WordPress投稿、Discord通知を実装',
-    'Docker Compose + CaddyでVPS上の本番環境へデプロイし、公開URLで提供',
+    'Docker Compose + CaddyでVPS上に公開。CI成功後、PRで承認したコミットを自動で本番へ反映',
     '登録不要のゲストログインを実装し、外部APIに接続しないサンプル応答で主要フローを体験可能',
     'GitHub Actionsでビルド、テスト、Playwright E2E、Docker Container Smoke Testsを検証',
   ]}
@@ -109,7 +110,10 @@ Docker Composeでは`caddy`だけが80/443を公開し、PostgreSQLとアプリ�
 
 - GitHub Actionsで、フォーマット、NuGetの脆弱性スキャン、ビルド、テストを実行
 - PlaywrightによるE2Eスモークテストと、Dockerコンテナのスモークテストを実行
-- mainのCI成功後、リリース候補をインフラ用リポジトリへ通知し、本番の更新をPRで確認してからVPSへデプロイ
+
+### 本番への反映（SEO Intelligence Platformと共通）
+
+<SharedVpsDeployment />
 
 ## 制約と今後の課題
 
