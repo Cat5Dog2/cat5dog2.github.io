@@ -1,0 +1,22 @@
+---
+import DesktopAppMockup from './DesktopAppMockup.astro';
+
+import imgDashboard from '../assets/portfolio/seo/dashboard.png';
+import imgKeywordResearch from '../assets/portfolio/seo/keyword-research.png';
+import imgSearchVolume from '../assets/portfolio/seo/search-volume.png';
+import imgTopicCluster from '../assets/portfolio/seo/topic-cluster.png';
+import imgRewriteManagement from '../assets/portfolio/seo/rewrite-management.png';
+import imgRankMonitoring from '../assets/portfolio/seo/rank-monitoring.png';
+
+// ゲストデモの画面を、調査 → コンテンツ改善 → 監視の順に並べる
+const screens = [
+  { label: 'ダッシュボード', img: imgDashboard, alt: '調査の件数、次のアクション、直近の調査ジョブの状態、機会スコアの上位キーワードをまとめたダッシュボード画面' },
+  { label: 'キーワード探索', img: imgKeywordResearch, alt: 'シードキーワードから候補語を集め、検索ボリューム・SEO難易度・スコアを一覧表示するキーワード探索画面' },
+  { label: '検索ボリューム', img: imgSearchVolume, alt: 'キーワードの貼り付けやCSVで調査条件を指定し、調査の進捗と検索ボリュームの結果を確認する検索ボリューム調査画面' },
+  { label: 'トピッククラスター', img: imgTopicCluster, alt: 'クラスター名と代表語の一覧から選んだクラスターについて、所属キーワード、記事候補、内部リンク候補を確認するトピッククラスター画面' },
+  { label: 'リライト管理', img: imgRewriteManagement, alt: '優先度付きのリライト候補と改善理由、カニバリゼーションの候補を確認するリライト管理画面' },
+  { label: '順位監視', img: imgRankMonitoring, alt: '順位帯ごとの分布と、キーワードごとの順位・前回順位・推定流入数を確認する順位監視画面' },
+];
+---
+
+<DesktopAppMockup name="seo" screens={screens} />
