@@ -647,64 +647,6 @@
     object-position: top;
   }
 
-  .project-thumb--flow {
-    align-items: center;
-    padding: 5% 6%;
-  }
-
-  .project-thumb__flow {
-    display: grid;
-    width: 100%;
-    gap: 3cqi;
-  }
-
-  .project-thumb__flow-title {
-    color: var(--color-accent-strong);
-    font-size: max(0.72rem, 3.2cqi);
-    font-weight: 900;
-    letter-spacing: 0.08em;
-  }
-
-  .project-thumb__flow-steps {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3cqi;
-    margin: 0;
-    padding: 0;
-    counter-reset: flow-step;
-    list-style: none;
-  }
-
-  .project-thumb__flow-steps li {
-    display: flex;
-    align-items: center;
-    gap: 2cqi;
-    border: 1px solid rgb(37 99 235 / 0.22);
-    border-radius: 2.5cqi;
-    padding: 3cqi;
-    background: rgb(255 255 255 / 0.88);
-    color: var(--color-text);
-    font-size: max(0.72rem, 3.4cqi);
-    font-weight: 800;
-    line-height: 1.3;
-    box-shadow: 0 6px 16px rgb(15 23 42 / 0.08);
-  }
-
-  .project-thumb__flow-steps li::before {
-    display: grid;
-    flex: none;
-    width: 6cqi;
-    height: 6cqi;
-    place-items: center;
-    border-radius: 999px;
-    background: var(--color-accent);
-    color: #fff;
-    content: counter(flow-step);
-    counter-increment: flow-step;
-    font-size: max(0.66rem, 3cqi);
-    font-weight: 900;
-  }
-
   /* コンテナが伸びてもピル自体は自然な高さを保つ */
   .tag-list {
     display: flex;

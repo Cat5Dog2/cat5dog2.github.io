@@ -28,16 +28,4 @@ const { preview } = Astro.props;
       </div>
     )
   }
-  {
-    preview.kind === 'flow' && (
-      <div class="project-thumb__flow">
-        <p class="project-thumb__flow-title">主な処理の流れ</p>
-        <ol class="project-thumb__flow-steps">
-          {preview.steps.map((step) => (
-            <li>{step}</li>
-          ))}
-        </ol>
-      </div>
-    )
-  }
 </div>

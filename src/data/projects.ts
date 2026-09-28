@@ -5,6 +5,7 @@ import petHealthHealthLogList from '../assets/portfolio/pethealth/health-log-lis
 import handmadeDashboard from '../assets/portfolio/handmade/dashboard.png';
 import handmadeQrScanSuccess from '../assets/portfolio/handmade/qr-scan-success.png';
 import webWritingArticleList from '../assets/portfolio/webwriting/article-list.png';
+import seoDashboard from '../assets/portfolio/seo/dashboard.png';
 
 /** デモの入口。ボタン付近とカードに、試す前に必要な手間を明示する */
 export type DemoAccess = 'guest' | 'signup';
@@ -17,12 +18,10 @@ export const demoAccessLabels: Record<DemoAccess, string> = {
 /**
  * カードに載せる画面。
  * スマホ画面（縦長）とPC画面（横長）は比率が異なるため、端末の枠ごとに描き分ける。
- * 画面キャプチャが未用意の作品は、主な処理の流れを図で示す。
  */
 export type ProjectPreview =
   | { kind: 'mobile'; images: [ImageMetadata, ImageMetadata] }
-  | { kind: 'desktop'; image: ImageMetadata }
-  | { kind: 'flow'; steps: string[] };
+  | { kind: 'desktop'; image: ImageMetadata };
 
 export type Project = {
   /** スキル欄など、ほかのデータから作品を参照するための識別子 */
@@ -123,7 +122,7 @@ export const projects: Project[] = [
       access: 'guest',
       note: 'ログイン画面の「登録不要でデモを試す」から使えます。デモはサンプルデータで動作し、外部APIへの接続やクレジットの消費はありません。セッションは1時間で終了します。',
     },
-    preview: { kind: 'flow', steps: ['キーワード探索', '検索ボリューム調査', '機会スコア', 'レポート・CSV'] },
+    preview: { kind: 'desktop', image: seoDashboard },
   },
 ];
 
